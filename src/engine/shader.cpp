@@ -8,8 +8,7 @@ static unsigned int compile(unsigned int type, const char* src)
     return shader;
 }
 
-
-shader::shader(const char* vertexSrc, const char* fragmentSrc){
+Shader::Shader(const char* vertexSrc, const char* fragmentSrc){
     unsigned int vs = compile(GL_VERTEX_SHADER, vertexSrc);
     unsigned int fs = compile(GL_FRAGMENT_SHADER, fragmentSrc);
 
@@ -22,6 +21,6 @@ shader::shader(const char* vertexSrc, const char* fragmentSrc){
     glDeleteShader(fs);
 }
 
-void shader::use(){
+void Shader::use(){
     glUseProgram(ID);
 }

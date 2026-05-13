@@ -3,9 +3,9 @@
 #include <glad/glad.h>
 #include <string>
 
-class shader {
+class Shader {
     public:
-        shader(const char* vertexSrc, const char* fragmentSrc);
+        Shader(const char* vertexSrc, const char* fragmentSrc);
         void use();
 
     private:
