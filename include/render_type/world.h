@@ -1,6 +1,7 @@
 #pragma once
 
 #include <source/world/player.h>
+#include <nodes/body/body.h>
 
 enum World_Type {
     MAIN,
@@ -17,6 +18,7 @@ class RT_World {
 
     private:
         Player* player;
+        std::vector<Body*> objects;
         
 };
 

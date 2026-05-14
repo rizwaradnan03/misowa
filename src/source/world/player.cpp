@@ -29,20 +29,13 @@ Player::Player(float verticle[], int32_t sz) : BODY_Dynamic(verticle, sz){
     
     this->set_verticle(vert);
     this->set_indices(ind);
-
     
     this->set_renderer(color::WHITE);
 
-    glGenVertexArrays(1, &this->VAO);
-    glGenBuffers(1, &this->VBO);
-    glGenBuffers(1, &this->EBO);
-
-    glBindVertexArray(VAO);
-
+    this->update_buffer();
+    this->update_vao();
     this->update_vbo();
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, c_idn * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
+    this->update_ebo();
 
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -90,6 +83,16 @@ void Player::set_shader(Shader* value){
     this->shader = value;
 }
 
+void Player::update_buffer(){
+    glGenVertexArrays(1, &this->VAO);
+    glGenBuffers(1, &this->VBO);
+    glGenBuffers(1, &this->EBO);
+}
+
+void Player::update_vao(){
+    glBindVertexArray(VAO);
+}
+
 void Player::update_vbo(){
     float vx[this->verticle_count];
     for(int i = 0;i < this->verticle_count;i++){
@@ -98,6 +101,11 @@ void Player::update_vbo(){
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, this->get_verticle_count() * sizeof(float), vx, GL_STATIC_DRAW);
+}
+
+void Player::update_ebo(){
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, ((this->get_verticle_count() / 4) * 3) * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
 }
 
 void Player::set_renderer(color::C_Type color){
@@ -121,7 +129,6 @@ void Player::set_renderer(color::C_Type color){
             }
         )", r, g, b, a
     );
-
     
     const char* fragmented = chng; 
     
@@ -173,10 +180,50 @@ void Player::movement(){
     this->update_vbo();
 }
 
-void Player::Run(){
-    this->movement();
+void Player::physic(const std::vector<Body*>& objects){
+    this->object_collide(objects);
+}
 
+void Player::object_collide(const std::vector<Body*>& objects){
+    std::vector<float> vMe = this->get_verticle();
+
+    for(int i = 0;i < objects.size();i++){
+        std::pair<bool, std::string*> cc = physic::check_collide(this, objects[i]);
+        if(!cc.first){
+            continue;
+        }
+
+        std::vector<float> vTarget = this->get_verticle();
+        int dFect;
+
+        if(*cc.second == "TOP" || *cc.second == "BOTTOM"){
+            dFect = 1;
+        }else{
+            dFect = 0;
+        }
+
+        // so we gonna block on what they'v gonna do!
+        while(vMe[1] <= vTarget[5]){
+            for(int j = 0;j < this->get_verticle_count();j++){
+                if(j < 2){
+                    if(j == dFect){
+                        vMe[j] = vTarget[5] + 0.01f;
+                    }
+                }else{
+                    if((j % 2) == dFect){
+                        vMe[j] = vTarget[5] + 0.01f;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Player::Run(const std::vector<Body*>& objects){
     this->shader->use();
+
+    this->physic(objects);    
+    this->movement();
     this->Display();
 }
 

@@ -9,8 +9,8 @@ void Game::Init(GLFWwindow *win){
     G_SINGLETON_gl = new SINGLETON_GL();
     G_SINGLETON_gl->set(win);
    
-   RTW = new RT_World();
-   RTW->Init(MAIN);
+    RTW = new RT_World();
+    RTW->Init(MAIN);
    
     RT_Gui* RTG = new RT_Gui();
     
@@ -39,8 +39,7 @@ void Game::Start(){
 
     glfwMakeContextCurrent(window);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to init GLAD\n";
         return;
     }

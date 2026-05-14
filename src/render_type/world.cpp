@@ -27,5 +27,5 @@ void RT_World::set_player(Player* value){
 }
 
 void RT_World::Start(){
-    this->get_player()->Run();
+    this->get_player()->Run(this->objects);
 }

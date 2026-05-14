@@ -1,28 +1,23 @@
 #pragma once
 
-#include <nodes/body/dynamic.h>
 #include <glad/glad.h>
+#include <nodes/body/body.h>
 #include <cstdint>
-#include <string>
 #include <vector>
 #include <engine/shader.h>
 #include <namespace/color.h>
-#include <namespace/input.h>
 #include <namespace/default.h>
-#include <namespace/physic.h>
+#include <namespace/input.h>
 
-class Player: public BODY_Dynamic {
+class BODY_Static: public Body {
     public:
-        Player(float verticle[], int32_t sz);
-        void Run(const std::vector<Body*>& objects);
+        BODY_Static(float verticle[], int32_t sz);
+        void Run() override;
         void Display() override;
         
-        void movement() override;
+        virtual void movement();
 
-        void update_buffer();
-        void update_vao();
         void update_vbo() override;
-        void update_ebo();
 
         void set_renderer(color::C_Type color);
 
@@ -40,9 +35,6 @@ class Player: public BODY_Dynamic {
 
         Shader* get_shader();
         void set_shader(Shader* value);
-
-        void physic(const std::vector<Body*>& objects);
-        void object_collide(const std::vector<Body*>& objects);
 
 
     private:
