@@ -5,6 +5,10 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <engine/shader.h>
+#include <namespace/color.h>
+#include <namespace/input.h>
+#include <namespace/default.h>
 
 class Player: public BODY_Dynamic {
     public:
@@ -15,6 +19,8 @@ class Player: public BODY_Dynamic {
         void movement() override;
 
         void update_vbo() override;
+
+        void set_renderer(color::C_Type color);
 
         std::vector<float> get_verticle() override;
         void set_verticle(std::vector<float> value) override;
@@ -28,10 +34,14 @@ class Player: public BODY_Dynamic {
         int32_t get_indices_count() override;
         void set_indices_count(int32_t value) override;
 
+        Shader* get_shader();
+        void set_shader(Shader* value);
+
 
     private:
         std::vector<float> verticle;
         unsigned int* indices;
+        Shader* shader;
 
         int32_t verticle_count;
         int32_t indices_count;

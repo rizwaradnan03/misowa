@@ -4,6 +4,7 @@
 RT_World* RTW = nullptr;
 
 void RT_World::Init(enum World_Type wt){
+    
     if(wt == MAIN){
         float vert[] = {
             -0.1f, -0.1f,

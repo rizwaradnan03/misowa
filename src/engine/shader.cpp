@@ -1,5 +1,25 @@
 #include <engine/shader.h>
 
+const char* vertexShaderSrc = R"(
+#version 330 core
+layout (location = 0) in vec2 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos, 0.0, 1.0);
+}
+)";
+
+const char* fragmentShaderSrc = R"(
+#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+}
+)";
+
 static unsigned int compile(unsigned int type, const char* src)
 {
     unsigned int shader = glCreateShader(type);

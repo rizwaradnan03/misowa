@@ -1,8 +1,5 @@
 #include <source/world/player.h>
-#include <namespace/input.h>
 #include <iostream>
-
-int32_t SPEED = 1;
 
 Player::Player(float verticle[], int32_t sz) : BODY_Dynamic(verticle, sz){
     this->set_verticle_count(sz);
@@ -28,10 +25,13 @@ Player::Player(float verticle[], int32_t sz) : BODY_Dynamic(verticle, sz){
         vert.push_back(verticle[i]);
     }
 
-    this->indices_count = c_idn;
+    this->set_indices_count (c_idn);
     
     this->set_verticle(vert);
     this->set_indices(ind);
+
+    
+    this->set_renderer(color::WHITE);
 
     glGenVertexArrays(1, &this->VAO);
     glGenBuffers(1, &this->VBO);
@@ -82,6 +82,14 @@ void Player::set_indices_count(int32_t value){
     this->indices_count = value;
 }
 
+Shader* Player::get_shader(){
+    return this->shader;
+}
+
+void Player::set_shader(Shader* value){
+    this->shader = value;
+}
+
 void Player::update_vbo(){
     float vx[this->verticle_count];
     for(int i = 0;i < this->verticle_count;i++){
@@ -89,7 +97,36 @@ void Player::update_vbo(){
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->verticle_count * sizeof(float), vx, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, this->get_verticle_count() * sizeof(float), vx, GL_STATIC_DRAW);
+}
+
+void Player::set_renderer(color::C_Type color){
+    std::vector<float> selected_col = color::find_rgba_color_by_name(color);
+
+    char chng[1000];
+    float r = selected_col[0];
+    float g = selected_col[1];
+    float b = selected_col[2];
+    float a = selected_col[3];
+
+    sprintf(
+        chng,
+        R"(
+            #version 330 core
+            out vec4 FragColor;
+
+            void main()
+            {
+                FragColor = vec4(%f, %f, %f, %f);
+            }
+        )", r, g, b, a
+    );
+
+    
+    const char* fragmented = chng; 
+    
+    Shader* shd = new Shader(vertexShaderSrc, fragmented);
+    this->shader = shd;
 }
 
 void Player::movement(){
@@ -120,14 +157,14 @@ void Player::movement(){
     }
 
     std::vector<float> vertex = this->get_verticle();
-    for(int i = 0;i < this->verticle_count;i++){
+    for(int i = 0;i < this->get_verticle_count();i++){
         if(i < 2){
             if(tg == i){
-                p_or_m ? vertex[i] += 0.0002f * SPEED : vertex[i] -= 0.0002f * SPEED;
+                p_or_m ? vertex[i] += 0.0002f * dft::PLAYER_speed : vertex[i] -= 0.0002f * dft::PLAYER_speed;
             }
         }else{
             if(tg == (i % 2)){
-                p_or_m ? vertex[i] += 0.0002f * SPEED : vertex[i] -= 0.0002f * SPEED;
+                p_or_m ? vertex[i] += 0.0002f * dft::PLAYER_speed : vertex[i] -= 0.0002f * dft::PLAYER_speed;
             }
         }
     }
@@ -138,6 +175,8 @@ void Player::movement(){
 
 void Player::Run(){
     this->movement();
+
+    this->shader->use();
     this->Display();
 }
 
