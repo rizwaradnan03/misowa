@@ -8,7 +8,7 @@ void RT_World::Init(enum World_Type wt){
         float vert[] = {
             -0.1f, -0.1f,
             0.1f, -0.1f,
-            0.1f, 0.1f
+            0.1f, 0.1f,
             -0.1f, 0.1f,
         };
         

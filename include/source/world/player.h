@@ -4,19 +4,20 @@
 #include <glad/glad.h>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 class Player: public BODY_Dynamic {
     public:
-        Player(float* verticle, int32_t sz);
+        Player(float verticle[], int32_t sz);
         void Run() override;
         void Display() override;
         
         void movement() override;
 
-        void update_shape() override;
+        void update_vbo() override;
 
-        float* get_verticle() override;
-        void set_verticle(float* value) override;
+        std::vector<float> get_verticle() override;
+        void set_verticle(std::vector<float> value) override;
 
         unsigned int* get_indices() override;
         void set_indices(unsigned int* value) override;
@@ -29,7 +30,7 @@ class Player: public BODY_Dynamic {
 
 
     private:
-        float* verticle;
+        std::vector<float> verticle;
         unsigned int* indices;
 
         int32_t verticle_count;

@@ -89,6 +89,7 @@ void Game::Start(){
     Body* body = new Body(vert, 8);
 
     while (!glfwWindowShouldClose(window)){
+        G_SINGLETON_gl->set(window);
         glfwPollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT);

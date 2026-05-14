@@ -2,18 +2,59 @@
 #include <namespace/input.h>
 #include <iostream>
 
-Player::Player(float* verticle, int32_t sz) : BODY_Dynamic(verticle, sz){
-    this->set_verticle(verticle);
-    this->verticle_count = sz;
+int32_t SPEED = 1;
+
+Player::Player(float verticle[], int32_t sz) : BODY_Dynamic(verticle, sz){
+    this->set_verticle_count(sz);
     
-    this->update_shape();
+    int32_t c_idn = (this->get_verticle_count() / 4) * 3;
+    
+    unsigned int ind[c_idn];
+    for(int i = 0;i < c_idn;i++){
+        if(i < c_idn / 2){
+            ind[i] = i;
+        }else{
+            unsigned int calc = i - 1;
+            if(calc > c_idn / 2){
+                calc = 0;
+            }
+
+            ind[i] = calc;
+        }
+    }
+
+    std::vector<float> vert;
+    for(int i = 0;i < sz;i++){
+        vert.push_back(verticle[i]);
+    }
+
+    this->indices_count = c_idn;
+    
+    this->set_verticle(vert);
+    this->set_indices(ind);
+
+    glGenVertexArrays(1, &this->VAO);
+    glGenBuffers(1, &this->VBO);
+    glGenBuffers(1, &this->EBO);
+
+    glBindVertexArray(VAO);
+
+    this->update_vbo();
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, c_idn * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
 }
 
-float* Player::get_verticle(){
+std::vector<float> Player::get_verticle(){
     return this->verticle;
 }
 
-void Player::set_verticle(float* value){
+void Player::set_verticle(std::vector<float> value){
     this->verticle = value;
 }
 
@@ -41,59 +82,27 @@ void Player::set_indices_count(int32_t value){
     this->indices_count = value;
 }
 
-void Player::update_shape(){
-    int32_t memb = (this->verticle_count / 4) * 3;
-    
-    unsigned int ind[memb];
-    for(int i = 0;i < memb;i++){
-        if(i < memb / 2){
-            ind[i] = i;
-        }else{
-            unsigned int calc = i - 1;
-            if(calc > memb / 2){
-                calc = 0;
-            }
-
-            ind[i] = calc;
-        }
+void Player::update_vbo(){
+    float vx[this->verticle_count];
+    for(int i = 0;i < this->verticle_count;i++){
+        vx[i] = this->verticle[i];
     }
 
-    this->indices_count = memb;
-
-    this->set_indices(ind);
-
-    glGenVertexArrays(1, &this->VAO);
-    glGenBuffers(1, &this->VBO);
-    glGenBuffers(1, &this->EBO);
-
-    glBindVertexArray(VAO);
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->verticle_count * sizeof(float), this->get_verticle(), GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, memb * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindVertexArray(0);
+    glBufferData(GL_ARRAY_BUFFER, this->verticle_count * sizeof(float), vx, GL_STATIC_DRAW);
 }
 
 void Player::movement(){
     std::string* kb = input::continuous_pressed();
-    std::cout << "KB SEK " << kb << std::endl;
     if(kb == nullptr){
         return;
     }
 
-    float amt = 0.1;
-
-    int32_t tg;
-    bool p_or_m;
+    int32_t tg = 0;
+    bool p_or_m = false;
 
     if(*kb == "TOP" || *kb == "BOTTOM"){
-        tg = 0;
+        tg = 1;
 
         if(*kb == "TOP"){
             p_or_m = true;
@@ -101,7 +110,7 @@ void Player::movement(){
             p_or_m = false;
         }
     }else{
-        tg = 1;
+        tg = 0;
 
         if(*kb == "RIGHT"){
             p_or_m = true;
@@ -110,21 +119,21 @@ void Player::movement(){
         }
     }
 
-    float* dp = this->get_verticle();
+    std::vector<float> vertex = this->get_verticle();
     for(int i = 0;i < this->verticle_count;i++){
         if(i < 2){
-            if(i == tg){
-                p_or_m == true ? dp[i] += amt : dp[i] -= amt;
+            if(tg == i){
+                p_or_m ? vertex[i] += 0.0002f * SPEED : vertex[i] -= 0.0002f * SPEED;
             }
         }else{
-            if(i % 2 == tg){
-                p_or_m == true ? dp[i] += amt : dp[i] -= amt;
+            if(tg == (i % 2)){
+                p_or_m ? vertex[i] += 0.0002f * SPEED : vertex[i] -= 0.0002f * SPEED;
             }
         }
     }
 
-    this->set_verticle(dp);
-    this->update_shape();
+    this->set_verticle(vertex);
+    this->update_vbo();
 }
 
 void Player::Run(){

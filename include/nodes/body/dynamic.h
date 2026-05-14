@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <nodes/body/body.h>
 #include <cstdint>
+#include <vector>
 
 class BODY_Dynamic: public Body {
     public:
@@ -12,10 +13,10 @@ class BODY_Dynamic: public Body {
         
         virtual void movement();
 
-        virtual void update_shape() override;
+        virtual void update_vbo() override;
 
-        virtual float* get_verticle() override;
-        virtual void set_verticle(float* value) override;
+        virtual std::vector<float> get_verticle() override;
+        virtual void set_verticle(std::vector<float> value) override;
 
         virtual unsigned int* get_indices() override;
         virtual void set_indices(unsigned int* value) override;
@@ -28,7 +29,7 @@ class BODY_Dynamic: public Body {
 
 
     private:
-        float* verticle;
+        std::vector<float> verticle;
         unsigned int* indices;
 
         int32_t verticle_count;

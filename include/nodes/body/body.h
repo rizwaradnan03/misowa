@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <vector>
 #include <cstdint>
+#include <vector>
 
 class Body {
     public:
@@ -10,10 +11,10 @@ class Body {
         virtual void Run();
         virtual void Display();
 
-        virtual void update_shape();
+        virtual void update_vbo();
 
-        virtual float* get_verticle();
-        virtual void set_verticle(float* value);
+        virtual std::vector<float> get_verticle();
+        virtual void set_verticle(std::vector<float> value);
 
         virtual unsigned int* get_indices();
         virtual void set_indices(unsigned int* value);
@@ -25,7 +26,7 @@ class Body {
         virtual void set_indices_count(int32_t value);
 
     private:
-        float* verticle;
+        std::vector<float> verticle;
         unsigned int* indices;
 
         // int32_t 
