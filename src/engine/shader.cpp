@@ -4,9 +4,11 @@ const char* vertexShaderSrc = R"(
 #version 330 core
 layout (location = 0) in vec2 aPos;
 
+uniform mat4 projection;
+
 void main()
 {
-    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+    gl_Position = projection * vec4(aPos.x, aPos.y, 0.0, 1.0);
 }
 )";
 
@@ -14,9 +16,11 @@ const char* fragmentShaderSrc = R"(
 #version 330 core
 out vec4 FragColor;
 
+uniform vec4 uColor;
+
 void main()
 {
-    FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+    FragColor = uColor;
 }
 )";
 
@@ -43,4 +47,8 @@ Shader::Shader(const char* vertexSrc, const char* fragmentSrc){
 
 void Shader::use(){
     glUseProgram(ID);
+}
+
+unsigned int Shader::get_ID(){
+    return this->ID;
 }

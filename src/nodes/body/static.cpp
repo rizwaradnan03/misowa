@@ -1,7 +1,7 @@
-#include <nodes/body/dynamic.h>
+#include <nodes/body/static.h>
 #include <iostream>
 
-BODY_Dynamic::BODY_Dynamic(int32_t x, int32_t y, int32_t w, int32_t h) : Body(x, y, w, h){
+BODY_Static::BODY_Static(int32_t x, int32_t y, int32_t w, int32_t h) : Body(x, y, w, h){
     Transform* iTrans = new Transform(x, y, w, h);
     
     int32_t wH = w / 2;
@@ -24,39 +24,37 @@ BODY_Dynamic::BODY_Dynamic(int32_t x, int32_t y, int32_t w, int32_t h) : Body(x,
     this->set_material(iMaterial);
 }
 
-Transform* BODY_Dynamic::get_transform(){
+Transform* BODY_Static::get_transform(){
     return this->transform;
 }
 
-void BODY_Dynamic::set_transform(Transform* value){
+void BODY_Static::set_transform(Transform* value){
     this->transform = value;
 }
 
-Mesh* BODY_Dynamic::get_mesh(){
+Mesh* BODY_Static::get_mesh(){
     return this->mesh;
 }
 
-void BODY_Dynamic::set_mesh(Mesh* value){
+void BODY_Static::set_mesh(Mesh* value){
     this->mesh = value;
 }
 
-Material* BODY_Dynamic::get_material(){
+Material* BODY_Static::get_material(){
     return this->material;
 }
 
-void BODY_Dynamic::set_material(Material* value){
+void BODY_Static::set_material(Material* value){
     this->material = value;
 }
 
-void BODY_Dynamic::movement(){}
-
-void BODY_Dynamic::physic(const std::vector<Body*>& objects){
+void BODY_Static::physic(const std::vector<Body*>& objects){
     this->object_collide(objects);
 }
 
-void BODY_Dynamic::object_collide(const std::vector<Body*>& objects){}
+void BODY_Static::object_collide(const std::vector<Body*>& objects){}
 
-void BODY_Dynamic::trigger_change_position(){
+void BODY_Static::trigger_change_position(){
     int32_t xVal = this->transform->get_x();
     int32_t yVal = this->transform->get_y();
 
@@ -73,13 +71,12 @@ void BODY_Dynamic::trigger_change_position(){
     this->mesh->set_verticles(crMesh);
 }
 
-void BODY_Dynamic::Run(const std::vector<Body*>& objects){
+void BODY_Static::Run(const std::vector<Body*>& objects){
     this->physic(objects);    
-    this->movement();
     this->Display();
 }
 
-void BODY_Dynamic::Display(){
+void BODY_Static::Display(){
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
 }

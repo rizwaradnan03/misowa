@@ -1,20 +1,18 @@
 #include <engine/game.h>
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height)
-{
+void framebuffer_size_callback(GLFWwindow *window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
 void Game::Init(GLFWwindow *win){
     G_SINGLETON_gl = new SINGLETON_GL();
     G_SINGLETON_gl->set(win);
-   
-    RTW = new RT_World();
-    RTW->Init(MAIN);
-   
-    RT_Gui* RTG = new RT_Gui();
+
+    Shader* shd = new Shader(vertexShaderSrc, fragmentShaderSrc);
     
-    this->set_type(WORLD);
+    G_SINGLETON_system = new System();
+    G_SINGLETON_system->set_shader(shd);
+    G_SINGLETON_system->change_screen(WORLD, "MAIN");
 }
 
 void Game::Start(){
@@ -54,17 +52,33 @@ void Game::Start(){
     std::cout << "Renderer: " << glGetString(GL_RENDERER) << "\n";
     std::cout << "Version: " << glGetString(GL_VERSION) << "\n";
 
+    // PROJECTION MATRIX CAMERA
+    float left = -10.0f;
+    float right = 10.0f;
+    float bottom = -10.0f;
+    float top = 10.0f;
+    float nearZ = -1.0f;
+    float farZ = 1.0f;
+
+    float projection[16] = {
+        2.0f / (right - left), 0, 0, 0,
+        0, 2.0f / (top - bottom), 0, 0,
+        0, 0, -2.0f / (farZ - nearZ), 0,
+        -(right + left) / (right - left),
+        -(top + bottom) / (top - bottom),
+        -(farZ + nearZ) / (farZ - nearZ),
+        1.0f
+    };
+
     this->Init(window);
 
-    while (!glfwWindowShouldClose(window)){
+    while (!glfwWindowShouldClose(window)){        
         G_SINGLETON_gl->set(window);
         glfwPollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT);
-
-        // just need to share everythin we need
         
-        if(this->get_type() == WORLD){
+        if(*G_SINGLETON_system->get_render_type() == WORLD){
             RTW->Start();
         }else{
             // RTG->Start();
@@ -74,12 +88,4 @@ void Game::Start(){
     }
 
     glfwTerminate();
-}
-
-enum GameType Game::get_type(){
-    return this->type;
-}
-
-void Game::set_type(enum GameType value){
-    this->type = value;
 }

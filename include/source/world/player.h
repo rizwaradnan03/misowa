@@ -4,54 +4,38 @@
 #include <glad/glad.h>
 #include <cstdint>
 #include <string>
-#include <vector>
-#include <engine/shader.h>
-#include <namespace/color.h>
 #include <namespace/input.h>
 #include <namespace/default.h>
 #include <namespace/physic.h>
+#include <graphics/mesh.h>
+#include <graphics/transform.h>
+#include <graphics/material.h>
+#include <namespace/color.h>
 
 class Player: public BODY_Dynamic {
     public:
-        Player(float verticle[], int32_t sz);
+        Player(int32_t x, int32_t y, int32_t w, int32_t h);
         void Run(const std::vector<Body*>& objects);
         void Display() override;
         
-        void movement() override;
-
-        void update_buffer();
-        void update_vao();
-        void update_vbo() override;
-        void update_ebo();
-
-        void set_renderer(color::C_Type color);
-
-        std::vector<float> get_verticle() override;
-        void set_verticle(std::vector<float> value) override;
-
-        unsigned int* get_indices() override;
-        void set_indices(unsigned int* value) override;
-
-        int32_t get_verticle_count() override;
-        void set_verticle_count(int32_t value) override;
-
-        int32_t get_indices_count() override;
-        void set_indices_count(int32_t value) override;
-
-        Shader* get_shader();
-        void set_shader(Shader* value);
+        void movement() override;;
 
         void physic(const std::vector<Body*>& objects);
         void object_collide(const std::vector<Body*>& objects);
 
+        void trigger_change_position();
+
+        Transform* get_transform() override;
+        void set_transform(Transform* value) override;
+
+        Mesh* get_mesh() override;
+        void set_mesh(Mesh* value) override;
+
+        Material* get_material() override;
+        void set_material(Material* value) override;
 
     private:
-        std::vector<float> verticle;
-        unsigned int* indices;
-        Shader* shader;
-
-        int32_t verticle_count;
-        int32_t indices_count;
-
-        unsigned int VAO, VBO, EBO;
+        Transform* transform;
+        Mesh* mesh;
+        Material* material;
 };

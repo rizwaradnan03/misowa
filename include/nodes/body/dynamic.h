@@ -4,46 +4,36 @@
 #include <nodes/body/body.h>
 #include <cstdint>
 #include <vector>
-#include <engine/shader.h>
 #include <namespace/color.h>
 #include <namespace/default.h>
-#include <namespace/input.h>
+#include <graphics/mesh.h>
+#include <graphics/transform.h>
+#include <graphics/material.h>
 
 class BODY_Dynamic: public Body {
     public:
-        BODY_Dynamic(float verticle[], int32_t sz);
-        void Run() override;
-        void Display() override;
+        BODY_Dynamic(int32_t x, int32_t y, int32_t w, int32_t h);
+        virtual void Run(const std::vector<Body*>& objects) override;
+        virtual void Display() override;
         
         virtual void movement();
 
-        void update_vbo() override;
+        virtual void physic(const std::vector<Body*>& objects) override;
+        virtual void object_collide(const std::vector<Body*>& objects) override;
 
-        void set_renderer(color::C_Type color);
+        virtual void trigger_change_position() override;
 
-        std::vector<float> get_verticle() override;
-        void set_verticle(std::vector<float> value) override;
+        virtual Transform* get_transform() override;
+        virtual void set_transform(Transform* value) override;
 
-        unsigned int* get_indices() override;
-        void set_indices(unsigned int* value) override;
+        virtual Mesh* get_mesh() override;
+        virtual void set_mesh(Mesh* value) override;
 
-        int32_t get_verticle_count() override;
-        void set_verticle_count(int32_t value) override;
-
-        int32_t get_indices_count() override;
-        void set_indices_count(int32_t value) override;
-
-        Shader* get_shader();
-        void set_shader(Shader* value);
-
+        virtual Material* get_material();
+        virtual void set_material(Material* value);
 
     private:
-        std::vector<float> verticle;
-        unsigned int* indices;
-        Shader* shader;
-
-        int32_t verticle_count;
-        int32_t indices_count;
-
-        unsigned int VAO, VBO, EBO;
+        Transform* transform;
+        Mesh* mesh;
+        Material* material;
 };

@@ -1,139 +1,51 @@
 #include <source/world/player.h>
 #include <iostream>
 
-Player::Player(float verticle[], int32_t sz) : BODY_Dynamic(verticle, sz){
-    this->set_verticle_count(sz);
+Player::Player(int32_t x, int32_t y, int32_t w, int32_t h) : BODY_Dynamic(x, y, w, h){
+    Transform* iTrans = new Transform(x, y, w, h);
     
-    int32_t c_idn = (this->get_verticle_count() / 4) * 3;
-    
-    unsigned int ind[c_idn];
-    for(int i = 0;i < c_idn;i++){
-        if(i < c_idn / 2){
-            ind[i] = i;
-        }else{
-            unsigned int calc = i - 1;
-            if(calc > c_idn / 2){
-                calc = 0;
-            }
+    int32_t wH = w / 2;
+    int32_t hH = h / 2;
 
-            ind[i] = calc;
-        }
-    }
+    float vert[] = {
+        (float)x - wH, (float)y - hH,
+        (float)x + wH, (float)y - hH,
+        (float)x + wH, (float)y + hH,
+        (float)x - wH, (float)y + hH,
+    };
 
-    std::vector<float> vert;
-    for(int i = 0;i < sz;i++){
-        vert.push_back(verticle[i]);
-    }
+    Mesh* iMesh = new Mesh(vert, 8);
 
-    this->set_indices_count (c_idn);
-    
-    this->set_verticle(vert);
-    this->set_indices(ind);
-    
-    this->set_renderer(color::WHITE);
+    std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
+    Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
 
-    this->update_buffer();
-    this->update_vao();
-    this->update_vbo();
-    this->update_ebo();
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindVertexArray(0);
+    this->set_transform(iTrans);
+    this->set_mesh(iMesh);
+    this->set_material(iMaterial);
 }
 
-std::vector<float> Player::get_verticle(){
-    return this->verticle;
+Transform* Player::get_transform(){
+    return this->transform;
 }
 
-void Player::set_verticle(std::vector<float> value){
-    this->verticle = value;
+void Player::set_transform(Transform* value){
+    this->transform = value;
 }
 
-unsigned int* Player::get_indices(){
-    return this->indices;
+Mesh* Player::get_mesh(){
+    return this->mesh;
 }
 
-void Player::set_indices(unsigned int* value){
-    this->indices = value;
+void Player::set_mesh(Mesh* value){
+    this->mesh = value;
 }
 
-int32_t Player::get_verticle_count(){
-    return this->verticle_count;
+Material* Player::get_material(){
+    return this->material;
 }
 
-void Player::set_verticle_count(int32_t value){
-    this->verticle_count = value;
-}
-
-int32_t Player::get_indices_count(){
-    return this->indices_count;
-}
-
-void Player::set_indices_count(int32_t value){
-    this->indices_count = value;
-}
-
-Shader* Player::get_shader(){
-    return this->shader;
-}
-
-void Player::set_shader(Shader* value){
-    this->shader = value;
-}
-
-void Player::update_buffer(){
-    glGenVertexArrays(1, &this->VAO);
-    glGenBuffers(1, &this->VBO);
-    glGenBuffers(1, &this->EBO);
-}
-
-void Player::update_vao(){
-    glBindVertexArray(VAO);
-}
-
-void Player::update_vbo(){
-    float vx[this->verticle_count];
-    for(int i = 0;i < this->verticle_count;i++){
-        vx[i] = this->verticle[i];
-    }
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->get_verticle_count() * sizeof(float), vx, GL_STATIC_DRAW);
-}
-
-void Player::update_ebo(){
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, ((this->get_verticle_count() / 4) * 3) * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
-}
-
-void Player::set_renderer(color::C_Type color){
-    std::vector<float> selected_col = color::find_rgba_color_by_name(color);
-
-    char chng[1000];
-    float r = selected_col[0];
-    float g = selected_col[1];
-    float b = selected_col[2];
-    float a = selected_col[3];
-
-    sprintf(
-        chng,
-        R"(
-            #version 330 core
-            out vec4 FragColor;
-
-            void main()
-            {
-                FragColor = vec4(%f, %f, %f, %f);
-            }
-        )", r, g, b, a
-    );
-    
-    const char* fragmented = chng; 
-    
-    Shader* shd = new Shader(vertexShaderSrc, fragmented);
-    this->shader = shd;
+void Player::set_material(Material* value){
+    this->material = value;
 }
 
 void Player::movement(){
@@ -163,21 +75,17 @@ void Player::movement(){
         }
     }
 
-    std::vector<float> vertex = this->get_verticle();
-    for(int i = 0;i < this->get_verticle_count();i++){
-        if(i < 2){
-            if(tg == i){
-                p_or_m ? vertex[i] += 0.0002f * dft::PLAYER_speed : vertex[i] -= 0.0002f * dft::PLAYER_speed;
-            }
-        }else{
-            if(tg == (i % 2)){
-                p_or_m ? vertex[i] += 0.0002f * dft::PLAYER_speed : vertex[i] -= 0.0002f * dft::PLAYER_speed;
-            }
-        }
+    int32_t prevVal;
+    if(tg == 1){
+        prevVal = this->transform->get_y();
+        this->transform->set_y(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
+    }else{
+        prevVal = this->transform->get_x();
+        this->transform->set_x(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
     }
 
-    this->set_verticle(vertex);
-    this->update_vbo();
+    // we gotta trigger the call for setting up the mesh again
+    this->trigger_change_position();
 }
 
 void Player::physic(const std::vector<Body*>& objects){
@@ -185,15 +93,32 @@ void Player::physic(const std::vector<Body*>& objects){
 }
 
 void Player::object_collide(const std::vector<Body*>& objects){
-    std::vector<float> vMe = this->get_verticle();
+    std::vector<float> vMe = this->mesh->get_verticles();
+    bool point[] = {false, false, false, false};
 
     for(int i = 0;i < objects.size();i++){
-        std::pair<bool, std::string*> cc = physic::check_collide(this, objects[i]);
+        std::pair<bool, std::string*> cc = physic::check_collide(this->mesh, objects[i]->get_mesh());
         if(!cc.first){
             continue;
         }
 
-        std::vector<float> vTarget = this->get_verticle();
+        if(*cc.second == "TOP"){
+            point[0] = true;
+        }
+
+        if(*cc.second == "BOTTOM"){
+            point[1] = true;
+        }
+
+        if(*cc.second == "LEFT"){
+            point[2] = true;
+        }
+
+        if(*cc.second == "RIGHT"){
+            point[3] = true;
+        }
+
+        std::vector<float> vTarget = objects[i]->get_mesh()->get_verticles();
         int dFect;
 
         if(*cc.second == "TOP" || *cc.second == "BOTTOM"){
@@ -202,32 +127,38 @@ void Player::object_collide(const std::vector<Body*>& objects){
             dFect = 0;
         }
 
-        // so we gonna block on what they'v gonna do!
-        while(vMe[1] <= vTarget[5]){
-            for(int j = 0;j < this->get_verticle_count();j++){
-                if(j < 2){
-                    if(j == dFect){
-                        vMe[j] = vTarget[5] + 0.01f;
-                    }
-                }else{
-                    if((j % 2) == dFect){
-                        vMe[j] = vTarget[5] + 0.01f;
-                    }
-                }
-            }
+        if(point[1] == true){
+            // gotta implement soon
         }
+
     }
 }
 
-void Player::Run(const std::vector<Body*>& objects){
-    this->shader->use();
+void Player::trigger_change_position(){
+    int32_t xVal = this->transform->get_x();
+    int32_t yVal = this->transform->get_y();
 
+    int32_t wH = this->transform->get_w() / 2;
+    int32_t hH = this->transform->get_h() / 2;
+
+    std::vector<float> crMesh = {
+        (float)xVal - wH, (float)yVal - hH,
+        (float)xVal + wH, (float)yVal - hH,
+        (float)xVal + wH, (float)yVal + hH,
+        (float)xVal - wH, (float)yVal + hH,
+    };
+
+    this->mesh->set_verticles(crMesh);
+}
+
+void Player::Run(const std::vector<Body*>& objects){
     this->physic(objects);    
     this->movement();
     this->Display();
 }
 
 void Player::Display(){
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, this->indices_count, GL_UNSIGNED_INT, 0);
+    std::cout << "THE VERTICLE : " << this->get_mesh()->get_verticles()[0] << std::endl;
+    this->get_mesh()->Execute();
+    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
 }

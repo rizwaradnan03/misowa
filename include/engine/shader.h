@@ -11,6 +11,8 @@ class Shader {
         Shader(const char* vertexSrc, const char* fragmentSrc);
         void use();
 
+        unsigned int get_ID();
+
     private:
         unsigned int ID;
 };

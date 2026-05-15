@@ -1,98 +1,82 @@
 #include <nodes/body/body.h>
+#include <iostream>
 
-Body::Body(float* verticle, int32_t sz){
-    this->verticle_count = sz;
+Body::Body(int32_t x, int32_t y, int32_t w, int32_t h){
+    Transform* iTrans = new Transform(x, y, w, h);
     
-    int32_t c_idn = (this->verticle_count / 4) * 3;
-    
-    unsigned int ind[c_idn];
-    for(int i = 0;i < c_idn;i++){
-        if(i < c_idn / 2){
-            ind[i] = i;
-        }else{
-            unsigned int calc = i - 1;
-            if(calc > c_idn / 2){
-                calc = 0;
-            }
+    int32_t wH = w / 2;
+    int32_t hH = h / 2;
 
-            ind[i] = calc;
-        }
-    }
+    float vert[] = {
+        (float)x - wH, (float)y - hH,
+        (float)x + wH, (float)y - hH,
+        (float)x + wH, (float)y + hH,
+        (float)x - wH, (float)y + hH,
+    };
 
-    std::vector<float> vert;
-    for(int i = 0;i < sz;i++){
-        vert.push_back(verticle[i]);
-    }
+    Mesh* iMesh = new Mesh(vert, 8);
 
-    this->indices_count = c_idn;
-    
-    this->set_verticle(vert);
-    this->set_indices(ind);
+    std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
+    Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
 
-    glGenVertexArrays(1, &this->VAO);
-    glGenBuffers(1, &this->VBO);
-    glGenBuffers(1, &this->EBO);
-
-    glBindVertexArray(VAO);
-
-    this->update_vbo();
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, c_idn * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindVertexArray(0);
+    this->set_transform(iTrans);
+    this->set_mesh(iMesh);
+    this->set_material(iMaterial);
 }
 
-std::vector<float> Body::get_verticle(){
-    return this->verticle;
+Transform* Body::get_transform(){
+    return this->transform;
 }
 
-void Body::set_verticle(std::vector<float> value){
-    this->verticle = value;
+void Body::set_transform(Transform* value){
+    this->transform = value;
 }
 
-unsigned int* Body::get_indices(){
-    return this->indices;
+Mesh* Body::get_mesh(){
+    return this->mesh;
 }
 
-void Body::set_indices(unsigned int* value){
-    this->indices = value;
+void Body::set_mesh(Mesh* value){
+    this->mesh = value;
 }
 
-int32_t Body::get_verticle_count(){
-    return this->verticle_count;
+Material* Body::get_material(){
+    return this->material;
 }
 
-void Body::set_verticle_count(int32_t value){
-    this->verticle_count = value;
+void Body::set_material(Material* value){
+    this->material = value;
 }
 
-int32_t Body::get_indices_count(){
-    return this->indices_count;
+void Body::physic(const std::vector<Body*>& objects){
+    this->object_collide(objects);
 }
 
-void Body::set_indices_count(int32_t value){
-    this->indices_count = value;
+void Body::object_collide(const std::vector<Body*>& objects){}
+
+void Body::trigger_change_position(){
+    int32_t xVal = this->transform->get_x();
+    int32_t yVal = this->transform->get_y();
+
+    int32_t wH = this->transform->get_w() / 2;
+    int32_t hH = this->transform->get_h() / 2;
+
+    std::vector<float> crMesh = {
+        (float)xVal - wH, (float)yVal - hH,
+        (float)xVal + wH, (float)yVal - hH,
+        (float)xVal + wH, (float)yVal + hH,
+        (float)xVal - wH, (float)yVal + hH,
+    };
+
+    this->mesh->set_verticles(crMesh);
 }
 
-void Body::update_vbo(){
-    float vx[this->verticle_count];
-    for(int i = 0;i < this->verticle_count;i++){
-        vx[i] = this->verticle[i];
-    }
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->verticle_count * sizeof(float), vx, GL_STATIC_DRAW);
-}
-
-void Body::Run(){
+void Body::Run(const std::vector<Body*>& objects){
+    this->physic(objects);    
     this->Display();
 }
 
 void Body::Display(){
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, this->indices_count, GL_UNSIGNED_INT, 0);
+    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
+    this->get_mesh()->Execute();
 }

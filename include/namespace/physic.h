@@ -1,9 +1,9 @@
 #pragma once
 
-#include <nodes/body/body.h>
+#include <graphics/mesh.h>
 #include <string>
 #include <utility>
 
 namespace physic {
-    std::pair<bool, std::string*> check_collide(Body* me, Body* target);
+    std::pair<bool, std::string*> check_collide(Mesh* me, Mesh* target);
 };

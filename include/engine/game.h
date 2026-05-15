@@ -8,20 +8,10 @@
 #include <nodes/body/body.h>
 #include <render_type/world.h>
 #include <render_type/gui.h>
-
-enum GameType {
-    WORLD,
-    GUI
-};
+#include <singleton/system.h>
 
 class Game {
     public:
         void Init(GLFWwindow *win);
         void Start();
-
-        enum GameType get_type();
-        void set_type(enum GameType value);
-
-    private:
-        enum GameType type;
 };

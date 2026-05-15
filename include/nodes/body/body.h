@@ -3,35 +3,33 @@
 #include <glad/glad.h>
 #include <vector>
 #include <cstdint>
-#include <vector>
+#include <graphics/mesh.h>
+#include <graphics/transform.h>
+#include <graphics/material.h>
+#include <namespace/color.h>
 
 class Body {
     public:
-        Body(float* verticle, int32_t sz);
-        virtual void Run();
+        Body(int32_t x, int32_t y, int32_t w, int32_t h);
+        virtual void Run(const std::vector<Body*>& objects);
         virtual void Display();
+        
+        virtual void physic(const std::vector<Body*>& objects);
+        virtual void object_collide(const std::vector<Body*>& objects);
 
-        virtual void update_vbo();
+        virtual void trigger_change_position();
 
-        virtual std::vector<float> get_verticle();
-        virtual void set_verticle(std::vector<float> value);
+        virtual Transform* get_transform();
+        virtual void set_transform(Transform* value);
 
-        virtual unsigned int* get_indices();
-        virtual void set_indices(unsigned int* value);
+        virtual Mesh* get_mesh();
+        virtual void set_mesh(Mesh* value);
 
-        virtual int32_t get_verticle_count();
-        virtual void set_verticle_count(int32_t value);
-
-        virtual int32_t get_indices_count();
-        virtual void set_indices_count(int32_t value);
+        virtual Material* get_material();
+        virtual void set_material(Material* value);
 
     private:
-        std::vector<float> verticle;
-        unsigned int* indices;
-
-        // int32_t 
-        int32_t verticle_count;
-        int32_t indices_count;
-
-        unsigned int VAO, VBO, EBO;
+        Transform* transform;
+        Mesh* mesh;
+        Material* material;
 };
