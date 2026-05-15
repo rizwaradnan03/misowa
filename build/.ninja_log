@@ -1,0 +1,22 @@
+# ninja log v7
+43	601	8005841685156407	CMakeFiles/misowa.dir/src/graphics/transform.cpp.obj	26846a4e9a6577bf
+19	1345	8005841684883094	CMakeFiles/misowa.dir/src/engine/shader.cpp.obj	fd3c9a3722845ba7
+7	1539	8005841684690008	CMakeFiles/misowa.dir/cmd/main.cpp.obj	215e55c2cad23659
+13	1571	8005841684836616	CMakeFiles/misowa.dir/src/engine/game.cpp.obj	978424f3fb5ce339
+26	1605	8005841684987571	CMakeFiles/misowa.dir/src/graphics/material.cpp.obj	7ad1754e77338cd6
+34	1626	8005841685059984	CMakeFiles/misowa.dir/src/graphics/mesh.cpp.obj	efc4d4a164a80255
+1387	1774	8005841698600955	CMakeFiles/misowa.dir/src/namespace/default.cpp.obj	d4865808922142b2
+1614	2152	8005841700896073	CMakeFiles/misowa.dir/src/namespace/rule.cpp.obj	8cb3dfc437afa68d
+625	3441	8005841693196050	CMakeFiles/misowa.dir/src/namespace/color.cpp.obj	b50534348bceea4b
+1548	3965	8005841700294148	CMakeFiles/misowa.dir/src/namespace/input.cpp.obj	f53430e7c5cc05d2
+1586	4475	8005841700675343	CMakeFiles/misowa.dir/src/namespace/physic.cpp.obj	9b77170204ce1b41
+3531	4540	8005841720956477	CMakeFiles/misowa.dir/src/render_type/gui.cpp.obj	8a13ecb4bbd7a00e
+4513	5861	8005841729863548	CMakeFiles/misowa.dir/src/singleton/gl.cpp.obj	edff4aede2c6306
+1627	6057	8005841700986543	CMakeFiles/misowa.dir/src/nodes/body/body.cpp.obj	dd4e27de15fcce9b
+1780	6294	8005841702521401	CMakeFiles/misowa.dir/src/nodes/body/dynamic.cpp.obj	d9a109b990dc3c8f
+2270	7046	8005841708848968	CMakeFiles/misowa.dir/src/nodes/body/static.cpp.obj	e1e34214635aaddb
+4541	7971	8005841730130857	CMakeFiles/misowa.dir/src/singleton/system.cpp.obj	1f2f2cf2ee34efb2
+4014	8473	8005841726250817	CMakeFiles/misowa.dir/src/render_type/world.cpp.obj	7544081a67320115
+5939	9341	8005841744920094	CMakeFiles/misowa.dir/src/source/world/player.cpp.obj	9389e29e92cce4e6
+6136	10736	8005841747110697	CMakeFiles/misowa.dir/vendor/glad.c.obj	aba5b5d0c6ad2cea
+10743	11193	8005841792120995	misowa.exe	da5a16c9dd48eb5a

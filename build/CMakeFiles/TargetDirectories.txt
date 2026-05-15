@@ -1,0 +1,9 @@
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/misowa.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/package.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/package_source.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/edit_cache.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/rebuild_cache.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/list_install_components.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/install.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/install/local.dir
+C:/Users/Laris/Documents/work/misowa/build/CMakeFiles/install/strip.dir

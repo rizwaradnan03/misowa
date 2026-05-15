@@ -1,0 +1,1 @@
+C:/Users/Laris/Documents/work/misowa/build/_CPack_Packages/win64/NSIS/MisowaInstaller/./misowa.exe
