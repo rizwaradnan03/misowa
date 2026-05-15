@@ -5,4 +5,7 @@ STEP FOR MAKING RENDER OF STUFF
 4. "shader" as the main reason for render di vertex & fragment
 5. draw the call for the gpu reads those thing
 
-// source = https://chatgpt.com/c/6a0454fc-4864-83ec-ada2-0ebfe814da2d
+BUILD STEP
+1. cmake -G Ninja ..
+2. cmake --build .
+3. cpack

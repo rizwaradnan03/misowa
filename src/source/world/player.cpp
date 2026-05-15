@@ -59,12 +59,6 @@ void Player::movement(){
 
     if(*kb == "TOP" || *kb == "BOTTOM"){
         tg = 1;
-
-        if(*kb == "TOP"){
-            p_or_m = true;
-        }else{
-            p_or_m = false;
-        }
     }else{
         tg = 0;
 
@@ -78,13 +72,12 @@ void Player::movement(){
     int32_t prevVal;
     if(tg == 1){
         prevVal = this->transform->get_y();
-        this->transform->set_y(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
+        this->transform->set_y(prevVal - 0.1f);
     }else{
         prevVal = this->transform->get_x();
         this->transform->set_x(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
     }
 
-    // we gotta trigger the call for setting up the mesh again
     this->trigger_change_position();
 }
 
@@ -158,7 +151,7 @@ void Player::Run(const std::vector<Body*>& objects){
 }
 
 void Player::Display(){
-    std::cout << "THE VERTICLE : " << this->get_mesh()->get_verticles()[0] << std::endl;
+    // std::cout << "THE VERTICLE : " << this->get_mesh()->get_verticles()[0] << std::endl;
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
 }
