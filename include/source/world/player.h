@@ -12,6 +12,7 @@
 #include <graphics/transform.h>
 #include <graphics/material.h>
 #include <nodes/camera.h>
+#include <engine/movement.h>
 
 class Player: public BODY_Dynamic {
     public:
@@ -19,8 +20,6 @@ class Player: public BODY_Dynamic {
         void Run(const std::vector<Body*>& objects);
         void Display() override;
         
-        void movement() override;;
-
         void physic(const std::vector<Body*>& objects);
         void object_collide(const std::vector<Body*>& objects);
 
@@ -35,6 +34,9 @@ class Player: public BODY_Dynamic {
         Material* get_material() override;
         void set_material(Material* value) override;
         
+        Movement* get_movement();
+        void set_movement(Movement* value);
+
         Camera* get_camera();
         void set_camera(Camera* value);
 
@@ -44,5 +46,8 @@ class Player: public BODY_Dynamic {
         Transform* transform;
         Mesh* mesh;
         Material* material;
+
+        Movement* movement;
+    
         Camera* camera;
 };

@@ -19,12 +19,14 @@ Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
     std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
     Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
 
-    Camera* cam = new Camera(x, y);
+    Camera* iCam = new Camera(x, y);
+    Movement* iMovement = new Movement();
 
     this->set_transform(iTrans);
     this->set_mesh(iMesh);
     this->set_material(iMaterial);
-    this->set_camera(cam);
+    this->set_camera(iCam);
+    this->set_movement(iMovement);
 }
 
 Transform* Player::get_transform(){
@@ -51,6 +53,14 @@ void Player::set_material(Material* value){
     this->material = value;
 }
 
+Movement* Player::get_movement(){
+    return this->movement;
+}
+
+void Player::set_movement(Movement* value){
+    this->movement = value;
+}
+
 Camera* Player::get_camera(){
     return this->camera;
 }
@@ -59,42 +69,42 @@ void Player::set_camera(Camera* value){
     this->camera = value;
 }
 
-void Player::movement(){
-    std::string* kb = input::continuous_pressed();
-    if(kb == nullptr){
-        return;
-    }
+// void Player::movement(){
+//     std::string* kb = input::continuous_pressed();
+//     if(kb == nullptr){
+//         return;
+//     }
  
-    int32_t* tg = nullptr;
-    bool p_or_m = false;
+//     int32_t* tg = nullptr;
+//     bool p_or_m = false;
 
-    if(*kb == "TOP"){
-        tg = new int32_t(1);
-    }else if(*kb == "RIGHT" || *kb == "LEFT"){
-        tg = new int32_t(0);
+//     if(*kb == "TOP"){
+//         tg = new int32_t(1);
+//     }else if(*kb == "RIGHT" || *kb == "LEFT"){
+//         tg = new int32_t(0);
 
-        if(*kb == "RIGHT"){
-            p_or_m = true;
-        }else{
-            p_or_m = false;
-        }
-    }
+//         if(*kb == "RIGHT"){
+//             p_or_m = true;
+//         }else{
+//             p_or_m = false;
+//         }
+//     }
 
-    if(tg == nullptr){
-        return;
-    }
+//     if(tg == nullptr){
+//         return;
+//     }
 
-    float prevVal;
-    if(*tg == 1){
-        prevVal = this->get_transform()->get_y();
-        this->get_transform()->set_y(prevVal + (0.0005f * dft::PLAYER_speed));
-    }else{
-        prevVal = this->get_transform()->get_x();
-        this->get_transform()->set_x(p_or_m ? prevVal + (0.0005f * dft::PLAYER_speed) : prevVal - (0.0005f * dft::PLAYER_speed));
-    }
+//     float prevVal;
+//     if(*tg == 1){
+//         prevVal = this->get_transform()->get_y();
+//         this->get_transform()->set_y(prevVal + (0.0005f * dft::PLAYER_speed));
+//     }else{
+//         prevVal = this->get_transform()->get_x();
+//         this->get_transform()->set_x(p_or_m ? prevVal + (0.0005f * dft::PLAYER_speed) : prevVal - (0.0005f * dft::PLAYER_speed));
+//     }
 
-    this->trigger_change_position();
-}
+//     this->trigger_change_position();
+// }
 
 void Player::physic(const std::vector<Body*>& objects){
     this->object_collide(objects);
@@ -125,21 +135,16 @@ void Player::object_collide(const std::vector<Body*>& objects){
         if(*cc.second == "RIGHT"){
             point[3] = true;
         }
-
-        std::vector<float> vTarget = objects[i]->get_mesh()->get_verticles();
-        int dFect;
-
-        if(*cc.second == "TOP" || *cc.second == "BOTTOM"){
-            dFect = 1;
-        }else{
-            dFect = 0;
-        }
-
-        if(point[1] == true){
-            // gotta implement soon
-        }
-
     }
+
+    if(point[1] == false){
+        // gotta try implement the gravity
+    }else{
+        this->get_movement()->set_jump_stock(1);
+        this->get_movement()->set_elapse_jump(nullptr);
+    }
+
+    this->get_movement()->move(this->get_transform(), this->get_mesh(), {point[0], point[1], point[2], point[3]});
 }
 
 void Player::trigger_change_position(){
@@ -184,13 +189,14 @@ void Player::camera_alligner(){
 }
 
 void Player::Run(const std::vector<Body*>& objects){
-    this->physic(objects);    
-    this->movement();
     this->camera_alligner();
+    this->physic(objects);    
     this->Display();
 }
 
 void Player::Display(){
+    std::cout << "GRADUALLY : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
+    this->get_movement()->Execute(this->get_transform(), this->get_mesh());
 }
