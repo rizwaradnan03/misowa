@@ -17,10 +17,10 @@ void Game::Init(GLFWwindow *win){
     G_SINGLETON_system->change_screen(WORLD, "MAIN");
 
     // PROJECTION (FOV) MATRIX CAMERA
-    float left = -20.0f;
-    float right = 20.0f;
-    float bottom = -20.0f;
-    float top = 20.0f;
+    float left = -500.0f;
+    float right = 500.0f;
+    float bottom = -500.0f;
+    float top = 500.0f;
     float nearZ = -1.0f;
     float farZ = 1.0f;
 

@@ -54,13 +54,13 @@ void Player::movement(){
         return;
     }
  
-    int32_t tg = 0;
+    int32_t* tg = nullptr;
     bool p_or_m = false;
 
-    if(*kb == "TOP" || *kb == "BOTTOM"){
-        tg = 1;
-    }else{
-        tg = 0;
+    if(*kb == "TOP"){
+        tg = new int32_t(1);
+    }else if(*kb == "RIGHT" || *kb == "LEFT"){
+        tg = new int32_t(0);
 
         if(*kb == "RIGHT"){
             p_or_m = true;
@@ -69,14 +69,17 @@ void Player::movement(){
         }
     }
 
-    int32_t prevVal;
-    if(tg == 1){
+    if(tg == nullptr){
+        return;
+    }
+
+    float prevVal;
+    if(*tg == 1){
         prevVal = this->get_transform()->get_y();
-        this->get_transform()->set_y(prevVal - 0.1f);
-        std::cout << "TARELA" << std::endl;
+        this->get_transform()->set_y(prevVal + (0.001f * dft::PLAYER_speed));
     }else{
         prevVal = this->get_transform()->get_x();
-        this->get_transform()->set_x(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
+        this->get_transform()->set_x(p_or_m ? prevVal + (0.001f * dft::PLAYER_speed) : prevVal - (0.001f * dft::PLAYER_speed));
     }
 
     this->trigger_change_position();
@@ -129,27 +132,27 @@ void Player::object_collide(const std::vector<Body*>& objects){
 }
 
 void Player::trigger_change_position(){
-    int32_t xVal = this->transform->get_x();
-    int32_t yVal = this->transform->get_y();
+    float xVal = this->get_transform()->get_x();
+    float yVal = this->get_transform()->get_y();
 
-    int32_t wH = this->transform->get_w() / 2;
-    int32_t hH = this->transform->get_h() / 2;
+    float wH = this->get_transform()->get_w() / 2;
+    float hH = this->get_transform()->get_h() / 2;
 
     std::vector<float> crMesh = {
-        (float)xVal - wH, (float)yVal - hH,
-        (float)xVal + wH, (float)yVal - hH,
-        (float)xVal + wH, (float)yVal + hH,
-        (float)xVal - wH, (float)yVal + hH,
+        xVal - wH, yVal - hH,
+        xVal + wH, yVal - hH,
+        xVal + wH, yVal + hH,
+        xVal - wH, yVal + hH,
     };
 
     this->mesh->set_verticles(crMesh);
 }
 
 void Player::camera_alligner(){
-    float left = -20.0f;
-    float right = 20.0f;
-    float bottom = -20.0f;
-    float top = 20.0f;
+    float left = -500.0f;
+    float right = 500.0f;
+    float bottom = -500.0f;
+    float top = 500.0f;
     float nearZ = -1.0f;
     float farZ = 1.0f;
     
@@ -173,7 +176,7 @@ void Player::Run(const std::vector<Body*>& objects){
 }
 
 void Player::Display(){
-    // std::cout << "MEANING OF X AND Y : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
+    std::cout << "MEANING OF X AND Y : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
 }
