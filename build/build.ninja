@@ -64,6 +64,16 @@ build CMakeFiles/misowa.dir/src/engine/game.cpp.obj: CXX_COMPILER__misowa_unscan
   TARGET_PDB = misowa.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\misowa.dir
 
+build CMakeFiles/misowa.dir/src/engine/movement.cpp.obj: CXX_COMPILER__misowa_unscanned_ C$:/Users/Laris/Documents/work/misowa/src/engine/movement.cpp || cmake_object_order_depends_target_misowa
+  DEP_FILE = CMakeFiles\misowa.dir\src\engine\movement.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/Laris/Documents/work/misowa/include
+  OBJECT_DIR = CMakeFiles\misowa.dir
+  OBJECT_FILE_DIR = CMakeFiles\misowa.dir\src\engine
+  TARGET_COMPILE_PDB = CMakeFiles\misowa.dir\
+  TARGET_PDB = misowa.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\misowa.dir
+
 build CMakeFiles/misowa.dir/src/engine/shader.cpp.obj: CXX_COMPILER__misowa_unscanned_ C$:/Users/Laris/Documents/work/misowa/src/engine/shader.cpp || cmake_object_order_depends_target_misowa
   DEP_FILE = CMakeFiles\misowa.dir\src\engine\shader.cpp.obj.d
   FLAGS = -std=gnu++17
@@ -184,6 +194,16 @@ build CMakeFiles/misowa.dir/src/nodes/body/static.cpp.obj: CXX_COMPILER__misowa_
   TARGET_PDB = misowa.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\misowa.dir
 
+build CMakeFiles/misowa.dir/src/nodes/camera.cpp.obj: CXX_COMPILER__misowa_unscanned_ C$:/Users/Laris/Documents/work/misowa/src/nodes/camera.cpp || cmake_object_order_depends_target_misowa
+  DEP_FILE = CMakeFiles\misowa.dir\src\nodes\camera.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/Laris/Documents/work/misowa/include
+  OBJECT_DIR = CMakeFiles\misowa.dir
+  OBJECT_FILE_DIR = CMakeFiles\misowa.dir\src\nodes
+  TARGET_COMPILE_PDB = CMakeFiles\misowa.dir\
+  TARGET_PDB = misowa.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\misowa.dir
+
 build CMakeFiles/misowa.dir/src/render_type/gui.cpp.obj: CXX_COMPILER__misowa_unscanned_ C$:/Users/Laris/Documents/work/misowa/src/render_type/gui.cpp || cmake_object_order_depends_target_misowa
   DEP_FILE = CMakeFiles\misowa.dir\src\render_type\gui.cpp.obj.d
   FLAGS = -std=gnu++17
@@ -251,7 +271,7 @@ build CMakeFiles/misowa.dir/vendor/glad.c.obj: C_COMPILER__misowa_unscanned_ C$:
 #############################################
 # Link the executable misowa.exe
 
-build misowa.exe: CXX_EXECUTABLE_LINKER__misowa_ CMakeFiles/misowa.dir/cmd/main.cpp.obj CMakeFiles/misowa.dir/src/engine/game.cpp.obj CMakeFiles/misowa.dir/src/engine/shader.cpp.obj CMakeFiles/misowa.dir/src/graphics/material.cpp.obj CMakeFiles/misowa.dir/src/graphics/mesh.cpp.obj CMakeFiles/misowa.dir/src/graphics/transform.cpp.obj CMakeFiles/misowa.dir/src/namespace/color.cpp.obj CMakeFiles/misowa.dir/src/namespace/default.cpp.obj CMakeFiles/misowa.dir/src/namespace/input.cpp.obj CMakeFiles/misowa.dir/src/namespace/physic.cpp.obj CMakeFiles/misowa.dir/src/namespace/rule.cpp.obj CMakeFiles/misowa.dir/src/nodes/body/body.cpp.obj CMakeFiles/misowa.dir/src/nodes/body/dynamic.cpp.obj CMakeFiles/misowa.dir/src/nodes/body/static.cpp.obj CMakeFiles/misowa.dir/src/render_type/gui.cpp.obj CMakeFiles/misowa.dir/src/render_type/world.cpp.obj CMakeFiles/misowa.dir/src/singleton/gl.cpp.obj CMakeFiles/misowa.dir/src/singleton/system.cpp.obj CMakeFiles/misowa.dir/src/source/world/player.cpp.obj CMakeFiles/misowa.dir/vendor/glad.c.obj
+build misowa.exe: CXX_EXECUTABLE_LINKER__misowa_ CMakeFiles/misowa.dir/cmd/main.cpp.obj CMakeFiles/misowa.dir/src/engine/game.cpp.obj CMakeFiles/misowa.dir/src/engine/movement.cpp.obj CMakeFiles/misowa.dir/src/engine/shader.cpp.obj CMakeFiles/misowa.dir/src/graphics/material.cpp.obj CMakeFiles/misowa.dir/src/graphics/mesh.cpp.obj CMakeFiles/misowa.dir/src/graphics/transform.cpp.obj CMakeFiles/misowa.dir/src/namespace/color.cpp.obj CMakeFiles/misowa.dir/src/namespace/default.cpp.obj CMakeFiles/misowa.dir/src/namespace/input.cpp.obj CMakeFiles/misowa.dir/src/namespace/physic.cpp.obj CMakeFiles/misowa.dir/src/namespace/rule.cpp.obj CMakeFiles/misowa.dir/src/nodes/body/body.cpp.obj CMakeFiles/misowa.dir/src/nodes/body/dynamic.cpp.obj CMakeFiles/misowa.dir/src/nodes/body/static.cpp.obj CMakeFiles/misowa.dir/src/nodes/camera.cpp.obj CMakeFiles/misowa.dir/src/render_type/gui.cpp.obj CMakeFiles/misowa.dir/src/render_type/world.cpp.obj CMakeFiles/misowa.dir/src/singleton/gl.cpp.obj CMakeFiles/misowa.dir/src/singleton/system.cpp.obj CMakeFiles/misowa.dir/src/source/world/player.cpp.obj CMakeFiles/misowa.dir/vendor/glad.c.obj
   LINK_LIBRARIES = -lglfw3  -lopengl32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\misowa.dir
   POST_BUILD = cd .
