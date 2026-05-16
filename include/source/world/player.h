@@ -1,16 +1,17 @@
 #pragma once
 
-#include <nodes/body/dynamic.h>
-#include <glad/glad.h>
 #include <cstdint>
 #include <string>
+#include <nodes/body/dynamic.h>
+#include <glad/glad.h>
 #include <namespace/input.h>
 #include <namespace/default.h>
 #include <namespace/physic.h>
+#include <namespace/color.h>
 #include <graphics/mesh.h>
 #include <graphics/transform.h>
 #include <graphics/material.h>
-#include <namespace/color.h>
+#include <nodes/camera.h>
 
 class Player: public BODY_Dynamic {
     public:
@@ -33,6 +34,9 @@ class Player: public BODY_Dynamic {
 
         Material* get_material() override;
         void set_material(Material* value) override;
+        
+        Camera* get_camera();
+        void set_camera(Camera* value);
 
         void camera_alligner();
 
@@ -40,4 +44,5 @@ class Player: public BODY_Dynamic {
         Transform* transform;
         Mesh* mesh;
         Material* material;
+        Camera* camera;
 };

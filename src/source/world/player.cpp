@@ -19,9 +19,12 @@ Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
     std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
     Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
 
+    Camera* cam = new Camera(x, y);
+
     this->set_transform(iTrans);
     this->set_mesh(iMesh);
     this->set_material(iMaterial);
+    this->set_camera(cam);
 }
 
 Transform* Player::get_transform(){
@@ -46,6 +49,14 @@ Material* Player::get_material(){
 
 void Player::set_material(Material* value){
     this->material = value;
+}
+
+Camera* Player::get_camera(){
+    return this->camera;
+}
+
+void Player::set_camera(Camera* value){
+    this->camera = value;
 }
 
 void Player::movement(){
@@ -76,10 +87,10 @@ void Player::movement(){
     float prevVal;
     if(*tg == 1){
         prevVal = this->get_transform()->get_y();
-        this->get_transform()->set_y(prevVal + (0.001f * dft::PLAYER_speed));
+        this->get_transform()->set_y(prevVal + (0.0005f * dft::PLAYER_speed));
     }else{
         prevVal = this->get_transform()->get_x();
-        this->get_transform()->set_x(p_or_m ? prevVal + (0.001f * dft::PLAYER_speed) : prevVal - (0.001f * dft::PLAYER_speed));
+        this->get_transform()->set_x(p_or_m ? prevVal + (0.0005f * dft::PLAYER_speed) : prevVal - (0.0005f * dft::PLAYER_speed));
     }
 
     this->trigger_change_position();
@@ -149,23 +160,27 @@ void Player::trigger_change_position(){
 }
 
 void Player::camera_alligner(){
-    float left = -500.0f;
-    float right = 500.0f;
-    float bottom = -500.0f;
-    float top = 500.0f;
-    float nearZ = -1.0f;
-    float farZ = 1.0f;
-    
-    float camProjection[16] = {
-        2.0f / (right - left), 0, 0, 0,
-        0, 2.0f / (top - bottom), 0, 0,
-        0, 0, -2.0f / (farZ - nearZ), 0,
-        (float)this->get_transform()->get_x(), (float)this->get_transform()->get_y(),
-        -(farZ + nearZ) / (farZ - nearZ), 1.0f
-    };
+    this->get_camera()->update_position(this->get_transform()->get_x(), this->get_transform()->get_y());
 
-    int loc = glGetUniformLocation(this->get_material()->get_shader()->get_ID(), "projection");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, camProjection); // send the update to gpu
+    Shader* shd = this->get_material()->get_shader();
+
+    // take all the locations from gpu
+    int projLoc = glGetUniformLocation(shd->get_ID(), "projection");
+    int viewLoc = glGetUniformLocation(shd->get_ID(), "view");
+    int modelLoc = glGetUniformLocation(shd->get_ID(), "model");
+
+    // update everything
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, this->get_camera()->projection);
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, this->get_camera()->view); // we try to look at our world
+
+    float model[16] = { // use the default initialized position of verticle
+        1,0,0,0,
+        0,1,0,0,
+        0,0,1,0,
+        0,0,0,1
+    };
+    
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model);
 }
 
 void Player::Run(const std::vector<Body*>& objects){
@@ -176,7 +191,6 @@ void Player::Run(const std::vector<Body*>& objects){
 }
 
 void Player::Display(){
-    std::cout << "MEANING OF X AND Y : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
 }

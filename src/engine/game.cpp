@@ -17,25 +17,25 @@ void Game::Init(GLFWwindow *win){
     G_SINGLETON_system->change_screen(WORLD, "MAIN");
 
     // PROJECTION (FOV) MATRIX CAMERA
-    float left = -500.0f;
-    float right = 500.0f;
-    float bottom = -500.0f;
-    float top = 500.0f;
-    float nearZ = -1.0f;
-    float farZ = 1.0f;
+    // float left = -500.0f;
+    // float right = 500.0f;
+    // float bottom = -500.0f;
+    // float top = 500.0f;
+    // float nearZ = -1.0f;
+    // float farZ = 1.0f;
 
-    float projection[16] = {
-        2.0f / (right - left), 0, 0, 0,
-        0, 2.0f / (top - bottom), 0, 0,
-        0, 0, -2.0f / (farZ - nearZ), 0,
-        -(right + left) / (right - left),
-        -(top + bottom) / (top - bottom),
-        -(farZ + nearZ) / (farZ - nearZ),
-        1.0f
-    };
+    // float projection[16] = {
+    //     2.0f / (right - left), 0, 0, 0,
+    //     0, 2.0f / (top - bottom), 0, 0,
+    //     0, 0, -2.0f / (farZ - nearZ), 0,
+    //     -(right + left) / (right - left),
+    //     -(top + bottom) / (top - bottom),
+    //     -(farZ + nearZ) / (farZ - nearZ),
+    //     1.0f
+    // };
 
-    int location = glGetUniformLocation(shd->get_ID(), "projection");
-    glUniformMatrix4fv(location, 1, GL_FALSE, projection);
+    // int location = glGetUniformLocation(shd->get_ID(), "projection");
+    // glUniformMatrix4fv(location, 1, GL_FALSE, projection);
 }
 
 void Game::Start(){
