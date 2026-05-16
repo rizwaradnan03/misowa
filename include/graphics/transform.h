@@ -4,20 +4,20 @@
 
 class Transform {
     public:
-        Transform(int32_t x, int32_t y, int32_t w, int32_t h);
+        Transform(float x, float y, float w, float h);
 
-        int32_t get_x();
-        void set_x(int32_t value);
+        float get_x();
+        void set_x(float value);
 
-        int32_t get_y();
-        void set_y(int32_t value);
+        float get_y();
+        void set_y(float value);
 
-        int32_t get_w();
-        void set_w(int32_t value);
+        float get_w();
+        void set_w(float value);
 
-        int32_t get_h();
-        void set_h(int32_t value);
+        float get_h();
+        void set_h(float value);
     
     private:
-        int32_t x, y, w, h;
+        float x, y, w, h;
 };

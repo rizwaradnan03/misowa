@@ -10,9 +10,32 @@ void Game::Init(GLFWwindow *win){
 
     Shader* shd = new Shader(vertexShaderSrc, fragmentShaderSrc);
     
+    shd->use();
+
     G_SINGLETON_system = new System();
     G_SINGLETON_system->set_shader(shd);
     G_SINGLETON_system->change_screen(WORLD, "MAIN");
+
+    // PROJECTION (FOV) MATRIX CAMERA
+    float left = -20.0f;
+    float right = 20.0f;
+    float bottom = -20.0f;
+    float top = 20.0f;
+    float nearZ = -1.0f;
+    float farZ = 1.0f;
+
+    float projection[16] = {
+        2.0f / (right - left), 0, 0, 0,
+        0, 2.0f / (top - bottom), 0, 0,
+        0, 0, -2.0f / (farZ - nearZ), 0,
+        -(right + left) / (right - left),
+        -(top + bottom) / (top - bottom),
+        -(farZ + nearZ) / (farZ - nearZ),
+        1.0f
+    };
+
+    int location = glGetUniformLocation(shd->get_ID(), "projection");
+    glUniformMatrix4fv(location, 1, GL_FALSE, projection);
 }
 
 void Game::Start(){
@@ -51,24 +74,6 @@ void Game::Start(){
     std::cout << "Vendor: " << glGetString(GL_VENDOR) << "\n";
     std::cout << "Renderer: " << glGetString(GL_RENDERER) << "\n";
     std::cout << "Version: " << glGetString(GL_VERSION) << "\n";
-
-    // PROJECTION MATRIX CAMERA
-    float left = -10.0f;
-    float right = 10.0f;
-    float bottom = -10.0f;
-    float top = 10.0f;
-    float nearZ = -1.0f;
-    float farZ = 1.0f;
-
-    float projection[16] = {
-        2.0f / (right - left), 0, 0, 0,
-        0, 2.0f / (top - bottom), 0, 0,
-        0, 0, -2.0f / (farZ - nearZ), 0,
-        -(right + left) / (right - left),
-        -(top + bottom) / (top - bottom),
-        -(farZ + nearZ) / (farZ - nearZ),
-        1.0f
-    };
 
     this->Init(window);
 

@@ -1,17 +1,17 @@
 #include <source/world/player.h>
 #include <iostream>
 
-Player::Player(int32_t x, int32_t y, int32_t w, int32_t h) : BODY_Dynamic(x, y, w, h){
+Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
     Transform* iTrans = new Transform(x, y, w, h);
     
-    int32_t wH = w / 2;
-    int32_t hH = h / 2;
+    float wH = w / 2;
+    float hH = h / 2;
 
     float vert[] = {
-        (float)x - wH, (float)y - hH,
-        (float)x + wH, (float)y - hH,
-        (float)x + wH, (float)y + hH,
-        (float)x - wH, (float)y + hH,
+        x - wH, y - hH,
+        x + wH, y - hH,
+        x + wH, y + hH,
+        x - wH, y + hH,
     };
 
     Mesh* iMesh = new Mesh(vert, 8);
@@ -53,7 +53,7 @@ void Player::movement(){
     if(kb == nullptr){
         return;
     }
-
+ 
     int32_t tg = 0;
     bool p_or_m = false;
 
@@ -71,11 +71,12 @@ void Player::movement(){
 
     int32_t prevVal;
     if(tg == 1){
-        prevVal = this->transform->get_y();
-        this->transform->set_y(prevVal - 0.1f);
+        prevVal = this->get_transform()->get_y();
+        this->get_transform()->set_y(prevVal - 0.1f);
+        std::cout << "TARELA" << std::endl;
     }else{
-        prevVal = this->transform->get_x();
-        this->transform->set_x(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
+        prevVal = this->get_transform()->get_x();
+        this->get_transform()->set_x(p_or_m ? prevVal + 0.1f : prevVal - 0.1f);
     }
 
     this->trigger_change_position();
@@ -144,14 +145,35 @@ void Player::trigger_change_position(){
     this->mesh->set_verticles(crMesh);
 }
 
+void Player::camera_alligner(){
+    float left = -20.0f;
+    float right = 20.0f;
+    float bottom = -20.0f;
+    float top = 20.0f;
+    float nearZ = -1.0f;
+    float farZ = 1.0f;
+    
+    float camProjection[16] = {
+        2.0f / (right - left), 0, 0, 0,
+        0, 2.0f / (top - bottom), 0, 0,
+        0, 0, -2.0f / (farZ - nearZ), 0,
+        (float)this->get_transform()->get_x(), (float)this->get_transform()->get_y(),
+        -(farZ + nearZ) / (farZ - nearZ), 1.0f
+    };
+
+    int loc = glGetUniformLocation(this->get_material()->get_shader()->get_ID(), "projection");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, camProjection); // send the update to gpu
+}
+
 void Player::Run(const std::vector<Body*>& objects){
     this->physic(objects);    
     this->movement();
+    this->camera_alligner();
     this->Display();
 }
 
 void Player::Display(){
-    // std::cout << "THE VERTICLE : " << this->get_mesh()->get_verticles()[0] << std::endl;
+    // std::cout << "MEANING OF X AND Y : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
 }

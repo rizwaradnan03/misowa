@@ -60,12 +60,12 @@ void Mesh::update_vbo(){
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-    glBufferData(GL_ARRAY_BUFFER, this->get_verticles().size(), vert, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, this->get_verticles().size() * sizeof(float), vert, GL_STATIC_DRAW);
 }
 
 void Mesh::update_ebo(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indicesCount, this->get_indices(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indicesCount * sizeof(unsigned int), this->get_indices(), GL_STATIC_DRAW);
 }
 
 std::vector<float> Mesh::get_verticles(){

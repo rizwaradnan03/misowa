@@ -1,40 +1,40 @@
 #include <graphics/transform.h>
 
-Transform::Transform(int32_t x, int32_t y, int32_t w, int32_t h){
+Transform::Transform(float x, float y, float w, float h){
     this->set_x(x);
     this->set_y(y);
     this->set_w(w);
     this->set_h(h);
 }
 
-int32_t Transform::get_x(){
+float Transform::get_x(){
     return this->x;
 }
 
-void Transform::set_x(int32_t value){
+void Transform::set_x(float value){
     this->x = value;
 }
 
-int32_t Transform::get_y(){
+float Transform::get_y(){
     return this->y;
 }
 
-void Transform::set_y(int32_t value){
+void Transform::set_y(float value){
     this->y = value;
 }
 
-int32_t Transform::get_w(){
+float Transform::get_w(){
     return this->w;
 }
 
-void Transform::set_w(int32_t value){
+void Transform::set_w(float value){
     this->w = value;
 }
 
-int32_t Transform::get_h(){
+float Transform::get_h(){
     return this->h;
 }
 
-void Transform::set_h(int32_t value){
+void Transform::set_h(float value){
     this->h = value;
 }

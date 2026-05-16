@@ -34,7 +34,7 @@ void RT_World::Init(std::string type){
     
     // this->set_objects(obj_to_push);
     
-    Player* p = new Player(0, 0, 30, 30);
+    Player* p = new Player(0.0f, 0.0f, 30.0f, 30.0f);
     this->set_player(p);
 }
 

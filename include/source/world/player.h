@@ -14,7 +14,7 @@
 
 class Player: public BODY_Dynamic {
     public:
-        Player(int32_t x, int32_t y, int32_t w, int32_t h);
+        Player(float x, float y, float w, float h);
         void Run(const std::vector<Body*>& objects);
         void Display() override;
         
@@ -33,6 +33,8 @@ class Player: public BODY_Dynamic {
 
         Material* get_material() override;
         void set_material(Material* value) override;
+
+        void camera_alligner();
 
     private:
         Transform* transform;
