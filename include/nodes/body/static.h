@@ -13,7 +13,7 @@
 
 class BODY_Static: public Body {
     public:
-        BODY_Static(int32_t x, int32_t y, int32_t w, int32_t h);
+        BODY_Static(float x, float y, float w, float h);
         virtual void Run(const std::vector<Body*>& objects) override;
         virtual void Display() override;
         

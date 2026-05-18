@@ -2,7 +2,7 @@
 #include <singleton/system.h>
 #include <iostream>
 
-Material::Material( float r, float g, float b, float a){
+Material::Material(float r, float g, float b, float a){
     this->set_shader(G_SINGLETON_system->get_shader());
     this->set_r(r);
     this->set_g(g);
@@ -50,7 +50,7 @@ void Material::set_a(float value){
     this->a = value;
 }
 
-void Material::Execute(int32_t x, int32_t y){
+void Material::Execute(float x, float y){
     this->get_shader()->use();
 
     unsigned int colorLoc = glGetUniformLocation(this->get_shader()->get_ID(), "uColor");
@@ -65,5 +65,5 @@ void Material::Execute(int32_t x, int32_t y){
 
     unsigned int offsetLoc = glGetUniformLocation(this->get_shader()->get_ID(), "uOffset");
 
-    glUniform2f(offsetLoc, (float)x, (float)y);
+    glUniform2f(offsetLoc, x, y);
 }

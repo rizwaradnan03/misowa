@@ -3,6 +3,9 @@
 const char* vertexShaderSrc = R"(
 #version 330 core
 layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aTex;
+
+out vec2 TexCoords;
 
 uniform mat4 projection;
 uniform mat4 view;
@@ -10,19 +13,23 @@ uniform mat4 model;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(aPos.x, aPos.y, 0.0, 1.0);
+    gl_Position = projection * view * model * vec4(aPos, 0.0, 1.0);
+    TexCoords = aTex;
 }
 )";
 
 const char* fragmentShaderSrc = R"(
 #version 330 core
+in vec2 TexCoords;
 out vec4 FragColor;
 
 uniform vec4 uColor;
+uniform sampler2D tex;
 
 void main()
 {
     FragColor = uColor;
+    // FragColor = texture(tex, TexCoords);
 }
 )";
 

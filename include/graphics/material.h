@@ -5,7 +5,7 @@
 class Material {
     public:
         Material( float r, float g, float b, float a);
-        void Execute(int32_t x, int32_t y);
+        void Execute(float x, float y);
 
         Shader* get_shader();
         void set_shader(Shader* value);

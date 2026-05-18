@@ -69,43 +69,6 @@ void Player::set_camera(Camera* value){
     this->camera = value;
 }
 
-// void Player::movement(){
-//     std::string* kb = input::continuous_pressed();
-//     if(kb == nullptr){
-//         return;
-//     }
- 
-//     int32_t* tg = nullptr;
-//     bool p_or_m = false;
-
-//     if(*kb == "TOP"){
-//         tg = new int32_t(1);
-//     }else if(*kb == "RIGHT" || *kb == "LEFT"){
-//         tg = new int32_t(0);
-
-//         if(*kb == "RIGHT"){
-//             p_or_m = true;
-//         }else{
-//             p_or_m = false;
-//         }
-//     }
-
-//     if(tg == nullptr){
-//         return;
-//     }
-
-//     float prevVal;
-//     if(*tg == 1){
-//         prevVal = this->get_transform()->get_y();
-//         this->get_transform()->set_y(prevVal + (0.0005f * dft::PLAYER_speed));
-//     }else{
-//         prevVal = this->get_transform()->get_x();
-//         this->get_transform()->set_x(p_or_m ? prevVal + (0.0005f * dft::PLAYER_speed) : prevVal - (0.0005f * dft::PLAYER_speed));
-//     }
-
-//     this->trigger_change_position();
-// }
-
 void Player::physic(const std::vector<Body*>& objects){
     this->object_collide(objects);
 }
@@ -138,7 +101,11 @@ void Player::object_collide(const std::vector<Body*>& objects){
     }
 
     if(point[1] == false){
-        // gotta try implement the gravity
+        if(this->get_movement()->get_elapse_jump() == nullptr){
+            float prevVal = this->get_transform()->get_y();
+            this->get_transform()->set_y(prevVal - dft::calc_displacement());
+            this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh()); // triggering to update the current position
+        }
     }else{
         this->get_movement()->set_jump_stock(1);
         this->get_movement()->set_elapse_jump(nullptr);
@@ -176,7 +143,7 @@ void Player::camera_alligner(){
 
     // update everything
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, this->get_camera()->projection);
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, this->get_camera()->view); // we try to look at our world
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, this->get_camera()->view);
 
     float model[16] = { // use the default initialized position of verticle
         1,0,0,0,
@@ -195,7 +162,7 @@ void Player::Run(const std::vector<Body*>& objects){
 }
 
 void Player::Display(){
-    std::cout << "GRADUALLY : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
+    std::cout << "My Position : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());

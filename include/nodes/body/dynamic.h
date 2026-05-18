@@ -1,39 +1,53 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <nodes/body/body.h>
 #include <cstdint>
-#include <vector>
-#include <namespace/color.h>
+#include <string>
+#include <nodes/body/body.h>
+#include <glad/glad.h>
+#include <namespace/input.h>
 #include <namespace/default.h>
+#include <namespace/physic.h>
+#include <namespace/color.h>
 #include <graphics/mesh.h>
 #include <graphics/transform.h>
 #include <graphics/material.h>
+#include <nodes/camera.h>
+#include <engine/movement.h>
 
 class BODY_Dynamic: public Body {
     public:
-        BODY_Dynamic(int32_t x, int32_t y, int32_t w, int32_t h);
-        virtual void Run(const std::vector<Body*>& objects) override;
-        virtual void Display() override;
+        BODY_Dynamic(float x, float y, float w, float h);
+        void Run(const std::vector<Body*>& objects);
+        void Display() override;
         
-        virtual void movement();
+        void physic(const std::vector<Body*>& objects);
+        void object_collide(const std::vector<Body*>& objects);
 
-        virtual void physic(const std::vector<Body*>& objects) override;
-        virtual void object_collide(const std::vector<Body*>& objects) override;
+        void trigger_change_position();
 
-        virtual void trigger_change_position() override;
+        Transform* get_transform() override;
+        void set_transform(Transform* value) override;
 
-        virtual Transform* get_transform() override;
-        virtual void set_transform(Transform* value) override;
+        Mesh* get_mesh() override;
+        void set_mesh(Mesh* value) override;
 
-        virtual Mesh* get_mesh() override;
-        virtual void set_mesh(Mesh* value) override;
+        Material* get_material() override;
+        void set_material(Material* value) override;
+        
+        Movement* get_movement();
+        void set_movement(Movement* value);
 
-        virtual Material* get_material();
-        virtual void set_material(Material* value);
+        Camera* get_camera();
+        void set_camera(Camera* value);
+
+        void camera_alligner();
 
     private:
         Transform* transform;
         Mesh* mesh;
         Material* material;
+
+        Movement* movement;
+    
+        Camera* camera;
 };
