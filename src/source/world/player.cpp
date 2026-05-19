@@ -185,5 +185,5 @@ void Player::Display(){
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
-    this->get_depth()->Execute();
+    this->get_depth()->Execute(this->get_attribute());
 }
