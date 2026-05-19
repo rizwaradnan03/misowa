@@ -30,10 +30,9 @@ void Movement::count_elapse_jump_time(Transform* transform, Mesh* mesh){
     auto current_time = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<float> differ = current_time - *this->get_elapse_jump();
-    if(differ.count() < 2.0f){
+    if(differ.count() < 0.5f){
         transform->set_y(transform->get_y() + dft::calc_displacement());
     }else{
-        this->set_jump_stock(1);
         this->set_elapse_jump(nullptr);
     }
 
@@ -53,7 +52,7 @@ void Movement::move(Transform* transform, Mesh* mesh, std::vector<bool> inavail)
 
             this->set_jump_stock(this->get_jump_stock() - 1);
         }
-    }else{
+    }else if(*mov == "LEFT" || *mov == "RIGHT"){
         float prevVal = transform->get_x();
         float calc = dft::calc_displacement();
 

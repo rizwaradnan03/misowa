@@ -13,6 +13,8 @@
 #include <graphics/material.h>
 #include <nodes/camera.h>
 #include <engine/movement.h>
+#include <signature/attribute.h>
+#include <signature/depth.h>
 
 class Player: public BODY_Dynamic {
     public:
@@ -40,14 +42,23 @@ class Player: public BODY_Dynamic {
         Camera* get_camera();
         void set_camera(Camera* value);
 
+        Attribute* get_attribute();
+        void set_attribute(Attribute* value);
+
+        Depth* get_depth();
+        void set_depth(Depth* value);
+
         void camera_alligner();
 
     private:
         Transform* transform;
+        
         Mesh* mesh;
         Material* material;
-
         Movement* movement;
-    
+        
         Camera* camera;
+
+        Attribute* attribute;
+        Depth* depth;
 };

@@ -38,8 +38,7 @@ void RT_World::set_player(Player* value){
 }
 
 void RT_World::Start(){
-    this->get_player()->Run(this->objects);
-    
+    this->get_player()->Run(this->get_objects());
     for(int i = 0;i < this->get_objects().size();i++){
         this->get_objects()[i]->Run(this->get_objects());
     }

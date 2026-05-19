@@ -74,7 +74,7 @@ std::vector<float> Mesh::get_verticles(){
 
 void Mesh::set_verticles(std::vector<float> value){
     this->verticles = value;
-    this->update_vbo(); // trigger update the vbo
+    this->update_vbo();
 }
 
 unsigned int* Mesh::get_indices(){

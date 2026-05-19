@@ -13,10 +13,10 @@ namespace physic {
         float m_r = vm[2];
         float m_l = vm[0];
 
-        float t_b = vm[1];
-        float t_t = vm[5];
-        float t_r = vm[2];
-        float t_l = vm[0];
+        float t_b = vt[1];
+        float t_t = vt[5];
+        float t_r = vt[2];
+        float t_l = vt[0];
 
         if(m_b <= t_b && m_b > t_t){
             is_collide = true;

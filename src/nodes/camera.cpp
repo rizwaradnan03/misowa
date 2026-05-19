@@ -4,10 +4,10 @@ Camera::Camera(float x, float y){
     this->set_x(x);
     this->set_y(y);
 
-    float left = -500.0f;
-    float right = 500.0f;
-    float bottom = -500.0f;
-    float top = 500.0f;
+    float left = -300.0f;
+    float right = 300.0f;
+    float bottom = -300.0f;
+    float top = 300.0f;
     float nearZ = -1.0f;
     float farZ = 1.0f;
 

@@ -22,11 +22,16 @@ Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
     Camera* iCam = new Camera(x, y);
     Movement* iMovement = new Movement();
 
+    Attribute* iAttr = new Attribute(5);
+    Depth* iDepth = new Depth();
+
     this->set_transform(iTrans);
     this->set_mesh(iMesh);
     this->set_material(iMaterial);
     this->set_camera(iCam);
     this->set_movement(iMovement);
+    this->set_attribute(iAttr);
+    this->set_depth(iDepth);
 }
 
 Transform* Player::get_transform(){
@@ -69,6 +74,22 @@ void Player::set_camera(Camera* value){
     this->camera = value;
 }
 
+Attribute* Player::get_attribute(){
+    return this->attribute;
+}
+
+void Player::set_attribute(Attribute* value){
+    this->attribute = value;
+}
+
+Depth* Player::get_depth(){
+    return this->depth;
+}
+
+void Player::set_depth(Depth* value){
+    this->depth = value;
+}
+
 void Player::physic(const std::vector<Body*>& objects){
     this->object_collide(objects);
 }
@@ -101,11 +122,11 @@ void Player::object_collide(const std::vector<Body*>& objects){
     }
 
     if(point[1] == false){
-        if(this->get_movement()->get_elapse_jump() == nullptr){
-            float prevVal = this->get_transform()->get_y();
-            this->get_transform()->set_y(prevVal - dft::calc_displacement());
-            this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh()); // triggering to update the current position
-        }
+        // if(this->get_movement()->get_elapse_jump() == nullptr){
+        //     float prevVal = this->get_transform()->get_y();
+        //     this->get_transform()->set_y(prevVal - dft::calc_displacement());
+        //     this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh()); // triggering to update the current position
+        // }
     }else{
         this->get_movement()->set_jump_stock(1);
         this->get_movement()->set_elapse_jump(nullptr);
@@ -136,16 +157,14 @@ void Player::camera_alligner(){
 
     Shader* shd = this->get_material()->get_shader();
 
-    // take all the locations from gpu
     int projLoc = glGetUniformLocation(shd->get_ID(), "projection");
     int viewLoc = glGetUniformLocation(shd->get_ID(), "view");
     int modelLoc = glGetUniformLocation(shd->get_ID(), "model");
 
-    // update everything
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, this->get_camera()->projection);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, this->get_camera()->view);
 
-    float model[16] = { // use the default initialized position of verticle
+    float model[16] = {
         1,0,0,0,
         0,1,0,0,
         0,0,1,0,
@@ -162,8 +181,9 @@ void Player::Run(const std::vector<Body*>& objects){
 }
 
 void Player::Display(){
-    std::cout << "My Position : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
+    this->get_attribute()->Execute(this->get_transform(), this->get_material()->get_shader());
     this->get_mesh()->Execute();
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
+    this->get_depth()->Execute();
 }
