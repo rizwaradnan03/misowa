@@ -85,7 +85,25 @@ void Mesh::set_indices(unsigned int* value){
     this->indices = value;
 }
 
-void Mesh::Execute(){
+void Mesh::update(Transform* transform){
+    float xV = transform->get_x();
+    float yV = transform->get_y();
+    
+    float wH = transform->get_w() / 2;
+    float hH = transform->get_h() / 2;
+    
+    std::vector<float> vec = {
+        xV - wH, yV - hH,
+        xV + wH, yV - hH,
+        xV + wH, yV + hH,
+        xV - wH, yV + hH,
+    };
+
+    this->set_verticles(vec);
+}
+
+void Mesh::Execute(Transform* transform){
+    this->update(transform);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, this->indicesCount, GL_UNSIGNED_INT, 0);
 }

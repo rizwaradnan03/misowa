@@ -1,12 +1,21 @@
-#include <signature/area/hit.h>
+#include <signature/area/area_hit.h>
 
-Area_Hit::Area_Hit(int32_t x, int32_t y, int32_t w, int32_t h){
+Area_Hit::Area_Hit(int32_t* damage, int32_t x, int32_t y, int32_t w, int32_t h){
+    this->set_damage(damage);
     this->set_x(x);
     this->set_y(y);
     this->set_w(w);
     this->set_h(h);
 
-    // RTW->set_push_event_hit(this);
+    G_SINGLETON_action->set_push_action_hit(this);
+}
+
+int32_t* Area_Hit::get_damage(){
+    return this->damage;
+}
+
+void Area_Hit::set_damage(int32_t* value){
+    this->damage = value;
 }
 
 int32_t Area_Hit::get_x(){

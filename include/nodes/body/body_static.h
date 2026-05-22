@@ -20,8 +20,6 @@ class BODY_Static: public Body {
         virtual void physic(const std::vector<Body*>& objects) override;
         virtual void object_collide(const std::vector<Body*>& objects) override;
 
-        virtual void trigger_change_position() override;
-
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
 

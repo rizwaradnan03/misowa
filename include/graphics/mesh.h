@@ -4,12 +4,12 @@
 #include <cstdint>
 #include <vector>
 #include <namespace/color.h>
+#include <graphics/transform.h>
 
 class Mesh {
     public:
         Mesh(float vertex[], int32_t vertexSize);
-        void Execute();
-
+    
         void update_buffer();
         void update_vao();
         void update_vbo();
@@ -20,6 +20,9 @@ class Mesh {
 
         unsigned int* get_indices();
         void set_indices(unsigned int* value);
+
+        void update(Transform* transform);
+        void Execute(Transform* transform);
 
     private:
         std::vector<float> verticles;

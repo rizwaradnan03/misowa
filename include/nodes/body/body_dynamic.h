@@ -23,8 +23,6 @@ class BODY_Dynamic: public Body {
         void physic(const std::vector<Body*>& objects);
         void object_collide(const std::vector<Body*>& objects);
 
-        void trigger_change_position();
-
         Transform* get_transform() override;
         void set_transform(Transform* value) override;
 

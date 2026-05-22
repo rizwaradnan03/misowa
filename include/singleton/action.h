@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <signature/area/hit.h>
+#include <signature/area/area_hit.h>
 
 class Area_Hit;
 

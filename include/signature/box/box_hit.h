@@ -8,5 +8,5 @@
 
 class Box_hit {
     public:
-        void action(Transform* transform, Shader* shader, Attribute* attribute);
+        void action(int32_t* damage, Transform* transform, Shader* shader, Attribute* attribute);
 };

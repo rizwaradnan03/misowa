@@ -1,6 +1,4 @@
 #include <namespace/input.h>
-#include <GLFW/glfw3.h>
-#include <singleton/gl.h>
 
 namespace input {
     std::string* continuous_pressed(){
@@ -19,5 +17,12 @@ namespace input {
         }
 
         return ret;
+    }
+
+    std::pair<double, double> mouse_position(){
+        double xPos, yPos;
+        glfwGetCursorPos(G_SINGLETON_gl->get(), &xPos, &yPos);
+
+        return std::make_pair(xPos, yPos);
     }
 }

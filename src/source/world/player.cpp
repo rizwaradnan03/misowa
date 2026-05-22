@@ -145,23 +145,6 @@ void Player::object_collide(const std::vector<Body*>& objects){
     this->get_movement()->move(this->get_transform(), this->get_mesh(), {point[0], point[1], point[2], point[3]});
 }
 
-void Player::trigger_change_position(){
-    float xVal = this->get_transform()->get_x();
-    float yVal = this->get_transform()->get_y();
-
-    float wH = this->get_transform()->get_w() / 2;
-    float hH = this->get_transform()->get_h() / 2;
-
-    std::vector<float> crMesh = {
-        xVal - wH, yVal - hH,
-        xVal + wH, yVal - hH,
-        xVal + wH, yVal + hH,
-        xVal - wH, yVal + hH,
-    };
-
-    this->mesh->set_verticles(crMesh);
-}
-
 void Player::camera_alligner(){
     this->get_camera()->update_position(this->get_transform()->get_x(), this->get_transform()->get_y());
 
@@ -192,15 +175,15 @@ void Player::Run(const std::vector<Body*>& objects){
 }
 
 void Player::hit_checker(){
-    std::string* inp = input::continuous_pressed();
-    if(inp != nullptr && *inp == "SPACE"){
-        this->get_attribute()->hit(this->get_transform(), this->get_material()->get_shader());
-    }
+    // std::string* inp = input::continuous_pressed();
+    // if(inp != nullptr && *inp == "SPACE"){
+    //     this->get_attribute()->hit(this->get_transform(), this->get_material()->get_shader());
+    // }
 }
 
 void Player::Display(){
     this->get_attribute()->Execute(this->get_transform(), this->get_material()->get_shader());
-    this->get_mesh()->Execute();
+    this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
     this->get_depth()->Execute(this->get_attribute());

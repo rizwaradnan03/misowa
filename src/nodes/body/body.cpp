@@ -70,23 +70,6 @@ void Body::physic(const std::vector<Body*>& objects){
 
 void Body::object_collide(const std::vector<Body*>& objects){}
 
-void Body::trigger_change_position(){
-    int32_t xVal = this->transform->get_x();
-    int32_t yVal = this->transform->get_y();
-
-    int32_t wH = this->transform->get_w() / 2;
-    int32_t hH = this->transform->get_h() / 2;
-
-    std::vector<float> crMesh = {
-        (float)xVal - wH, (float)yVal - hH,
-        (float)xVal + wH, (float)yVal - hH,
-        (float)xVal + wH, (float)yVal + hH,
-        (float)xVal - wH, (float)yVal + hH,
-    };
-
-    this->mesh->set_verticles(crMesh);
-}
-
 void Body::Run(const std::vector<Body*>& objects){
     this->physic(objects);    
     this->Display();
@@ -94,5 +77,5 @@ void Body::Run(const std::vector<Body*>& objects){
 
 void Body::Display(){
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
-    this->get_mesh()->Execute();
+    this->get_mesh()->Execute(this->get_transform());
 }

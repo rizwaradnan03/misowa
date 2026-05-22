@@ -1,11 +1,14 @@
 #pragma once
 
 #include <cstdint>
-#include <render_type/world.h>
+#include <singleton/action.h>
 
 class Area_Hit {
     public:
-        Area_Hit(int32_t x, int32_t y, int32_t w, int32_t h);
+        Area_Hit(int32_t* damage, int32_t x, int32_t y, int32_t w, int32_t h);
+
+        int32_t* get_damage();
+        void set_damage(int32_t* value);
 
         int32_t get_x();
         void set_x(int32_t value);
@@ -20,5 +23,6 @@ class Area_Hit {
         void set_h(int32_t value);
 
     private:
+        int32_t* damage;
         int32_t x, y, w, h;
 };

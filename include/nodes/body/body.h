@@ -7,7 +7,7 @@
 #include <graphics/transform.h>
 #include <graphics/material.h>
 #include <namespace/color.h>
-#include <signature/box/hit.h>
+#include <signature/box/box_hit.h>
 #include <signature/attribute.h>
 
 class Body {
@@ -18,8 +18,6 @@ class Body {
         
         virtual void physic(const std::vector<Body*>& objects);
         virtual void object_collide(const std::vector<Body*>& objects);
-
-        virtual void trigger_change_position();
 
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);

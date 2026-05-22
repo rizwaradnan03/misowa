@@ -13,7 +13,7 @@ class Attribute {
         int32_t get_health();
         void set_heath(int32_t value);
 
-        void hit(Transform* transform, Shader* shader);
+        void hit(int32_t* damage, Transform* transform, Shader* shader);
         void Execute(Transform* transform, Shader* shader);
     private:
         int32_t health;

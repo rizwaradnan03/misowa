@@ -3,7 +3,7 @@
 #include <vector>
 #include <source/world/player.h>
 #include <nodes/body/body.h>
-#include <nodes/body/static.h>
+#include <nodes/body/body_static.h>
 #include <namespace/rule.h>
 #include <singleton/action.h>
 #include <graphics/transform.h>

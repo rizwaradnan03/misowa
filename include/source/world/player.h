@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <string>
-#include <nodes/body/dynamic.h>
+#include <nodes/body/body_dynamic.h>
 #include <glad/glad.h>
 #include <namespace/input.h>
 #include <namespace/default.h>
@@ -15,14 +15,13 @@
 #include <engine/movement.h>
 #include <signature/attribute.h>
 #include <signature/depth.h>
-#include <signature/box/hit.h>
+#include <signature/box/box_hit.h>
 
 class Player: public BODY_Dynamic {
     public:
         Player(float x, float y, float w, float h);
         void Run(const std::vector<Body*>& objects);
         void Display() override;
-        
         
         Transform* get_transform() override;
         void set_transform(Transform* value) override;
@@ -50,7 +49,6 @@ class Player: public BODY_Dynamic {
 
         void physic(const std::vector<Body*>& objects);
         void object_collide(const std::vector<Body*>& objects);
-        void trigger_change_position();
         void camera_alligner();
         void hit_checker();
 

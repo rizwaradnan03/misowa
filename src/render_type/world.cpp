@@ -80,7 +80,7 @@ void RT_World::check_event_hit(){
                     Transform* trs = obj[i]->get_transform();
                     Shader* shd = obj[i]->get_material()->get_shader();
                     Attribute* attr = obj[i]->get_attribute();
-                    obj[i]->get_box_hit()->action(trs, shd, attr);
+                    obj[i]->get_box_hit()->action(val[i]->get_damage(), trs, shd, attr);
                 }
             }
         }

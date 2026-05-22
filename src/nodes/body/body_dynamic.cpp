@@ -1,4 +1,4 @@
-#include <nodes/body/dynamic.h>
+#include <nodes/body/body_dynamic.h>
 #include <iostream>
 
 BODY_Dynamic::BODY_Dynamic(float x, float y, float w, float h) : Body(x, y, w, h){
@@ -75,8 +75,6 @@ void BODY_Dynamic::physic(const std::vector<Body*>& objects){
 
 void BODY_Dynamic::object_collide(const std::vector<Body*>& objects){}
 
-void BODY_Dynamic::trigger_change_position(){}
-
 void BODY_Dynamic::camera_alligner(){}
 
 void BODY_Dynamic::Run(const std::vector<Body*>& objects){
@@ -86,7 +84,7 @@ void BODY_Dynamic::Run(const std::vector<Body*>& objects){
 }
 
 void BODY_Dynamic::Display(){
-    this->get_mesh()->Execute();
+    this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
 }
