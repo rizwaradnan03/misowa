@@ -48,6 +48,22 @@ void Body::set_material(Material* value){
     this->material = value;
 }
 
+Attribute* Body::get_attribute(){
+    return this->attribute;
+}
+
+void Body::set_attribute(Attribute* value){
+    this->attribute = value;
+}
+
+Box_hit* Body::get_box_hit(){
+    return this->box_hit;
+}
+
+void Body::set_box_hit(Box_hit* value){
+    this->box_hit = value;
+}
+
 void Body::physic(const std::vector<Body*>& objects){
     this->object_collide(objects);
 }

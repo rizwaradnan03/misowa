@@ -14,6 +14,8 @@ namespace input {
             ret = new std::string("LEFT");
         }else if(glfwGetKey(G_SINGLETON_gl->get(), GLFW_KEY_D) == GLFW_PRESS){
             ret = new std::string("RIGHT");
+        }else if(glfwGetKey(G_SINGLETON_gl->get(), GLFW_KEY_SPACE) == GLFW_PRESS){
+            ret = new std::string("SPACE");
         }
 
         return ret;

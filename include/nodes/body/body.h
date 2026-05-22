@@ -7,6 +7,8 @@
 #include <graphics/transform.h>
 #include <graphics/material.h>
 #include <namespace/color.h>
+#include <signature/box/hit.h>
+#include <signature/attribute.h>
 
 class Body {
     public:
@@ -28,8 +30,18 @@ class Body {
         virtual Material* get_material();
         virtual void set_material(Material* value);
 
+        virtual Attribute* get_attribute();
+        virtual void set_attribute(Attribute* value);
+
+        virtual Box_hit* get_box_hit();
+        virtual void set_box_hit(Box_hit* value);
+
     private:
         Transform* transform;
         Mesh* mesh;
         Material* material;
+
+        Attribute* attribute;
+
+        Box_hit* box_hit;
 };

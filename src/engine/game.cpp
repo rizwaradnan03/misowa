@@ -8,6 +8,8 @@ void Game::Init(GLFWwindow *win){
     G_SINGLETON_gl = new SINGLETON_GL();
     G_SINGLETON_gl->set(win);
 
+    G_SINGLETON_action = new SINGLETON_action();
+
     Shader* shd = new Shader(vertexShaderSrc, fragmentShaderSrc);
     
     shd->use();

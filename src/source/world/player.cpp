@@ -25,6 +25,8 @@ Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
     Attribute* iAttr = new Attribute(5);
     Depth* iDepth = new Depth();
 
+    Box_hit* box_hit = new Box_hit();
+
     this->set_transform(iTrans);
     this->set_mesh(iMesh);
     this->set_material(iMaterial);
@@ -88,6 +90,14 @@ Depth* Player::get_depth(){
 
 void Player::set_depth(Depth* value){
     this->depth = value;
+}
+
+Box_hit* Player::get_box_hit(){
+    return this->box_hit;
+}
+
+void Player::set_box_hit(Box_hit* value){
+    this->box_hit = value;
 }
 
 void Player::physic(const std::vector<Body*>& objects){
@@ -176,8 +186,16 @@ void Player::camera_alligner(){
 
 void Player::Run(const std::vector<Body*>& objects){
     this->camera_alligner();
-    this->physic(objects);    
+    this->physic(objects);  
+    this->hit_checker();  
     this->Display();
+}
+
+void Player::hit_checker(){
+    std::string* inp = input::continuous_pressed();
+    if(inp != nullptr && *inp == "SPACE"){
+        this->get_attribute()->hit(this->get_transform(), this->get_material()->get_shader());
+    }
 }
 
 void Player::Display(){

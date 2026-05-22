@@ -9,6 +9,7 @@
 #include <render_type/world.h>
 #include <render_type/gui.h>
 #include <singleton/system.h>
+#include <singleton/action.h>
 
 class Game {
     public:
