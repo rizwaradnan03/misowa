@@ -1,11 +1,12 @@
 #pragma once
 
 #include <engine/shader.h>
+#include <graphics/transform.h>
 
 class Material {
     public:
         Material(float r, float g, float b, float a);
-        void Execute(float x, float y);
+        void Execute(Transform* transform);
 
         Shader* get_shader();
         void set_shader(Shader* value);

@@ -1,14 +1,20 @@
 #pragma once
 
+#include <vector>
+#include <glad/glad.h>
 #include <graphics/transform.h>
 #include <graphics/mesh.h>
 #include <graphics/material.h>
-#include <nodes/entity.h>
 
-class Gui: public Entity {
+class Body;
+class Transform;
+class Mesh;
+class Material;
+
+class Entity {
     public:
-        Gui(Transform* transform, Mesh* mesh, Material* material);
-        
+        Entity(Transform* transform, Mesh* mesh, Material* material);
+
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);
 
@@ -18,7 +24,8 @@ class Gui: public Entity {
         virtual Material* get_material();
         virtual void set_material(Material* value);
 
-        virtual void Execute();
+        virtual void Execute(const std::vector<Body*>& objects);
+        virtual void Display();
 
     private:
         Transform* transform;

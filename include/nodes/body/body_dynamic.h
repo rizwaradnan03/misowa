@@ -16,8 +16,8 @@
 
 class BODY_Dynamic: public Body {
     public:
-        BODY_Dynamic(float x, float y, float w, float h);
-        void Run(const std::vector<Body*>& objects);
+        BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material);
+        void Execute(const std::vector<Body*>& objects);
         void Display() override;
         
         void physic(const std::vector<Body*>& objects);

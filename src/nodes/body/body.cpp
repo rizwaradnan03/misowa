@@ -1,27 +1,10 @@
 #include <nodes/body/body.h>
 #include <iostream>
 
-Body::Body(int32_t x, int32_t y, int32_t w, int32_t h){
-    Transform* iTrans = new Transform(x, y, w, h);
-    
-    int32_t wH = w / 2;
-    int32_t hH = h / 2;
-
-    float vert[] = {
-        (float)x - wH, (float)y - hH,
-        (float)x + wH, (float)y - hH,
-        (float)x + wH, (float)y + hH,
-        (float)x - wH, (float)y + hH,
-    };
-
-    Mesh* iMesh = new Mesh(vert, 8);
-
-    std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
-    Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
-
-    this->set_transform(iTrans);
-    this->set_mesh(iMesh);
-    this->set_material(iMaterial);
+Body::Body(Transform* transform, Mesh* mesh, Material* material): Entity(transform, mesh, material){
+    this->set_transform(transform);
+    this->set_mesh(mesh);
+    this->set_material(material);
 }
 
 Transform* Body::get_transform(){
@@ -70,12 +53,12 @@ void Body::physic(const std::vector<Body*>& objects){
 
 void Body::object_collide(const std::vector<Body*>& objects){}
 
-void Body::Run(const std::vector<Body*>& objects){
+void Body::Execute(const std::vector<Body*>& objects){
     this->physic(objects);    
     this->Display();
 }
 
 void Body::Display(){
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
     this->get_mesh()->Execute(this->get_transform());
+    this->get_material()->Execute(this->get_transform());
 }

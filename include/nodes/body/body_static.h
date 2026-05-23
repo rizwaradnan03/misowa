@@ -13,8 +13,8 @@
 
 class BODY_Static: public Body {
     public:
-        BODY_Static(float x, float y, float w, float h);
-        virtual void Run(const std::vector<Body*>& objects) override;
+        BODY_Static(Transform* transform, Mesh* mesh, Material* material);
+        virtual void Execute(const std::vector<Body*>& objects) override;
         virtual void Display() override;
         
         virtual void physic(const std::vector<Body*>& objects) override;

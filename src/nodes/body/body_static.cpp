@@ -1,27 +1,10 @@
 #include <nodes/body/body_static.h>
 #include <iostream>
 
-BODY_Static::BODY_Static(float x, float y, float w, float h) : Body(x, y, w, h){
-    Transform* iTrans = new Transform(x, y, w, h);
-    
-    float wH = w / 2;
-    float hH = h / 2;
-
-    float vert[] = {
-        x - wH, y - hH,
-        x + wH, y - hH,
-        x + wH, y + hH,
-        x - wH, y + hH,
-    };
-
-    Mesh* iMesh = new Mesh(vert, 8);
-
-    std::vector<float> col = color::find_rgba_color_by_name(color::GREEN);
-    Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
-
-    this->set_transform(iTrans);
-    this->set_mesh(iMesh);
-    this->set_material(iMaterial);
+BODY_Static::BODY_Static(Transform* transform, Mesh* mesh, Material* material) : Body(transform, mesh, material){
+    this->set_transform(transform);
+    this->set_mesh(mesh);
+    this->set_material(material);
 }
 
 Transform* BODY_Static::get_transform(){
@@ -54,13 +37,12 @@ void BODY_Static::physic(const std::vector<Body*>& objects){
 
 void BODY_Static::object_collide(const std::vector<Body*>& objects){}
 
-void BODY_Static::Run(const std::vector<Body*>& objects){
+void BODY_Static::Execute(const std::vector<Body*>& objects){
     this->physic(objects);    
     this->Display();
 }
 
 void BODY_Static::Display(){
-    // std::cout << "MY POS : " << this->get_transform()->get_x() << " " << this->get_transform()->get_y() << std::endl;
     this->get_mesh()->Execute(this->get_transform());
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
+    this->get_material()->Execute(this->get_transform());
 }

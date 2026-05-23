@@ -1,6 +1,6 @@
 #include <nodes/gui/gui.h>
 
-Gui::Gui(Transform* transform, Mesh* mesh, Material* material){
+Gui::Gui(Transform* transform, Mesh* mesh, Material* material): Entity(transform, mesh, material){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -32,5 +32,5 @@ void Gui::set_material(Material* value){
 
 void Gui::Execute(){
     this->get_mesh()->Execute(this->get_transform());
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
+    this->get_material()->Execute(this->get_transform());
 }

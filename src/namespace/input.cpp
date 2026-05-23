@@ -19,6 +19,17 @@ namespace input {
         return ret;
     }
 
+    std::string* mouse_pressed(){
+        std::string* ret = nullptr;
+
+        int state = glfwGetMouseButton(G_SINGLETON_gl->get(), GLFW_MOUSE_BUTTON_LEFT);
+        if(state == GLFW_PRESS){
+            ret = new std::string("LEFT");
+        }
+
+        return ret;
+    }
+
     std::pair<double, double> mouse_position(){
         double xPos, yPos;
         glfwGetCursorPos(G_SINGLETON_gl->get(), &xPos, &yPos);

@@ -1,25 +1,8 @@
 #include <source/world/player.h>
 #include <iostream>
 
-Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
-    Transform* iTrans = new Transform(x, y, w, h);
-    
-    float wH = w / 2;
-    float hH = h / 2;
-
-    float vert[] = {
-        x - wH, y - hH,
-        x + wH, y - hH,
-        x + wH, y + hH,
-        x - wH, y + hH,
-    };
-
-    Mesh* iMesh = new Mesh(vert, 8);
-
-    std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
-    Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
-
-    Camera* iCam = new Camera(x, y);
+Player::Player(Transform* transform, Mesh* mesh, Material* material) : BODY_Dynamic(transform, mesh, material){
+    Camera* iCam = new Camera(transform->get_x(), transform->get_y());
     Movement* iMovement = new Movement();
 
     Attribute* iAttr = new Attribute(5);
@@ -27,9 +10,9 @@ Player::Player(float x, float y, float w, float h) : BODY_Dynamic(x, y, w, h){
 
     Box_hit* box_hit = new Box_hit();
 
-    this->set_transform(iTrans);
-    this->set_mesh(iMesh);
-    this->set_material(iMaterial);
+    this->set_transform(transform);
+    this->set_mesh(mesh);
+    this->set_material(material);
     this->set_camera(iCam);
     this->set_movement(iMovement);
     this->set_attribute(iAttr);
@@ -74,6 +57,14 @@ Camera* Player::get_camera(){
 
 void Player::set_camera(Camera* value){
     this->camera = value;
+}
+
+Mouse* Player::get_mouse(){
+    return this->mouse;
+}
+
+void Player::set_mouse(Mouse* value){
+    this->mouse = value;
 }
 
 Attribute* Player::get_attribute(){
@@ -132,11 +123,11 @@ void Player::object_collide(const std::vector<Body*>& objects){
     }
 
     if(point[1] == false){
-        // if(this->get_movement()->get_elapse_jump() == nullptr){
-        //     float prevVal = this->get_transform()->get_y();
-        //     this->get_transform()->set_y(prevVal - dft::calc_displacement());
-        //     this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh()); // triggering to update the current position
-        // }
+        if(this->get_movement()->get_elapse_jump() == nullptr){
+            float prevVal = this->get_transform()->get_y();
+            this->get_transform()->set_y(prevVal - dft::calc_displacement());
+            this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh()); // triggering to update the current position
+        }
     }else{
         this->get_movement()->set_jump_stock(1);
         this->get_movement()->set_elapse_jump(nullptr);
@@ -172,6 +163,9 @@ void Player::Run(const std::vector<Body*>& objects){
     this->physic(objects);  
     this->hit_checker();  
     this->Display();
+
+    this->get_movement()->Execute(this->get_transform(), this->get_mesh());
+    this->get_depth()->Execute(this->get_attribute());
 }
 
 void Player::hit_checker(){
@@ -184,7 +178,5 @@ void Player::hit_checker(){
 void Player::Display(){
     this->get_attribute()->Execute(this->get_transform(), this->get_material()->get_shader());
     this->get_mesh()->Execute(this->get_transform());
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
-    this->get_movement()->Execute(this->get_transform(), this->get_mesh());
-    this->get_depth()->Execute(this->get_attribute());
+    this->get_material()->Execute(this->get_transform());
 }

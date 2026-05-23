@@ -15,7 +15,7 @@ class GUI_click: public Gui {
         virtual Material* get_material() override;
         virtual void set_material(Material* value) override;
 
-        virtual void click();
+        virtual void hit_action();
 
         virtual void Execute() override;
 

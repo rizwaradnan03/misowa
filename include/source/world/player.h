@@ -16,10 +16,11 @@
 #include <signature/attribute.h>
 #include <signature/depth.h>
 #include <signature/box/box_hit.h>
+#include <signature/mouse.h>
 
 class Player: public BODY_Dynamic {
     public:
-        Player(float x, float y, float w, float h);
+        Player(Transform* transform, Mesh* mesh, Material* material);
         void Run(const std::vector<Body*>& objects);
         void Display() override;
         
@@ -37,6 +38,9 @@ class Player: public BODY_Dynamic {
         
         Camera* get_camera();
         void set_camera(Camera* value);
+
+        Mouse* get_mouse();
+        void set_mouse(Mouse* value);
 
         Attribute* get_attribute();
         void set_attribute(Attribute* value);
@@ -60,6 +64,7 @@ class Player: public BODY_Dynamic {
         Movement* movement;
         
         Camera* camera;
+        Mouse* mouse;
 
         Attribute* attribute;
         Depth* depth;

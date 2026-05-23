@@ -2,7 +2,7 @@
 
 #include <string>
 #include <utility>
-#include <singleton/gl.h>
+#include <singleton/g_gl.h>
 #include <GLFW/glfw3.h>
 
 namespace input {
@@ -10,6 +10,8 @@ namespace input {
     std::string* just_released();
 
     std::string* continuous_pressed();
+
+    std::string* mouse_pressed();
 
     std::pair<double, double> mouse_position();
 };

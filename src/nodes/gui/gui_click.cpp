@@ -30,12 +30,10 @@ void GUI_click::set_material(Material* value){
     this->material = value;
 }
 
-void GUI_click::click(){
-
-}
+void GUI_click::hit_action(){}
 
 void GUI_click::Execute(){
     this->get_mesh()->Execute(this->get_transform());
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
-    this->click();
+    this->get_material()->Execute(this->get_transform());
+    this->hit_action();
 }

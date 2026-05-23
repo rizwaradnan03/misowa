@@ -1,30 +1,13 @@
 #include <nodes/body/body_dynamic.h>
 #include <iostream>
 
-BODY_Dynamic::BODY_Dynamic(float x, float y, float w, float h) : Body(x, y, w, h){
-    Transform* iTrans = new Transform(x, y, w, h);
-    
-    float wH = w / 2;
-    float hH = h / 2;
-
-    float vert[] = {
-        x - wH, y - hH,
-        x + wH, y - hH,
-        x + wH, y + hH,
-        x - wH, y + hH,
-    };
-
-    Mesh* iMesh = new Mesh(vert, 8);
-
-    std::vector<float> col = color::find_rgba_color_by_name(color::BLUE);
-    Material* iMaterial = new Material(col[0], col[1], col[2], col[3]);
-
-    Camera* iCam = new Camera(x, y);
+BODY_Dynamic::BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material) : Body(transform, mesh, material){
+    Camera* iCam = new Camera(transform->get_x(), transform->get_y());
     Movement* iMovement = new Movement();
 
-    this->set_transform(iTrans);
-    this->set_mesh(iMesh);
-    this->set_material(iMaterial);
+    this->set_transform(transform);
+    this->set_mesh(mesh);
+    this->set_material(material);
     this->set_camera(iCam);
     this->set_movement(iMovement);
 }
@@ -77,14 +60,14 @@ void BODY_Dynamic::object_collide(const std::vector<Body*>& objects){}
 
 void BODY_Dynamic::camera_alligner(){}
 
-void BODY_Dynamic::Run(const std::vector<Body*>& objects){
+void BODY_Dynamic::Execute(const std::vector<Body*>& objects){
     this->camera_alligner();
     this->physic(objects);    
     this->Display();
+    this->get_movement()->Execute(this->get_transform(), this->get_mesh());
 }
 
 void BODY_Dynamic::Display(){
     this->get_mesh()->Execute(this->get_transform());
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
-    this->get_movement()->Execute(this->get_transform(), this->get_mesh());
+    this->get_material()->Execute(this->get_transform());
 }

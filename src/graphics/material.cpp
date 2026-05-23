@@ -1,5 +1,5 @@
 #include <graphics/material.h>
-#include <singleton/system.h>
+#include <singleton/g_system.h>
 #include <iostream>
 
 Material::Material(float r, float g, float b, float a){
@@ -50,7 +50,7 @@ void Material::set_a(float value){
     this->a = value;
 }
 
-void Material::Execute(float x, float y){
+void Material::Execute(Transform* transform){
     this->get_shader()->use();
 
     unsigned int colorLoc = glGetUniformLocation(this->get_shader()->get_ID(), "uColor");
@@ -65,5 +65,5 @@ void Material::Execute(float x, float y){
 
     unsigned int offsetLoc = glGetUniformLocation(this->get_shader()->get_ID(), "uOffset");
 
-    glUniform2f(offsetLoc, x, y);
+    glUniform2f(offsetLoc, transform->get_x(), transform->get_y());
 }

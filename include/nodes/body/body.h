@@ -9,11 +9,12 @@
 #include <namespace/color.h>
 #include <signature/box/box_hit.h>
 #include <signature/attribute.h>
+#include <nodes/entity.h>
 
-class Body {
+class Body: public Entity {
     public:
-        Body(int32_t x, int32_t y, int32_t w, int32_t h);
-        virtual void Run(const std::vector<Body*>& objects);
+        Body(Transform* transform, Mesh* mesh, Material* material);
+        virtual void Execute(const std::vector<Body*>& objects);
         virtual void Display();
         
         virtual void physic(const std::vector<Body*>& objects);

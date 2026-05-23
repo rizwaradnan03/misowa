@@ -40,7 +40,7 @@ void GUI_container::set_nodes(std::vector<Gui*> value){
 
 void GUI_container::Execute(){
     this->get_mesh()->Execute(this->get_transform());
-    this->get_material()->Execute(this->get_transform()->get_x(), this->get_transform()->get_y());
+    this->get_material()->Execute(this->get_transform());
 
     for(int i = 0;i < this->get_nodes().size();i++){
         this->get_nodes()[i]->Execute();

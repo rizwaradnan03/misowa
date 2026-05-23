@@ -31,7 +31,7 @@ void Game::Start(){
 
     GLFWwindow *window;
 
-    window = glfwCreateWindow(800, 600, "Misowa", NULL, NULL);
+    window = glfwCreateWindow(APP_WIDTH, APP_HEITGH, APP_NAME, NULL, NULL);
     if (!window)
     {
         std::cout << "FAILED CREATE WINDOW\n";
