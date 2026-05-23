@@ -1,5 +1,7 @@
 #include <signature/mouse.h>
 
+Mouse::Mouse(){}
+
 std::pair<double, double> Mouse::get_position(){
     return input::mouse_position();
 }

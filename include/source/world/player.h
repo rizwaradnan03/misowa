@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <cstdint>
 #include <string>
 #include <nodes/body/body_dynamic.h>
@@ -17,6 +18,7 @@
 #include <signature/depth.h>
 #include <signature/box/box_hit.h>
 #include <signature/mouse.h>
+#include <nodes/gui/gui_container.h>
 
 class Player: public BODY_Dynamic {
     public:
@@ -51,6 +53,10 @@ class Player: public BODY_Dynamic {
         Box_hit* get_box_hit();
         void set_box_hit(Box_hit* value);
 
+        std::vector<GUI_container*> get_gui_containers();
+        void set_gui_containers(std::vector<GUI_container*> value);
+        void set_push_gui_containers(GUI_container* value);
+
         void physic(const std::vector<Body*>& objects);
         void object_collide(const std::vector<Body*>& objects);
         void camera_alligner();
@@ -70,4 +76,6 @@ class Player: public BODY_Dynamic {
         Depth* depth;
 
         Box_hit* box_hit;
+
+        std::vector<GUI_container*> gui_containers;
 };

@@ -5,6 +5,8 @@
 #include <graphics/transform.h>
 #include <graphics/mesh.h>
 #include <graphics/material.h>
+#include <signature/box/box_hit.h>
+#include <signature/attribute.h>
 
 class Body;
 class Transform;
@@ -23,6 +25,12 @@ class Entity {
 
         virtual Material* get_material();
         virtual void set_material(Material* value);
+        
+        virtual Attribute* get_attribute();
+        virtual void set_attribute(Attribute* value);
+        
+        virtual Box_hit* get_box_hit();
+        virtual void set_box_hit(Box_hit* value);
 
         virtual void Execute(const std::vector<Body*>& objects);
         virtual void Display();
@@ -31,4 +39,8 @@ class Entity {
         Transform* transform;
         Mesh* mesh;
         Material* material;
+
+        Attribute* attribute;
+
+        Box_hit* box_hit;
 };

@@ -2,11 +2,13 @@
 #include <iostream>
 
 Player::Player(Transform* transform, Mesh* mesh, Material* material) : BODY_Dynamic(transform, mesh, material){
-    Camera* iCam = new Camera(transform->get_x(), transform->get_y());
     Movement* iMovement = new Movement();
-
+    
     Attribute* iAttr = new Attribute(5);
     Depth* iDepth = new Depth();
+
+    Camera* iCam = new Camera(transform->get_x(), transform->get_y());
+    Mouse* iMouse = new Mouse();
 
     Box_hit* box_hit = new Box_hit();
 
@@ -14,6 +16,7 @@ Player::Player(Transform* transform, Mesh* mesh, Material* material) : BODY_Dyna
     this->set_mesh(mesh);
     this->set_material(material);
     this->set_camera(iCam);
+    this->set_mouse(iMouse);
     this->set_movement(iMovement);
     this->set_attribute(iAttr);
     this->set_depth(iDepth);
@@ -91,6 +94,18 @@ void Player::set_box_hit(Box_hit* value){
     this->box_hit = value;
 }
 
+std::vector<GUI_container*> Player::get_gui_containers(){
+    return this->gui_containers;
+}
+
+void Player::set_gui_containers(std::vector<GUI_container*> value){
+    this->gui_containers = value;
+}
+
+void Player::set_push_gui_containers(GUI_container* value){
+    this->gui_containers.push_back(value);
+}
+
 void Player::physic(const std::vector<Body*>& objects){
     this->object_collide(objects);
 }
@@ -164,8 +179,14 @@ void Player::Run(const std::vector<Body*>& objects){
     this->hit_checker();  
     this->Display();
 
+    this->get_mouse()->Execute();
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
     this->get_depth()->Execute(this->get_attribute());
+
+    for(int i = 0;i < this->get_gui_containers().size();i++){
+        GUI_container* gc = this->get_gui_containers()[i];
+        gc->Execute(this->get_transform());
+    }
 }
 
 void Player::hit_checker(){

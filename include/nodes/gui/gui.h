@@ -4,10 +4,11 @@
 #include <graphics/mesh.h>
 #include <graphics/material.h>
 #include <nodes/entity.h>
+#include <dto/dto_poleset.h>
 
 class Gui: public Entity {
     public:
-        Gui(Transform* transform, Mesh* mesh, Material* material);
+        Gui(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
         
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);
@@ -18,10 +19,18 @@ class Gui: public Entity {
         virtual Material* get_material();
         virtual void set_material(Material* value);
 
-        virtual void Execute();
+        virtual float get_pole_x();
+        virtual void set_pole_x(float value);
+
+        virtual float get_pole_y();
+        virtual void set_pole_y(float value);
+
+        virtual void Execute(Transform* transform);
 
     private:
         Transform* transform;
         Mesh* mesh;
         Material* material;
+
+        float pole_x, pole_y;
 };

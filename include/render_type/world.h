@@ -9,8 +9,9 @@
 #include <graphics/transform.h>
 #include <signature/attribute.h>
 #include <engine/shader.h>
-#include <nodes/gui/gui.h>
 #include <nodes/entity.h>
+#include <source/world/gui_inventory.h>
+#include <dto/dto_poleset.h>
 
 class RT_World {
     public:
@@ -24,17 +25,12 @@ class RT_World {
         void set_objects(std::vector<Body*> value);
         void set_push_object(Body* value);
         
-        std::vector<Gui*> get_guis();
-        void set_guis(std::vector<Gui*> value);
-        void set_push_gui(Gui* value);
-
         void check_event();
         void check_event_hit();
 
     private:
         Player* player;
         std::vector<Body*> objects;
-        std::vector<Gui*> guis;
 };
 
 extern RT_World* RTW;

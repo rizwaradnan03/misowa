@@ -30,6 +30,22 @@ void Entity::set_material(Material* value){
     this->material = value;
 }
 
+Attribute* Entity::get_attribute(){
+    return this->attribute;
+}
+
+void Entity::set_attribute(Attribute* value){
+    this->attribute = value;
+}
+
+Box_hit* Entity::get_box_hit(){
+    return this->box_hit;
+}
+
+void Entity::set_box_hit(Box_hit* value){
+    this->box_hit = value;
+}
+
 void Entity::Execute(const std::vector<Body*>& objects){
     this->Display();
 }

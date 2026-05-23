@@ -6,6 +6,8 @@
 
 class Mouse {
     public:
+        Mouse();
+
         std::pair<double, double> get_position();
         void Execute();
 };

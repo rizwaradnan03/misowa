@@ -57,6 +57,34 @@ void RT_World::Init(std::string type){
     Material* pMat = new Material(col[0], col[1], col[2], col[3]);
 
     Player* p = new Player(pTrans, pMesh, pMat);
+
+    std::vector<GUI_container*> gContainers;
+    Transform* ct1Trans = new Transform(0.0f, 0.0f, 210.0f, 60.0f);
+
+    float wHalfct1 = ct1Trans->get_w() / 2;
+    float hHalfct1 = ct1Trans->get_h() / 2;
+
+    float vertCt1[8] = {
+        ct1Trans->get_x() - wHalfct1, ct1Trans->get_y() - hHalfct1,
+        ct1Trans->get_x() + wHalfct1, ct1Trans->get_y() - hHalfct1,
+        ct1Trans->get_x() + wHalfct1, ct1Trans->get_y() + hHalfct1,
+        ct1Trans->get_x() - wHalfct1, ct1Trans->get_y() + hHalfct1,
+    };
+    Mesh* ct1Mesh = new Mesh(vertCt1, 8);
+    
+    std::vector<float> ct1Col = color::find_rgba_color_by_name(color::WHITE);
+    Material* ct1Mat = new Material(ct1Col[0], ct1Col[1], ct1Col[2], ct1Col[3]);
+
+    PoleSet ps1;
+    ps1.x = 0;
+    ps1.y = -270;
+
+    GUI_container* ct1 = new GUI_inventory(ct1Trans, ct1Mesh, ct1Mat, ps1);
+
+    gContainers.push_back(ct1);
+
+    p->set_gui_containers(gContainers);
+    
     this->set_player(p);
 }
 
@@ -80,31 +108,16 @@ void RT_World::set_push_object(Body* value){
     this->objects.push_back(value);
 }
 
-std::vector<Gui*> RT_World::get_guis(){
-    return this->guis;
-}
-
-void RT_World::set_guis(std::vector<Gui*> value){
-    this->guis = value;
-}
-
-void RT_World::set_push_gui(Gui* value){
-    this->guis.push_back(value);
-}
-
 void RT_World::Start(){
     std::vector<Body*> obj = this->get_objects();
-    std::vector<Gui*> gui = this->get_guis();
 
     this->get_player()->Run(obj);
 
-    for(int i = 0;i < obj.size() + gui.size();i++){
+    for(int i = 0;i < obj.size();i++){
         Entity* enty;
         
         if(i < obj.size()){
             enty = obj[i];
-        }else{
-            enty = gui[i - obj.size()];
         }
 
         enty->Execute(obj);
@@ -120,7 +133,6 @@ void RT_World::check_event(){
 void RT_World::check_event_hit(){
     std::vector<Area_Hit*> val = G_SINGLETON_action->get_action_hit();
     std::vector<Body*> obj = this->get_objects();
-    std::vector<Gui*> gui = this->get_guis();
 
     for(int i = 0;i < val.size();i++){
         double ml = val[i]->get_x() - (val[i]->get_w() / 2);
@@ -128,18 +140,26 @@ void RT_World::check_event_hit(){
         double mt = val[i]->get_y() + (val[i]->get_h() / 2);
         double mb = val[i]->get_y() - (val[i]->get_h() / 2);
     
-        for(int j = 0;j < obj.size() + gui.size();j++){
-            if(obj[i]->get_box_hit() != nullptr){
-                float tl = obj[i]->get_transform()->get_x() - (obj[i]->get_transform()->get_w() / 2);
-                float tr = obj[i]->get_transform()->get_x() + (obj[i]->get_transform()->get_w() / 2);
-                float tt = obj[i]->get_transform()->get_y() + (obj[i]->get_transform()->get_h() / 2);
-                float tb = obj[i]->get_transform()->get_y() - (obj[i]->get_transform()->get_h() / 2);
+        for(int j = 0;j < obj.size();j++){
+            Entity* enty;
+
+            if(j < obj.size()){
+                enty = obj[j];
+            }
+
+            if(enty->get_box_hit() != nullptr){
+                float tl = enty->get_transform()->get_x() - (enty->get_transform()->get_w() / 2);
+                float tr = enty->get_transform()->get_x() + (enty->get_transform()->get_w() / 2);
+                float tt = enty->get_transform()->get_y() + (enty->get_transform()->get_h() / 2);
+                float tb = enty->get_transform()->get_y() - (enty->get_transform()->get_h() / 2);
     
                 if((mr >= tl && ml <= tr) || (ml <= tr && mr > tl)){
-                    Transform* trs = obj[i]->get_transform();
-                    Shader* shd = obj[i]->get_material()->get_shader();
-                    Attribute* attr = obj[i]->get_attribute();
-                    obj[i]->get_box_hit()->action(val[i]->get_damage(), trs, shd, attr);
+                    if(j < obj.size()){ // hitted
+                        Transform* trs = enty->get_transform();
+                        Shader* shd = enty->get_material()->get_shader();
+                        Attribute* attr = enty->get_attribute();
+                        enty->get_box_hit()->action(val[i]->get_damage(), trs, shd, attr);
+                    }
                 }
             }
         }
