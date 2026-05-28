@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <source/world/player.h>
+#include <source/world/object/player.h>
 #include <nodes/body/body.h>
 #include <nodes/body/body_static.h>
 #include <namespace/rule.h>
@@ -10,7 +10,7 @@
 #include <signature/attribute.h>
 #include <engine/shader.h>
 #include <nodes/entity.h>
-#include <source/world/gui_inventory.h>
+#include <source/world/gui/gui_inventory.h>
 #include <dto/dto_poleset.h>
 
 class RT_World {
@@ -26,7 +26,7 @@ class RT_World {
         void set_push_object(Body* value);
         
         void check_event();
-        void check_event_hit();
+        void check_event_object_hit();
 
     private:
         Player* player;

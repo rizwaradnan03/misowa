@@ -10,6 +10,7 @@
 #include <render_type/gui.h>
 #include <singleton/g_system.h>
 #include <singleton/g_action.h>
+#include <singleton/g_player.h>
 #include <config/c_app.h>
 
 class Game {

@@ -72,7 +72,7 @@ void RT_World::Init(std::string type){
     };
     Mesh* ct1Mesh = new Mesh(vertCt1, 8);
     
-    std::vector<float> ct1Col = color::find_rgba_color_by_name(color::WHITE);
+    std::vector<float> ct1Col = color::find_rgba_color_by_name(color::BLUE);
     Material* ct1Mat = new Material(ct1Col[0], ct1Col[1], ct1Col[2], ct1Col[3]);
 
     PoleSet ps1;
@@ -127,11 +127,11 @@ void RT_World::Start(){
 }
 
 void RT_World::check_event(){
-    this->check_event_hit();
+    this->check_event_object_hit();
 }
 
-void RT_World::check_event_hit(){
-    std::vector<Area_Hit*> val = G_SINGLETON_action->get_action_hit();
+void RT_World::check_event_object_hit(){
+    std::vector<Area_Hit*> val = G_SINGLETON_action->get_action_object_hit();
     std::vector<Body*> obj = this->get_objects();
 
     for(int i = 0;i < val.size();i++){
@@ -165,5 +165,5 @@ void RT_World::check_event_hit(){
         }
     }
 
-    G_SINGLETON_action->set_action_hit({});
+    G_SINGLETON_action->set_action_object_hit({});
 }

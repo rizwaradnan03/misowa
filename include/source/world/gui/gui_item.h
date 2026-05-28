@@ -1,16 +1,12 @@
 #pragma once
 
-#include <nodes/gui/gui.h>
-#include <graphics/transform.h>
-#include <graphics/mesh.h>
-#include <graphics/material.h>
-#include <dto/dto_poleset.h>
-#include <namespace/input.h>
-#include <singleton/g_action.h>
+#include <nodes/gui/gui_click.h>
+#include <string>
+#include <singleton/g_player.h>
 
-class GUI_click: public Gui {
+class GUI_item: public Gui {
     public:
-        GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
+        GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item);
         
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
@@ -27,6 +23,9 @@ class GUI_click: public Gui {
         virtual float get_pole_y() override;
         virtual void set_pole_y(float value) override;
 
+        std::string* get_item();
+        void set_item(std::string* value);
+
         virtual void hit_action();
 
         virtual void Execute(Transform* transform) override;
@@ -36,5 +35,7 @@ class GUI_click: public Gui {
         Mesh* mesh;
         Material* material;
 
+        std::string* item;
+        
         float pole_x, pole_y;
 };

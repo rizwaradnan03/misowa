@@ -1,4 +1,4 @@
-#include <source/world/player.h>
+#include <source/world/object/player.h>
 #include <iostream>
 
 Player::Player(Transform* transform, Mesh* mesh, Material* material) : BODY_Dynamic(transform, mesh, material){
@@ -141,7 +141,7 @@ void Player::object_collide(const std::vector<Body*>& objects){
         if(this->get_movement()->get_elapse_jump() == nullptr){
             float prevVal = this->get_transform()->get_y();
             this->get_transform()->set_y(prevVal - dft::calc_displacement());
-            this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh()); // triggering to update the current position
+            this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh());
         }
     }else{
         this->get_movement()->set_jump_stock(1);

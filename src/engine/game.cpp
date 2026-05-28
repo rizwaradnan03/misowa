@@ -18,6 +18,8 @@ void Game::Init(GLFWwindow *win){
     G_SINGLETON_system = new System();
     G_SINGLETON_system->set_shader(shd);
     G_SINGLETON_system->change_screen(WORLD, "MAIN");
+
+    G_SINGLETON_player = new SINGLETON_player();
 }
 
 void Game::Start(){

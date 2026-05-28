@@ -45,7 +45,7 @@ void Movement::move(Transform* transform, Mesh* mesh, std::vector<bool> inavail)
         return;
     }   
 
-    if(*mov == "TOP"){
+    if(*mov == "SPACE"){
         if(this->get_jump_stock() > 0){
             std::chrono::time_point<std::chrono::high_resolution_clock>* current_time = new std::chrono::time_point<std::chrono::high_resolution_clock>(std::chrono::high_resolution_clock::now());
             this->set_elapse_jump(current_time);

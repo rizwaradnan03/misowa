@@ -2,7 +2,7 @@
 
 Mouse::Mouse(){}
 
-std::pair<double, double> Mouse::get_position(){
+std::pair<float, float> Mouse::get_position(){
     return input::mouse_position();
 }
 
@@ -12,8 +12,8 @@ void Mouse::Execute(){
         return;
     }
     
-    std::pair<double, double> mPos = input::mouse_position();
+    std::pair<float, float> mPos = input::mouse_position();
 
-    Area_Hit* ah = new Area_Hit(nullptr, (double)mPos.first, (double)mPos.second, 30.0f, 30.0f);
-    G_SINGLETON_action->set_push_action_hit(ah);
+    Area_Hit* ah = new Area_Hit(nullptr, (float)mPos.first, (float)mPos.second, 30.0f, 30.0f);
+    G_SINGLETON_action->set_push_action_object_hit(ah);
 }

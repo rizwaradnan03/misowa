@@ -13,5 +13,5 @@ namespace input {
 
     std::string* mouse_pressed();
 
-    std::pair<double, double> mouse_position();
+    std::pair<float, float> mouse_position();
 };

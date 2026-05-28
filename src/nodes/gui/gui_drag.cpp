@@ -1,6 +1,6 @@
-#include <nodes/gui/gui_click.h>
+#include <nodes/gui/gui_drag.h>
 
-GUI_click::GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet) : Gui(transform, mesh, material, poleSet){
+GUI_drag::GUI_drag(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet) : Gui(transform, mesh, material, poleSet){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -8,47 +8,47 @@ GUI_click::GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleS
     this->set_pole_y(poleSet.y);
 }
 
-Transform* GUI_click::get_transform(){
+Transform* GUI_drag::get_transform(){
     return this->transform;
 }
 
-void GUI_click::set_transform(Transform* value){
+void GUI_drag::set_transform(Transform* value){
     this->transform = value;
 }
 
-Mesh* GUI_click::get_mesh(){
+Mesh* GUI_drag::get_mesh(){
     return this->mesh;
 }
 
-void GUI_click::set_mesh(Mesh* value){
+void GUI_drag::set_mesh(Mesh* value){
     this->mesh = value;
 }
 
-Material* GUI_click::get_material(){
+Material* GUI_drag::get_material(){
     return this->material;
 }
 
-void GUI_click::set_material(Material* value){
+void GUI_drag::set_material(Material* value){
     this->material = value;
 }
 
-float GUI_click::get_pole_x(){
+float GUI_drag::get_pole_x(){
     return this->pole_x;
 }
 
-void GUI_click::set_pole_x(float value){
+void GUI_drag::set_pole_x(float value){
     this->pole_x = value;
 }
 
-float GUI_click::get_pole_y(){
+float GUI_drag::get_pole_y(){
     return this->pole_y;
 }
 
-void GUI_click::set_pole_y(float value){
+void GUI_drag::set_pole_y(float value){
     this->pole_y = value;
 }
 
-void GUI_click::hit_action(){
+void GUI_drag::drag_action(){
     std::pair<float, float> mPos = input::mouse_position();
 
     float wH = this->get_transform()->get_w() / 2;
@@ -60,19 +60,15 @@ void GUI_click::hit_action(){
     float bottom = this->get_transform()->get_y() + hH;
 
     if(mPos.first >= left && mPos.first <= right && mPos.second <= top && mPos.second >= bottom){
-        std::string* mAct = input::mouse_pressed();
-        if(mAct == nullptr){
-            return;
-        }
-
+        // the action
     }
 }
 
-void GUI_click::Execute(Transform* transform){
+void GUI_drag::Execute(Transform* transform){
     Transform* changeTrans = new Transform(transform->get_x() + this->get_pole_x(), transform->get_y() + this->get_pole_y(), this->get_transform()->get_w(), this->get_transform()->get_h());
     this->set_transform(changeTrans);
 
     this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform());
-    this->hit_action();
+    this->drag_action();
 }

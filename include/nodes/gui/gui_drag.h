@@ -6,11 +6,10 @@
 #include <graphics/material.h>
 #include <dto/dto_poleset.h>
 #include <namespace/input.h>
-#include <singleton/g_action.h>
 
-class GUI_click: public Gui {
+class GUI_drag: public Gui {
     public:
-        GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
+        GUI_drag(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
         
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
@@ -27,7 +26,7 @@ class GUI_click: public Gui {
         virtual float get_pole_y() override;
         virtual void set_pole_y(float value) override;
 
-        virtual void hit_action();
+        virtual void drag_action();
 
         virtual void Execute(Transform* transform) override;
 

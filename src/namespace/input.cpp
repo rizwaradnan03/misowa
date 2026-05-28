@@ -30,10 +30,10 @@ namespace input {
         return ret;
     }
 
-    std::pair<double, double> mouse_position(){
+    std::pair<float, float> mouse_position(){
         double xPos, yPos;
         glfwGetCursorPos(G_SINGLETON_gl->get(), &xPos, &yPos);
 
-        return std::make_pair(xPos, yPos);
+        return std::make_pair((float)xPos, (float)yPos);
     }
 }
