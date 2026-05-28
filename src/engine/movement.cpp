@@ -52,7 +52,9 @@ void Movement::move(Transform* transform, Mesh* mesh, std::vector<bool> inavail)
 
             this->set_jump_stock(this->get_jump_stock() - 1);
         }
-    }else if(*mov == "LEFT" || *mov == "RIGHT"){
+    } 
+    
+    if(*mov == "LEFT" || *mov == "RIGHT"){
         float prevVal = transform->get_x();
         float calc = dft::calc_displacement();
 
