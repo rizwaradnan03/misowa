@@ -1,7 +1,7 @@
 #include <source/world/object/player.h>
 #include <iostream>
 
-Player::Player(Transform* transform, Mesh* mesh, Material* material) : BODY_Dynamic(transform, mesh, material){
+Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : BODY_Dynamic(transform, mesh, material, trait){
     Movement* iMovement = new Movement();
     
     Attribute* iAttr = new Attribute(5);
@@ -15,6 +15,7 @@ Player::Player(Transform* transform, Mesh* mesh, Material* material) : BODY_Dyna
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
+    this->set_trait(trait);
     this->set_camera(iCam);
     this->set_mouse(iMouse);
     this->set_movement(iMovement);
@@ -78,6 +79,14 @@ void Player::set_attribute(Attribute* value){
     this->attribute = value;
 }
 
+Trait* Player::get_trait(){
+    return this->trait;
+}
+
+void Player::set_trait(Trait* value){
+    this->trait = value;
+}
+
 Depth* Player::get_depth(){
     return this->depth;
 }
@@ -138,10 +147,13 @@ void Player::object_collide(const std::vector<Body*>& objects){
     }
 
     if(point[1] == false){
-        if(this->get_movement()->get_elapse_jump() == nullptr){
-            float prevVal = this->get_transform()->get_y();
-            this->get_transform()->set_y(prevVal - dft::calc_displacement());
-            this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh());
+        bool haveAnchor = this->get_trait()->find_exist(TraitType::ANCHOR);
+        if(haveAnchor == false){
+            if(this->get_movement()->get_elapse_jump() == nullptr){
+                float prevVal = this->get_transform()->get_y();
+                this->get_transform()->set_y(prevVal - dft::calc_displacement());
+                this->get_movement()->trigger_change_position(this->get_transform(), this->get_mesh());
+            }
         }
     }else{
         this->get_movement()->set_jump_stock(1);

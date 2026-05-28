@@ -13,10 +13,11 @@
 #include <graphics/material.h>
 #include <nodes/camera.h>
 #include <engine/movement.h>
+#include <signature/trait.h>
 
 class BODY_Dynamic: public Body {
     public:
-        BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material);
+        BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         void Execute(const std::vector<Body*>& objects);
         void Display() override;
         
@@ -31,6 +32,9 @@ class BODY_Dynamic: public Body {
 
         Material* get_material() override;
         void set_material(Material* value) override;
+
+        Trait* get_trait() override;
+        void set_trait(Trait* value) override;
         
         Movement* get_movement();
         void set_movement(Movement* value);
@@ -45,7 +49,9 @@ class BODY_Dynamic: public Body {
         Mesh* mesh;
         Material* material;
 
+        Trait* trait;
+
         Movement* movement;
-    
+
         Camera* camera;
 };

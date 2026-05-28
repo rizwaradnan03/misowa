@@ -10,10 +10,11 @@
 #include <graphics/mesh.h>
 #include <graphics/transform.h>
 #include <graphics/material.h>
+#include <signature/trait.h>
 
 class BODY_Static: public Body {
     public:
-        BODY_Static(Transform* transform, Mesh* mesh, Material* material);
+        BODY_Static(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         virtual void Execute(const std::vector<Body*>& objects) override;
         virtual void Display() override;
         
@@ -29,8 +30,13 @@ class BODY_Static: public Body {
         virtual Material* get_material();
         virtual void set_material(Material* value);
 
+        virtual Trait* get_trait();
+        virtual void set_trait(Trait* value);
+
     private:
         Transform* transform;
         Mesh* mesh;
         Material* material;
+
+        Trait* trait;
 };

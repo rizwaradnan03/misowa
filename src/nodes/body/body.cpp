@@ -1,10 +1,11 @@
 #include <nodes/body/body.h>
 #include <iostream>
 
-Body::Body(Transform* transform, Mesh* mesh, Material* material): Entity(transform, mesh, material){
+Body::Body(Transform* transform, Mesh* mesh, Material* material, Trait* trait): Entity(transform, mesh, material){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
+    this->set_trait(trait);
 }
 
 Transform* Body::get_transform(){
@@ -37,6 +38,14 @@ Attribute* Body::get_attribute(){
 
 void Body::set_attribute(Attribute* value){
     this->attribute = value;
+}
+
+Trait* Body::get_trait(){
+    return this->trait;
+}
+
+void Body::set_trait(Trait* value){
+    this->trait = value;
 }
 
 Box_hit* Body::get_box_hit(){

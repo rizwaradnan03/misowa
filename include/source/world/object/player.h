@@ -3,8 +3,8 @@
 #include <vector>
 #include <cstdint>
 #include <string>
-#include <nodes/body/body_dynamic.h>
 #include <glad/glad.h>
+#include <nodes/body/body_dynamic.h>
 #include <namespace/input.h>
 #include <namespace/default.h>
 #include <namespace/physic.h>
@@ -22,7 +22,7 @@
 
 class Player: public BODY_Dynamic {
     public:
-        Player(Transform* transform, Mesh* mesh, Material* material);
+        Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         void Run(const std::vector<Body*>& objects);
         void Display() override;
         
@@ -46,6 +46,9 @@ class Player: public BODY_Dynamic {
 
         Attribute* get_attribute();
         void set_attribute(Attribute* value);
+
+        Trait* get_trait();
+        void set_trait(Trait* value);
         
         Depth* get_depth();
         void set_depth(Depth* value);
@@ -71,6 +74,8 @@ class Player: public BODY_Dynamic {
         
         Camera* camera;
         Mouse* mouse;
+
+        Trait* trait;
 
         Attribute* attribute;
         Depth* depth;

@@ -8,12 +8,13 @@
 #include <graphics/material.h>
 #include <namespace/color.h>
 #include <signature/box/box_hit.h>
+#include <signature/trait.h>
 #include <signature/attribute.h>
 #include <nodes/entity.h>
 
 class Body: public Entity {
     public:
-        Body(Transform* transform, Mesh* mesh, Material* material);
+        Body(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         virtual void Execute(const std::vector<Body*>& objects);
         virtual void Display();
         
@@ -29,6 +30,9 @@ class Body: public Entity {
         virtual Material* get_material();
         virtual void set_material(Material* value);
 
+        virtual Trait* get_trait();
+        virtual void set_trait(Trait* value);
+
         virtual Attribute* get_attribute();
         virtual void set_attribute(Attribute* value);
 
@@ -41,6 +45,7 @@ class Body: public Entity {
         Material* material;
 
         Attribute* attribute;
+        Trait* trait;
 
         Box_hit* box_hit;
 };

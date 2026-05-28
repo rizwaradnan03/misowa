@@ -28,7 +28,7 @@ void RT_World::Init(std::string type){
                 std::vector<float> col = color::find_rgba_color_by_name(color::GREEN);
                 Material* bMat = new Material(col[0], col[1], col[2], col[3]);
                 
-                BODY_Static* st = new BODY_Static(bTrans, bMesh, bMat);
+                BODY_Static* st = new BODY_Static(bTrans, bMesh, bMat, nullptr);
                 obj_to_push.push_back(st);
 
                 x_val += 30;
@@ -56,7 +56,10 @@ void RT_World::Init(std::string type){
     std::vector<float> col = color::find_rgba_color_by_name(color::RED);
     Material* pMat = new Material(col[0], col[1], col[2], col[3]);
 
-    Player* p = new Player(pTrans, pMesh, pMat);
+    Trait* pTrait = new Trait();
+    pTrait->set_push_list(TraitType::BOUNCE);
+
+    Player* p = new Player(pTrans, pMesh, pMat, pTrait);
 
     std::vector<GUI_container*> gContainers;
     Transform* ct1Trans = new Transform(0.0f, 0.0f, 210.0f, 60.0f);

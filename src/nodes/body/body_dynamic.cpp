@@ -1,7 +1,7 @@
 #include <nodes/body/body_dynamic.h>
 #include <iostream>
 
-BODY_Dynamic::BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material) : Body(transform, mesh, material){
+BODY_Dynamic::BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : Body(transform, mesh, material, trait){
     Camera* iCam = new Camera(transform->get_x(), transform->get_y());
     Movement* iMovement = new Movement();
 
@@ -10,6 +10,7 @@ BODY_Dynamic::BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material)
     this->set_material(material);
     this->set_camera(iCam);
     this->set_movement(iMovement);
+    this->set_trait(trait);
 }
 
 Transform* BODY_Dynamic::get_transform(){
@@ -34,6 +35,14 @@ Material* BODY_Dynamic::get_material(){
 
 void BODY_Dynamic::set_material(Material* value){
     this->material = value;
+}
+
+Trait* BODY_Dynamic::get_trait(){
+    return this->trait;
+}
+
+void BODY_Dynamic::set_trait(Trait* value){
+    this->trait = value;
 }
 
 Movement* BODY_Dynamic::get_movement(){

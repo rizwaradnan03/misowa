@@ -1,10 +1,11 @@
 #include <nodes/body/body_static.h>
 #include <iostream>
 
-BODY_Static::BODY_Static(Transform* transform, Mesh* mesh, Material* material) : Body(transform, mesh, material){
+BODY_Static::BODY_Static(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : Body(transform, mesh, material, trait){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
+    this->set_trait(trait);
 }
 
 Transform* BODY_Static::get_transform(){
@@ -29,6 +30,13 @@ Material* BODY_Static::get_material(){
 
 void BODY_Static::set_material(Material* value){
     this->material = value;
+}
+Trait* BODY_Static::get_trait(){
+    return this->trait;
+}
+
+void BODY_Static::set_trait(Trait* value){
+    this->trait = value;
 }
 
 void BODY_Static::physic(const std::vector<Body*>& objects){
