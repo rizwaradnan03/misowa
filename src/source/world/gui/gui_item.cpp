@@ -1,12 +1,19 @@
 #include <source/world/gui/gui_item.h>
 
-GUI_item::GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item) : Gui(transform, mesh, material, poleSet){
+GUI_item::GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item) : GUI_click(transform, mesh, material, poleSet){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
     this->set_pole_x(poleSet.x);
     this->set_pole_y(poleSet.y);
     this->set_item(item);
+}
+
+GUI_item::~GUI_item(){
+    delete this->get_transform();
+    delete this->get_mesh();
+    delete this->get_material();
+    delete this->get_item();
 }
 
 Transform* GUI_item::get_transform(){

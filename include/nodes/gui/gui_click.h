@@ -11,6 +11,7 @@
 class GUI_click: public Gui {
     public:
         GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
+        ~GUI_click();
         
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;

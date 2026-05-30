@@ -13,6 +13,16 @@ BODY_Dynamic::BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material,
     this->set_trait(trait);
 }
 
+BODY_Dynamic::~BODY_Dynamic(){
+    delete this->get_transform();
+    delete this->get_mesh();
+    delete this->get_material();
+    delete this->get_trait();
+    delete this->get_box_hit();
+    delete this->get_movement();
+    delete this->get_camera();
+}
+
 Transform* BODY_Dynamic::get_transform(){
     return this->transform;
 }

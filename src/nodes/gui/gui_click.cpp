@@ -8,6 +8,12 @@ GUI_click::GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleS
     this->set_pole_y(poleSet.y);
 }
 
+GUI_click::~GUI_click(){
+    delete this->get_transform();
+    delete this->get_mesh();
+    delete this->get_material();
+}
+
 Transform* GUI_click::get_transform(){
     return this->transform;
 }

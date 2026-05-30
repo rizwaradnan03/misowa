@@ -20,6 +20,8 @@ void Game::Init(GLFWwindow *win){
     G_SINGLETON_system->change_screen(WORLD, "MAIN");
 
     G_SINGLETON_player = new SINGLETON_player();
+
+    G_SINGLETON_cache = new SINGLETON_cache();
 }
 
 void Game::Start(){
@@ -60,6 +62,11 @@ void Game::Start(){
     std::cout << "Version: " << glGetString(GL_VERSION) << "\n";
 
     this->Init(window);
+
+    std::vector<std::pair<std::string, std::variant<int, float, std::string>>> gtk = file::read_whole_file("player.json");
+    // for(int i = 0;i < gtk.size();i++){
+    //     std::cout << "YAP : " << gtk[i].first << std::endl;
+    // }
 
     while (!glfwWindowShouldClose(window)){        
         G_SINGLETON_gl->set(window);

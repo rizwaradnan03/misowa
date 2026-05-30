@@ -6,6 +6,7 @@
 class Material {
     public:
         Material(float r, float g, float b, float a);
+        ~Material();
         void Execute(Transform* transform);
 
         Shader* get_shader();

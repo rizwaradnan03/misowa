@@ -23,6 +23,24 @@ Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trai
     this->set_depth(iDepth);
 }
 
+Player::~Player(){
+    delete this->get_transform();
+    delete this->get_mesh();
+    delete this->get_material();
+    delete this->get_movement();
+    delete this->get_camera();
+    delete this->get_mouse();
+    delete this->get_trait();
+    delete this->get_attribute();
+    delete this->get_depth();
+    delete this->get_box_hit();
+
+    std::vector<GUI_container*> gc = this->get_gui_containers();
+    for(int i = 0;i < gc.size();i++){
+        delete gc[i];
+    }
+}
+
 Transform* Player::get_transform(){
     return this->transform;
 }

@@ -18,6 +18,7 @@
 class BODY_Dynamic: public Body {
     public:
         BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
+        ~BODY_Dynamic();
         void Execute(const std::vector<Body*>& objects);
         void Display() override;
         

@@ -10,6 +10,10 @@ Material::Material(float r, float g, float b, float a){
     this->set_a(a);
 }
 
+Material::~Material(){
+    delete this->get_shader();
+}
+
 Shader* Material::get_shader(){
     return this->shader;
 }

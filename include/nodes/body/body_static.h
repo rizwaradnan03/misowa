@@ -15,6 +15,7 @@
 class BODY_Static: public Body {
     public:
         BODY_Static(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
+        ~BODY_Static();
         virtual void Execute(const std::vector<Body*>& objects) override;
         virtual void Display() override;
         

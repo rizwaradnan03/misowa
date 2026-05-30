@@ -8,6 +8,18 @@ GUI_inventory::GUI_inventory(Transform* transform, Mesh* mesh, Material* materia
     this->set_pole_y(poleSet.y);
 }
 
+GUI_inventory::~GUI_inventory(){
+    delete this->get_transform();
+    delete this->get_mesh();
+    delete this->get_material();
+
+    std::vector<Gui*> nd = this->get_nodes();
+
+    for(int i = 0;i < nd.size();i++){
+        delete nd[i];
+    }
+}
+
 Transform* GUI_inventory::get_transform(){
     return this->transform;
 }

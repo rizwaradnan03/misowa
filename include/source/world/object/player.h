@@ -23,6 +23,7 @@
 class Player: public BODY_Dynamic {
     public:
         Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
+        ~Player();
         void Run(const std::vector<Body*>& objects);
         void Display() override;
         

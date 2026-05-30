@@ -4,9 +4,10 @@
 #include <string>
 #include <singleton/g_player.h>
 
-class GUI_item: public Gui {
+class GUI_item: public GUI_click {
     public:
         GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item);
+        ~GUI_item();
         
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;

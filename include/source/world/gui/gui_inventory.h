@@ -11,6 +11,7 @@
 class GUI_inventory: public GUI_container {
     public:
         GUI_inventory(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
+        ~GUI_inventory();
         
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;

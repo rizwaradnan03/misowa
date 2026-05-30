@@ -15,6 +15,8 @@
 class Body: public Entity {
     public:
         Body(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
+        ~Body();
+
         virtual void Execute(const std::vector<Body*>& objects);
         virtual void Display();
         
