@@ -1,10 +1,11 @@
-#pragma once
+#ifndef GUI_GUI_CONTAINER_H
+#define GUI_GUI_CONTAINER_H
 
 #include <vector>
 #include <nodes/gui/gui.h>
-#include <graphics/transform.h>
-#include <graphics/mesh.h>
-#include <graphics/material.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_material.h>
 #include <dto/dto_poleset.h>
 
 class GUI_container: public Gui {
@@ -41,3 +42,5 @@ class GUI_container: public Gui {
 
         std::vector<Gui*> nodes;
 };
+
+#endif

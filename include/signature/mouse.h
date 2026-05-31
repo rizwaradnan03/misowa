@@ -2,7 +2,7 @@
 
 #include <utility>
 #include <singleton/g_action.h>
-#include <namespace/input.h>
+#include <namespace/n_input.h>
 
 class Mouse {
     public:

@@ -213,6 +213,8 @@ void Player::Run(const std::vector<Body*>& objects){
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
     this->get_depth()->Execute(this->get_attribute());
 
+    std::cout << "THE SELECTED : " << G_SINGLETON_player->get_select_item() << std::endl;
+
     for(int i = 0;i < this->get_gui_containers().size();i++){
         GUI_container* gc = this->get_gui_containers()[i];
         gc->Execute(this->get_transform());

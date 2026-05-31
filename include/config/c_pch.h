@@ -1,4 +1,5 @@
-#pragma once
+#ifndef C_PRE_COMPILED_HEADER_H
+#define C_PRE_COMPILED_HEADER_H
 
 #include <vector>
 #include <string>
@@ -12,3 +13,5 @@
 #include <fstream>
 #include <sstream>
 #include <variant>
+
+#endif

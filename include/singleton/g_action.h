@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SINGLETON_ACTION_H
+#define SINGLETON_ACTION_H
 
 #include <vector>
 #include <signature/area/area_hit.h>
@@ -16,3 +17,5 @@ class SINGLETON_action {
 };
 
 extern SINGLETON_action* G_SINGLETON_action;
+
+#endif

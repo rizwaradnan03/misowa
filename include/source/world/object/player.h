@@ -5,20 +5,21 @@
 #include <string>
 #include <glad/glad.h>
 #include <nodes/body/body_dynamic.h>
-#include <namespace/input.h>
-#include <namespace/default.h>
-#include <namespace/physic.h>
-#include <namespace/color.h>
-#include <graphics/mesh.h>
-#include <graphics/transform.h>
-#include <graphics/material.h>
-#include <nodes/camera.h>
-#include <engine/movement.h>
-#include <signature/attribute.h>
-#include <signature/depth.h>
+#include <namespace/n_input.h>
+#include <namespace/n_default.h>
+#include <namespace/n_physic.h>
+#include <namespace/n_color.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_material.h>
+#include <nodes/2d/2d_camera.h>
+#include <engine/e_movement.h>
+#include <signature/st_attribute.h>
+#include <signature/st_depth.h>
 #include <signature/box/box_hit.h>
 #include <signature/mouse.h>
 #include <nodes/gui/gui_container.h>
+#include <singleton/g_player.h>
 
 class Player: public BODY_Dynamic {
     public:

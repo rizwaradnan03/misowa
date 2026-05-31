@@ -1,19 +1,20 @@
-#pragma once
+#ifndef BODY_BODY_DYNAMIC_H
+#define BODY_BODY_DYNAMIC_H
 
 #include <cstdint>
 #include <string>
 #include <nodes/body/body.h>
 #include <glad/glad.h>
-#include <namespace/input.h>
-#include <namespace/default.h>
-#include <namespace/physic.h>
-#include <namespace/color.h>
-#include <graphics/mesh.h>
-#include <graphics/transform.h>
-#include <graphics/material.h>
-#include <nodes/camera.h>
-#include <engine/movement.h>
-#include <signature/trait.h>
+#include <namespace/n_input.h>
+#include <namespace/n_default.h>
+#include <namespace/n_physic.h>
+#include <namespace/n_color.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_material.h>
+#include <nodes/2d/2d_camera.h>
+#include <engine/e_movement.h>
+#include <signature/st_trait.h>
 
 class BODY_Dynamic: public Body {
     public:
@@ -56,3 +57,5 @@ class BODY_Dynamic: public Body {
 
         Camera* camera;
 };
+
+#endif

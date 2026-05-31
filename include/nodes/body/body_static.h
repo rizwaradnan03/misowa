@@ -1,16 +1,17 @@
-#pragma once
+#ifndef BODY_BODY_STATIC_H
+#define BODY_BODY_STATIC_H
 
-#include <glad/glad.h>
-#include <nodes/body/body.h>
 #include <cstdint>
 #include <vector>
-#include <engine/shader.h>
-#include <namespace/color.h>
-#include <namespace/default.h>
-#include <graphics/mesh.h>
-#include <graphics/transform.h>
-#include <graphics/material.h>
-#include <signature/trait.h>
+#include <glad/glad.h>
+#include <nodes/body/body.h>
+#include <engine/e_shader.h>
+#include <namespace/n_color.h>
+#include <namespace/n_default.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_material.h>
+#include <signature/st_trait.h>
 
 class BODY_Static: public Body {
     public:
@@ -41,3 +42,5 @@ class BODY_Static: public Body {
 
         Trait* trait;
 };
+
+#endif

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <cstdint>
-#include <signature/attribute.h>
-#include <graphics/transform.h>
-#include <graphics/transform.h>
-#include <engine/shader.h>
+#include <signature/st_attribute.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_transform.h>
+#include <engine/e_shader.h>
 
 class Box_hit {
     public:

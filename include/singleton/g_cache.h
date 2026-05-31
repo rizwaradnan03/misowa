@@ -1,9 +1,10 @@
 #ifndef SINGLETON_CACHE_H
+#define SINGLETON_CACHE_H
 
 #include <vector>
 #include <utility>
 #include <string>
-#include <namespace/file.h>
+#include <namespace/n_file.h>
 
 class SINGLETON_cache {
     public:

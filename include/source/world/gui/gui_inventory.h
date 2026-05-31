@@ -3,9 +3,9 @@
 #include <vector>
 #include <nodes/gui/gui.h>
 #include <nodes/gui/gui_container.h>
-#include <graphics/transform.h>
-#include <graphics/mesh.h>
-#include <graphics/material.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_material.h>
 #include <dto/dto_poleset.h>
 
 class GUI_inventory: public GUI_container {

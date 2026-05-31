@@ -1,9 +1,10 @@
-#pragma once
+#ifndef GUI_GUI
+#define GUI_GUI
 
-#include <graphics/transform.h>
-#include <graphics/mesh.h>
-#include <graphics/material.h>
-#include <nodes/entity.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_material.h>
+#include <nodes/2d/2d_entity.h>
 #include <dto/dto_poleset.h>
 
 class Gui: public Entity {
@@ -34,3 +35,5 @@ class Gui: public Entity {
 
         float pole_x, pole_y;
 };
+
+#endif

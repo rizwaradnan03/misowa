@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SINGLETON_PLAYER_H
+#define SINGLETON_PLAYER_H
 
 #include <string>
 
@@ -12,3 +13,5 @@ class SINGLETON_player {
 };
 
 extern SINGLETON_player* G_SINGLETON_player;
+
+#endif

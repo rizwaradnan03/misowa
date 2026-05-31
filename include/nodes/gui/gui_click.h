@@ -1,11 +1,12 @@
-#pragma once
+#ifndef GUI_GUI_CLICK_H
+#define GUI_GUI_CLICK_H
 
 #include <nodes/gui/gui.h>
-#include <graphics/transform.h>
-#include <graphics/mesh.h>
-#include <graphics/material.h>
+#include <graphics/g_transform.h>
+#include <graphics/g_mesh.h>
+#include <graphics/g_material.h>
 #include <dto/dto_poleset.h>
-#include <namespace/input.h>
+#include <namespace/n_input.h>
 #include <singleton/g_action.h>
 
 class GUI_click: public Gui {
@@ -39,3 +40,5 @@ class GUI_click: public Gui {
 
         float pole_x, pole_y;
 };
+
+#endif

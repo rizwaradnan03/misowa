@@ -1,9 +1,10 @@
-#pragma once
+#ifndef SINGLETON_SYSTEM_H
+#define SINGLETON_SYSTEM_H
 
 #include <string>
-#include <render_type/world.h>
-#include <render_type/gui.h>
-#include <engine/shader.h>
+#include <render_type/rt_world.h>
+#include <render_type/rt_gui.h>
+#include <engine/e_shader.h>
 
 enum R_TYPE {
     WORLD,
@@ -24,3 +25,5 @@ class System {
 };
 
 extern System* G_SINGLETON_system;
+
+#endif

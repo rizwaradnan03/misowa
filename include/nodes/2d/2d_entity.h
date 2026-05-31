@@ -1,28 +1,22 @@
-#ifndef BODY_BODY_H
-#define BODY_BODY_H
+#ifndef TWO_D_ENTITY_H
+#define TWO_D_ENTITY_H
 
-#include <glad/glad.h>
 #include <vector>
-#include <cstdint>
-#include <graphics/g_mesh.h>
+#include <glad/glad.h>
 #include <graphics/g_transform.h>
+#include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
-#include <namespace/n_color.h>
 #include <signature/box/box_hit.h>
-#include <signature/st_trait.h>
 #include <signature/st_attribute.h>
-#include <nodes/2d/2d_entity.h>
 
-class Body: public Entity {
+class Body;
+class Transform;
+class Mesh;
+class Material;
+
+class Entity {
     public:
-        Body(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
-        ~Body();
-
-        virtual void Execute(const std::vector<Body*>& objects);
-        virtual void Display();
-        
-        virtual void physic(const std::vector<Body*>& objects);
-        virtual void object_collide(const std::vector<Body*>& objects);
+        Entity(Transform* transform, Mesh* mesh, Material* material);
 
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);
@@ -32,15 +26,15 @@ class Body: public Entity {
 
         virtual Material* get_material();
         virtual void set_material(Material* value);
-
-        virtual Trait* get_trait();
-        virtual void set_trait(Trait* value);
-
+        
         virtual Attribute* get_attribute();
         virtual void set_attribute(Attribute* value);
-
+        
         virtual Box_hit* get_box_hit();
         virtual void set_box_hit(Box_hit* value);
+
+        virtual void Execute(const std::vector<Body*>& objects);
+        virtual void Display();
 
     private:
         Transform* transform;
@@ -48,7 +42,6 @@ class Body: public Entity {
         Material* material;
 
         Attribute* attribute;
-        Trait* trait;
 
         Box_hit* box_hit;
 };
