@@ -2,7 +2,7 @@
 #define RENDER_TYPE_WORLD_H
 
 #include <vector>
-#include <source/world/object/player.h>
+#include <source/scene/world/object/player.h>
 #include <nodes/body/body.h>
 #include <nodes/body/body_static.h>
 #include <namespace/n_rule.h>
@@ -11,9 +11,9 @@
 #include <signature/st_attribute.h>
 #include <engine/e_shader.h>
 #include <nodes/2d/2d_entity.h>
-#include <source/world/gui/gui_inventory.h>
+#include <source/scene/world/gui/gui_inventory.h>
 #include <dto/dto_poleset.h>
-#include <source/world/gui/gui_item.h>
+#include <source/scene/world/gui/gui_item.h>
 
 class RT_World {
     public:

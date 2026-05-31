@@ -1,4 +1,4 @@
-#include <source/world/gui/gui_item.h>
+#include <source/scene/world/gui/gui_item.h>
 
 GUI_item::GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item) : GUI_click(transform, mesh, material, poleSet){
     this->set_transform(transform);

@@ -1,4 +1,4 @@
-#include <source/world/object/player.h>
+#include <source/scene/world/object/player.h>
 #include <iostream>
 
 Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : BODY_Dynamic(transform, mesh, material, trait){

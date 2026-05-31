@@ -1,4 +1,4 @@
-#include <source/world/gui/gui_inventory.h>
+#include <source/scene/world/gui/gui_inventory.h>
 
 GUI_inventory::GUI_inventory(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet): GUI_container(transform, mesh, material, poleSet){
     this->set_transform(transform);
