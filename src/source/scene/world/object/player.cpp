@@ -133,19 +133,19 @@ void Player::set_select_item(std::string* value){
     this->select_item = value;
 }
 
-Entity* Player::get_holded_right(){
+PARTICLE_item* Player::get_holded_right(){
     return this->holded_right;
 }
 
-void Player::set_holded_right(Entity* value){
+void Player::set_holded_right(PARTICLE_item* value){
     this->holded_right = value;
 }
 
-Entity* Player::get_holded_left(){
+PARTICLE_item* Player::get_holded_left(){
     return this->holded_left;
 }
 
-void Player::set_holded_left(Entity* value){
+void Player::set_holded_left(PARTICLE_item* value){
     this->holded_left = value;
 }
 
@@ -231,6 +231,16 @@ void Player::camera_alligner(){
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model);
 }
 
+void Player::item_action(){
+    if(this->get_holded_left() != nullptr){
+        this->get_holded_left()->Execute();
+    }
+    
+    if(this->get_holded_right() != nullptr){
+        this->get_holded_left()->Execute();
+    }
+}
+
 void Player::Run(const std::vector<Body*>& objects){
     this->camera_alligner();
     this->physic(objects);  
@@ -240,6 +250,8 @@ void Player::Run(const std::vector<Body*>& objects){
     this->get_mouse()->Execute();
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
     this->get_depth()->Execute(this->get_attribute());
+
+    this->item_action();
 
     for(int i = 0;i < this->get_gui_containers().size();i++){
         GUI_container* gc = this->get_gui_containers()[i];

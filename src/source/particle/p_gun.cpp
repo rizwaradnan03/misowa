@@ -1,6 +1,6 @@
 #include <source/particle/p_gun.h>
 
-PARTICLE_gun::PARTICLE_gun(Transform* transform, Mesh* mesh, Material* material, PARTICLE_bullet* bullet){
+PARTICLE_gun::PARTICLE_gun(Transform* transform, Mesh* mesh, Material* material, PARTICLE_bullet* bullet): PARTICLE_item(transform, mesh, material){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -44,4 +44,23 @@ PARTICLE_bullet* PARTICLE_gun::get_bullet(){
 
 void PARTICLE_gun::set_bullet(PARTICLE_bullet* value){
     this->bullet = value;
+}
+
+void PARTICLE_gun::action(){
+    Target tg;
+    tg.x = this->get_transform()->get_x();
+    tg.y = this->get_transform()->get_y();
+
+    Entity* pcl = new PARTICLE_bullet(this->get_transform(), this->get_mesh(), this->get_material(), tg, 20, BulletType::PISTOL);
+    RTW->set_push_particle(pcl);
+}
+
+void PARTICLE_gun::Execute(){
+    this->action();
+    this->Display();
+}
+
+void PARTICLE_gun::Display(){
+    this->get_mesh()->Execute(this->get_transform());
+    this->get_material()->Execute(this->get_transform());
 }

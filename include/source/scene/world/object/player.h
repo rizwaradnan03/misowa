@@ -21,14 +21,12 @@
 #include <signature/st_mouse.h>
 #include <nodes/gui/gui_container.h>
 #include <singleton/g_player.h>
-#include <nodes/2d/2d_entity.h>
+#include <nodes/particle/p_item.h>
 
 class Player: public BODY_Dynamic {
     public:
         Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         ~Player();
-        void Run(const std::vector<Body*>& objects);
-        void Display() override;
         
         Transform* get_transform() override;
         void set_transform(Transform* value) override;
@@ -63,11 +61,11 @@ class Player: public BODY_Dynamic {
         std::string* get_select_item();
         void set_select_item(std::string* value);
 
-        Entity* get_holded_right();
-        void set_holded_right(Entity* value);
+        PARTICLE_item* get_holded_right();
+        void set_holded_right(PARTICLE_item* value);
 
-        Entity* get_holded_left();
-        void set_holded_left(Entity* value);
+        PARTICLE_item* get_holded_left();
+        void set_holded_left(PARTICLE_item* value);
 
         std::vector<GUI_container*> get_gui_containers();
         void set_gui_containers(std::vector<GUI_container*> value);
@@ -77,6 +75,11 @@ class Player: public BODY_Dynamic {
         void object_collide(const std::vector<Body*>& objects);
         void camera_alligner();
         void hit_checker();
+
+        void item_action();
+
+        void Run(const std::vector<Body*>& objects);
+        void Display() override;
 
     private:
         Transform* transform;
@@ -97,8 +100,8 @@ class Player: public BODY_Dynamic {
 
         std::string* select_item;
 
-        Entity* holded_right;
-        Entity* holded_left;
+        PARTICLE_item* holded_right;
+        PARTICLE_item* holded_left;
 
         std::vector<GUI_container*> gui_containers;
 };

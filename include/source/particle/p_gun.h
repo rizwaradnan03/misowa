@@ -2,9 +2,11 @@
 #define PARTICLE_GUN_H
 
 #include <nodes/2d/2d_entity.h>
+#include <nodes/particle/p_item.h>
 #include <source/particle/p_bullet.h>
+#include <render_type/rt_world.h>
 
-class PARTICLE_gun {
+class PARTICLE_gun: public PARTICLE_item {
     public:
         PARTICLE_gun(Transform* transform, Mesh* mesh, Material* material, PARTICLE_bullet* bullet);
         ~PARTICLE_gun();
@@ -20,6 +22,8 @@ class PARTICLE_gun {
 
         PARTICLE_bullet* get_bullet();
         void set_bullet(PARTICLE_bullet* value);
+
+        void action();
 
         void Execute();
         void Display();

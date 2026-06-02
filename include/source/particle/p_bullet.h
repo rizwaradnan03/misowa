@@ -12,7 +12,6 @@
 #include <namespace/n_physic.h>
 #include <dto/dto_bullet.h>
 
-
 class PARTICLE_bullet: public Entity {
     public:
         PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type);
