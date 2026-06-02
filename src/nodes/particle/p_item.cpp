@@ -6,6 +6,12 @@ PARTICLE_item::PARTICLE_item(Transform* transform, Mesh* mesh, Material* materia
     this->set_material(material);
 }
 
+PARTICLE_item::~PARTICLE_item(){
+    delete this->get_transform();
+    delete this->get_mesh();
+    delete this->get_material();
+}
+
 Transform* PARTICLE_item::get_transform(){
     return this->transform;
 }
