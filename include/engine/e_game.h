@@ -12,7 +12,6 @@
 #include <singleton/g_system.h>
 #include <singleton/g_gl.h>
 #include <singleton/g_action.h>
-#include <singleton/g_player.h>
 #include <singleton/g_cache.h>
 
 class Game {

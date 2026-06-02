@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_PLAYER_H
+#define OBJECT_PLAYER_H
 
 #include <vector>
 #include <cstdint>
@@ -17,9 +18,10 @@
 #include <signature/st_attribute.h>
 #include <signature/st_depth.h>
 #include <signature/box/box_hit.h>
-#include <signature/mouse.h>
+#include <signature/st_mouse.h>
 #include <nodes/gui/gui_container.h>
 #include <singleton/g_player.h>
+#include <nodes/2d/2d_entity.h>
 
 class Player: public BODY_Dynamic {
     public:
@@ -58,6 +60,15 @@ class Player: public BODY_Dynamic {
         Box_hit* get_box_hit();
         void set_box_hit(Box_hit* value);
 
+        std::string* get_select_item();
+        void set_select_item(std::string* value);
+
+        Entity* get_holded_right();
+        void set_holded_right(Entity* value);
+
+        Entity* get_holded_left();
+        void set_holded_left(Entity* value);
+
         std::vector<GUI_container*> get_gui_containers();
         void set_gui_containers(std::vector<GUI_container*> value);
         void set_push_gui_containers(GUI_container* value);
@@ -84,5 +95,14 @@ class Player: public BODY_Dynamic {
 
         Box_hit* box_hit;
 
+        std::string* select_item;
+
+        Entity* holded_right;
+        Entity* holded_left;
+
         std::vector<GUI_container*> gui_containers;
 };
+
+extern Player* G_OBJECT_player;
+
+#endif

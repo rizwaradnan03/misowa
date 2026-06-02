@@ -2,7 +2,9 @@
 
 #include <nodes/gui/gui_click.h>
 #include <string>
-#include <singleton/g_player.h>
+#include <source/scene/world/object/player.h>
+
+class Player;
 
 class GUI_item: public GUI_click {
     public:

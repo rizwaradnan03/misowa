@@ -1,6 +1,8 @@
 #include <source/scene/world/object/player.h>
 #include <iostream>
 
+Player* G_OBJECT_player = nullptr;
+
 Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : BODY_Dynamic(transform, mesh, material, trait){
     Movement* iMovement = new Movement();
     
@@ -21,6 +23,8 @@ Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trai
     this->set_movement(iMovement);
     this->set_attribute(iAttr);
     this->set_depth(iDepth);
+
+    G_OBJECT_player = this;
 }
 
 Player::~Player(){
@@ -121,6 +125,30 @@ void Player::set_box_hit(Box_hit* value){
     this->box_hit = value;
 }
 
+std::string* Player::get_select_item(){
+    return this->select_item;
+}
+
+void Player::set_select_item(std::string* value){
+    this->select_item = value;
+}
+
+Entity* Player::get_holded_right(){
+    return this->holded_right;
+}
+
+void Player::set_holded_right(Entity* value){
+    this->holded_right = value;
+}
+
+Entity* Player::get_holded_left(){
+    return this->holded_left;
+}
+
+void Player::set_holded_left(Entity* value){
+    this->holded_left = value;
+}
+
 std::vector<GUI_container*> Player::get_gui_containers(){
     return this->gui_containers;
 }
@@ -212,8 +240,6 @@ void Player::Run(const std::vector<Body*>& objects){
     this->get_mouse()->Execute();
     this->get_movement()->Execute(this->get_transform(), this->get_mesh());
     this->get_depth()->Execute(this->get_attribute());
-
-    std::cout << "THE SELECTED : " << G_SINGLETON_player->get_select_item() << std::endl;
 
     for(int i = 0;i < this->get_gui_containers().size();i++){
         GUI_container* gc = this->get_gui_containers()[i];

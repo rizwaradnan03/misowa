@@ -40,19 +40,20 @@ void Movement::count_elapse_jump_time(Transform* transform, Mesh* mesh){
 }
 
 void Movement::move(Transform* transform, Mesh* mesh, std::vector<bool> inavail){
-    std::string* mov = input::continuous_pressed();
-    if(mov == nullptr){
-        return;
-    }   
-
-    if(*mov == "SPACE"){
+    bool spc = input::space_pressed();
+    if(spc == true){
         if(this->get_jump_stock() > 0){
             std::chrono::time_point<std::chrono::high_resolution_clock>* current_time = new std::chrono::time_point<std::chrono::high_resolution_clock>(std::chrono::high_resolution_clock::now());
             this->set_elapse_jump(current_time);
 
             this->set_jump_stock(this->get_jump_stock() - 1);
         }
-    } 
+    }
+    
+    std::string* mov = input::continuous_pressed();
+    if(mov == nullptr){
+        return;
+    }
     
     if(*mov == "LEFT" || *mov == "RIGHT"){
         float prevVal = transform->get_x();

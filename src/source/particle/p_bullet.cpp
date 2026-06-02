@@ -1,6 +1,6 @@
 #include <source/particle/p_bullet.h>
 
-PARTICLE_bullet::PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target): Entity(transform, mesh, material){
+PARTICLE_bullet::PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type): Entity(transform, mesh, material){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -39,20 +39,20 @@ void PARTICLE_bullet::set_material(Material* value){
     this->material = value;
 }
 
-Attribute* PARTICLE_bullet::get_attribute(){
-    return this->attribute;
+BulletType PARTICLE_bullet::get_type(){
+    return this->type;
 }
 
-void PARTICLE_bullet::set_attribute(Attribute* value){
-    this->attribute = value;
+void PARTICLE_bullet::set_type(BulletType value){
+    this->type = value;
 }
 
-Box_hit* PARTICLE_bullet::get_box_hit(){
-    return this->box_hit;
+uint8_t PARTICLE_bullet::get_damage(){
+    return this->damage;
 }
 
-void PARTICLE_bullet::set_box_hit(Box_hit* value){
-    this->box_hit = value;
+void PARTICLE_bullet::set_damage(uint8_t value){
+    this->damage = value;
 }
 
 Target PARTICLE_bullet::get_target(){

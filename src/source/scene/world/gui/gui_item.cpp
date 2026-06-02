@@ -81,7 +81,7 @@ void GUI_item::hit_action(){
             return;
         }
 
-        G_SINGLETON_player->set_select_item(this->get_item());
+        G_OBJECT_player->set_select_item(this->get_item());
     }
 }
 

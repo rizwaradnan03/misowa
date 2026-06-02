@@ -14,6 +14,7 @@
 #include <source/scene/world/gui/gui_inventory.h>
 #include <dto/dto_poleset.h>
 #include <source/scene/world/gui/gui_item.h>
+#include <nodes/2d/2d_entity.h>
 
 class RT_World {
     public:
@@ -27,12 +28,17 @@ class RT_World {
         void set_objects(std::vector<Body*> value);
         void set_push_object(Body* value);
         
+        std::vector<Entity*> get_particles();
+        void set_particles(std::vector<Entity*> value);
+        void set_push_particle(Entity* value);
+
         void check_event();
         void check_event_object_hit();
 
     private:
         Player* player;
         std::vector<Body*> objects;
+        std::vector<Entity*> particles;
 };
 
 extern RT_World* RTW;

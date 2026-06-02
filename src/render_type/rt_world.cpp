@@ -112,6 +112,18 @@ void RT_World::set_push_object(Body* value){
     this->objects.push_back(value);
 }
 
+std::vector<Entity*> RT_World::get_particles(){
+    return this->particles;
+}
+
+void RT_World::set_particles(std::vector<Entity*> value){
+    this->particles = value;
+}
+
+void RT_World::set_push_particle(Entity* value){
+    this->particles.push_back(value);
+}
+
 void RT_World::Start(){
     std::vector<Body*> obj = this->get_objects();
 
@@ -123,8 +135,32 @@ void RT_World::Start(){
         if(i < obj.size()){
             enty = obj[i];
         }
+        
+        bool isRen = true;
+        if(enty == nullptr){
+            this->objects.erase(this->get_objects().begin() + i);
+            isRen = false;
+            i--;
+        }
 
-        enty->Execute(obj);
+        if(isRen == true){
+            enty->Execute(obj);
+        }
+    }
+
+    std::vector<Entity*> prt = this->get_particles();
+    for(int i = 0;i < prt.size();i++){
+        bool isRen = true;
+
+        if(prt[i] == nullptr){
+            this->particles.erase(this->get_particles().begin() + i);
+            isRen = false;
+            i--;
+        }
+
+        if(isRen == true){
+            prt[i]->Execute(obj);
+        }
     }
 
     this->check_event();

@@ -10,15 +10,12 @@
 #include <signature/box/box_hit.h>
 #include <signature/st_attribute.h>
 #include <namespace/n_physic.h>
+#include <dto/dto_bullet.h>
 
-struct Target {
-    float x;
-    float y;
-};
 
 class PARTICLE_bullet: public Entity {
     public:
-        PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target);
+        PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type);
         ~PARTICLE_bullet();
 
         Transform* get_transform();
@@ -29,13 +26,13 @@ class PARTICLE_bullet: public Entity {
 
         Material* get_material();
         void set_material(Material* value);
-        
-        Attribute* get_attribute();
-        void set_attribute(Attribute* value);
-        
-        Box_hit* get_box_hit();
-        void set_box_hit(Box_hit* value);
 
+        BulletType get_type();
+        void set_type(BulletType value);
+        
+        uint8_t get_damage();
+        void set_damage(uint8_t value);
+        
         Target get_target();
         void set_target(Target value);
 
@@ -47,9 +44,8 @@ class PARTICLE_bullet: public Entity {
         Mesh* mesh;
         Material* material;
 
-        Attribute* attribute;
-
-        Box_hit* box_hit;
+        BulletType type;
+        uint8_t damage;
 
         Target target;
 };
