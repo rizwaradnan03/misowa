@@ -1,4 +1,5 @@
 #include <namespace/n_physic.h>
+#include <iostream>
 
 namespace physic
 {
@@ -17,12 +18,7 @@ namespace physic
         float t_r = vt[2];
         float t_t = vt[5];
 
-        if (
-            m_r <= t_l ||
-            m_l >= t_r ||
-            m_t <= t_b ||
-            m_b >= t_t)
-        {
+        if (m_r <= t_l || m_l >= t_r || m_t <= t_b || m_b >= t_t){
             return {false, nullptr};
         }
 
@@ -37,30 +33,25 @@ namespace physic
 
         std::string* direction = nullptr;
 
-        if (min_overlap == left)
-        {
+        if (min_overlap == left){
             direction = new std::string("RIGHT");
         }
-        else if (min_overlap == right)
-        {
+        else if (min_overlap == right){
             direction = new std::string("LEFT");
         }
-        else if (min_overlap == top)
-        {
+        else if (min_overlap == top){
             direction = new std::string("BOTTOM");
         }
-        else
-        {
+        else{
             direction = new std::string("TOP");
         }
 
         return {true, direction};
     }
 
-    void move_y_and_x_defined_stuff(Entity* entity, float xTarget, float yTarget){
-        while(entity->get_transform()->get_x() < xTarget || entity->get_transform()->get_y() < yTarget){
+    void move_y_and_x_defined_stuff(Entity* entity, float xTarget, float yTarget, float xInterv, float yInterv){
             if(entity->get_transform()->get_x() < xTarget){
-                float calcChange = entity->get_transform()->get_x() + 1.0f;
+                float calcChange = entity->get_transform()->get_x() + xInterv;
                 if(calcChange < xTarget){
                     entity->get_transform()->set_x(calcChange);
                 }else{
@@ -69,13 +60,12 @@ namespace physic
             }
 
             if(entity->get_transform()->get_y() < yTarget){
-                float calcChange = entity->get_transform()->get_y() + 1.0f;
+                float calcChange = entity->get_transform()->get_y() + yInterv;
                 if(calcChange < yTarget){
                     entity->get_transform()->set_y(calcChange);
                 }else{
                     entity->get_transform()->set_y(yTarget);
                 }
             }
-        }
     }
 };

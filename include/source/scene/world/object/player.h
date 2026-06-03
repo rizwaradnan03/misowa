@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdint>
 #include <string>
+#include <iostream>
 #include <glad/glad.h>
 #include <nodes/body/body_dynamic.h>
 #include <namespace/n_input.h>
@@ -22,6 +23,7 @@
 #include <nodes/gui/gui_container.h>
 #include <singleton/g_player.h>
 #include <nodes/particle/p_item.h>
+#include <source/particle/p_gun.h>
 
 class Player: public BODY_Dynamic {
     public:

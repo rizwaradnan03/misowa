@@ -1,5 +1,4 @@
 #include <source/scene/world/object/player.h>
-#include <iostream>
 
 Player* G_OBJECT_player = nullptr;
 
@@ -23,6 +22,29 @@ Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trai
     this->set_movement(iMovement);
     this->set_attribute(iAttr);
     this->set_depth(iDepth);
+
+    Transform* gTrans = new Transform(transform->get_x(), transform->get_y(), 20, 10);
+
+    float hW = gTrans->get_w() / 2;
+    float hH = gTrans->get_h() / 2;
+
+    float vert[] = {
+        gTrans->get_x() - hW, gTrans->get_y() - hH,
+        gTrans->get_x() + hW, gTrans->get_y() - hH,
+        gTrans->get_x() + hW, gTrans->get_y() + hH,
+        gTrans->get_x() - hW, gTrans->get_y() + hH,
+    };
+    Mesh* gMesh = new Mesh(vert, 8);
+
+    std::vector<float> col = color::find_rgba_color_by_name(color::WHITE);
+    Material* gMat = new Material(col[0], col[1], col[2], col[3]);
+
+    PoleSet pPS;
+    pPS.x = 15;
+    pPS.y = 0;
+
+    PARTICLE_item* pRight = new PARTICLE_gun(gTrans, gMesh, gMat, BulletType::PISTOL, pPS);
+    this->set_holded_right(pRight);
 
     G_OBJECT_player = this;
 }
@@ -232,12 +254,15 @@ void Player::camera_alligner(){
 }
 
 void Player::item_action(){
-    if(this->get_holded_left() != nullptr){
-        this->get_holded_left()->Execute();
-    }
+    // PARTICLE_item* iLeft = this->get_holded_left();
+    PARTICLE_item* iRight = this->get_holded_right();
+
+    // if(iLeft != nullptr){
+    //     iLeft->Execute();
+    // }
     
-    if(this->get_holded_right() != nullptr){
-        this->get_holded_left()->Execute();
+    if(iRight != nullptr){
+        iRight->Execute();
     }
 }
 
@@ -268,6 +293,6 @@ void Player::hit_checker(){
 
 void Player::Display(){
     this->get_attribute()->Execute(this->get_transform(), this->get_material()->get_shader());
-    this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform());
+    this->get_mesh()->Execute(this->get_transform());
 }

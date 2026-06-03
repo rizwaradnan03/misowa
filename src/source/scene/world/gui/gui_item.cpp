@@ -89,7 +89,7 @@ void GUI_item::Execute(Transform* transform){
     Transform* changeTrans = new Transform(transform->get_x() + this->get_pole_x(), transform->get_y() + this->get_pole_y(), this->get_transform()->get_w(), this->get_transform()->get_h());
     this->set_transform(changeTrans);
 
-    this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform());
+    this->get_mesh()->Execute(this->get_transform());
     this->hit_action();
 }

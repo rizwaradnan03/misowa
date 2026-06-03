@@ -8,7 +8,7 @@
 
 namespace physic {
     std::pair<bool, std::string*> check_collide(Mesh* me, Mesh* target);
-    void move_y_and_x_defined_stuff(Entity* entity, float xTarget, float yTarget);
+    void move_y_and_x_defined_stuff(Entity* entity, float xTarget, float yTarget, float xMov, float yMov);
 };
 
 #endif

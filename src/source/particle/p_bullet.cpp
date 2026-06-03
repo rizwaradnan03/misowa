@@ -1,6 +1,6 @@
 #include <source/particle/p_bullet.h>
 
-PARTICLE_bullet::PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type): Entity(transform, mesh, material){
+PARTICLE_bullet::PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type, BulletInterval interval): Entity(transform, mesh, material){
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -47,6 +47,14 @@ void PARTICLE_bullet::set_type(BulletType value){
     this->type = value;
 }
 
+BulletInterval PARTICLE_bullet::get_interval(){
+    return this->interval;
+}
+
+void PARTICLE_bullet::set_interval(BulletInterval value){
+    this->interval = value;
+}
+
 uint8_t PARTICLE_bullet::get_damage(){
     return this->damage;
 }
@@ -63,9 +71,37 @@ void PARTICLE_bullet::set_target(Target value){
     this->target = value;
 }
 
+void PARTICLE_bullet::projection(){
+    Transform* trans = this->get_transform();
+    Target tg = this->get_target();
+
+    BulletInterval bInterv = this->get_interval();
+
+    bInterv.x += 1.0f;
+    bInterv.y += 1.0f;
+
+    if(trans->get_x() < tg.x){
+        float calc = trans->get_x() + bInterv.x;
+        if(calc < tg.x){
+            this->get_transform()->set_x(calc);
+        }else{
+            this->get_transform()->set_x(tg.x);
+        }
+    }
+
+    if(trans->get_y() < tg.y){
+        float calc = trans->get_y() + bInterv.y;
+        if(calc < tg.y){
+            this->get_transform()->set_y(calc);
+        }else{
+            this->get_transform()->set_y(tg.y);
+        }
+    }
+}
+
 void PARTICLE_bullet::Execute(const std::vector<Body*>& objects){
+    this->projection();
     this->Display();
-    physic::move_y_and_x_defined_stuff(this, this->target.x, this->target.y);
 
     Transform* trans = this->get_transform();
     if(trans->get_x() == this->get_target().x && trans->get_y() == this->get_target().y){

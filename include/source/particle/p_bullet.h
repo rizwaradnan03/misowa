@@ -1,8 +1,8 @@
 #ifndef PARTICLE_BULLET_H
 #define PARTICLE_BULLET_H
 
-#include <nodes/2d/2d_entity.h>
 #include <vector>
+#include <nodes/2d/2d_entity.h>
 #include <glad/glad.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
@@ -11,10 +11,11 @@
 #include <signature/st_attribute.h>
 #include <namespace/n_physic.h>
 #include <dto/dto_bullet.h>
+#include <iostream>
 
 class PARTICLE_bullet: public Entity {
     public:
-        PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type);
+        PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* material, Target target, uint8_t damage, BulletType type, BulletInterval interval);
         ~PARTICLE_bullet();
 
         Transform* get_transform();
@@ -28,6 +29,9 @@ class PARTICLE_bullet: public Entity {
 
         BulletType get_type();
         void set_type(BulletType value);
+
+        BulletInterval get_interval();
+        void set_interval(BulletInterval value);
         
         uint8_t get_damage();
         void set_damage(uint8_t value);
@@ -35,6 +39,7 @@ class PARTICLE_bullet: public Entity {
         Target get_target();
         void set_target(Target value);
 
+        void projection();
         void Execute(const std::vector<Body*>& objects);
         void Display();
         
@@ -44,6 +49,8 @@ class PARTICLE_bullet: public Entity {
         Material* material;
 
         BulletType type;
+        BulletInterval interval;
+
         uint8_t damage;
 
         Target target;

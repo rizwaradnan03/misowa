@@ -87,6 +87,6 @@ void BODY_Dynamic::Execute(const std::vector<Body*>& objects){
 }
 
 void BODY_Dynamic::Display(){
-    this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform());
+    this->get_mesh()->Execute(this->get_transform());
 }

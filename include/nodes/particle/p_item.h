@@ -5,23 +5,24 @@
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
 #include <nodes/2d/2d_entity.h>
+#include <iostream>
 
 class PARTICLE_item: public Entity {
     public:
         PARTICLE_item(Transform* transform, Mesh* mesh, Material* material);
         ~PARTICLE_item();
 
-        Transform* get_transform();
-        void set_transform(Transform* value);
+        virtual Transform* get_transform() override;
+        virtual void set_transform(Transform* value) override;
 
-        Mesh* get_mesh();
-        void set_mesh(Mesh* value);
+        virtual Mesh* get_mesh() override;
+        virtual void set_mesh(Mesh* value) override;
 
-        Material* get_material();
-        void set_material(Material* value);
+        virtual Material* get_material() override;
+        virtual void set_material(Material* value) override;
 
-        void Execute();
-        void Display();
+        virtual void Execute();
+        virtual void Display() override;
         
     private:
         Transform* transform;

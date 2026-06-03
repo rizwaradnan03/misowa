@@ -14,7 +14,9 @@
 #include <source/scene/world/gui/gui_inventory.h>
 #include <dto/dto_poleset.h>
 #include <source/scene/world/gui/gui_item.h>
-#include <nodes/2d/2d_entity.h>
+#include <nodes/particle/p_item.h>
+
+class Player;
 
 class RT_World {
     public:

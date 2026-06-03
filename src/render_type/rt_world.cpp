@@ -90,6 +90,7 @@ void RT_World::Init(std::string type){
     p->set_gui_containers(gContainers);
     
     this->set_player(p);
+    RTW = this;
 }
 
 Player* RT_World::get_player(){
@@ -144,22 +145,22 @@ void RT_World::Start(){
         }
 
         if(isRen == true){
-            enty->Execute(obj);
+            enty->Execute(this->get_objects());
         }
     }
 
-    std::vector<Entity*> prt = this->get_particles();
-    for(int i = 0;i < prt.size();i++){
+    for(int i = 0; i < this->get_particles().size(); i++){
         bool isRen = true;
 
-        if(prt[i] == nullptr){
-            this->particles.erase(this->get_particles().begin() + i);
+        if(this->get_particles()[i] == nullptr){
+            delete this->get_particles()[i];
+            this->get_particles().erase(this->get_particles().begin() + i);
             isRen = false;
             i--;
         }
 
         if(isRen == true){
-            prt[i]->Execute(obj);
+            this->get_particles()[i]->Execute(obj);
         }
     }
 

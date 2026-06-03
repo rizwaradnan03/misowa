@@ -58,6 +58,6 @@ void BODY_Static::Execute(const std::vector<Body*>& objects){
 }
 
 void BODY_Static::Display(){
-    this->get_mesh()->Execute(this->get_transform());
     this->get_material()->Execute(this->get_transform());
+    this->get_mesh()->Execute(this->get_transform());
 }

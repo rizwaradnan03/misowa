@@ -12,4 +12,9 @@ enum BulletType {
     FIRE
 };
 
+struct BulletInterval {
+    float x;
+    float y;
+};
+
 #endif
