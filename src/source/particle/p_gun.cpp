@@ -74,11 +74,9 @@ void PARTICLE_gun::action(){
         return;
     }
 
-    // MINUS BY 400 PPLEASEE
-
     std::pair<float, float> pos = input::mouse_position();
-    pos.first = pos.first + -420;
-    pos.second = pos.second + -420;
+    pos.first = pos.first + -420.0f;
+    pos.second = pos.second + -300.0f;
 
     pos.first = G_OBJECT_player->get_transform()->get_x() + pos.first;
     pos.second = G_OBJECT_player->get_transform()->get_y() + pos.second;
@@ -88,6 +86,14 @@ void PARTICLE_gun::action(){
     tg.y = pos.second;
 
     BulletInterval bInterv;
+
+    if(pos.first < 0){
+        pos.first *= -1;
+    }
+
+    if(pos.second < 0.f){
+        pos.second *= -1;
+    }
 
     float hg = pos.first;
     if(pos.second > pos.first){

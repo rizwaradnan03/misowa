@@ -5,14 +5,15 @@ PARTICLE_bullet::PARTICLE_bullet(Transform* transform, Mesh* mesh, Material* mat
     this->set_mesh(mesh);
     this->set_material(material);
     this->set_target(target);
+    this->set_damage(damage);
+    this->set_type(type);
+    this->set_interval(interval);
 }
 
 PARTICLE_bullet::~PARTICLE_bullet(){
     delete this->get_transform();
     delete this->get_mesh();
     delete this->get_material();
-    delete this->get_attribute();
-    delete this->get_box_hit();
 }
 
 Transform* PARTICLE_bullet::get_transform(){
@@ -77,36 +78,60 @@ void PARTICLE_bullet::projection(){
 
     BulletInterval bInterv = this->get_interval();
 
-    bInterv.x += 1.0f;
-    bInterv.y += 1.0f;
+    if(trans->get_x() != tg.x){
+        if(trans->get_x() > tg.x){
+            bInterv.x = bInterv.x * -1.0f;
+        }
 
-    if(trans->get_x() < tg.x){
         float calc = trans->get_x() + bInterv.x;
-        if(calc < tg.x){
-            this->get_transform()->set_x(calc);
+        if(trans->get_x() < tg.x){
+            if(calc < tg.x){
+                this->get_transform()->set_x(calc);
+            }else{
+                this->get_transform()->set_x(tg.x);
+            }
         }else{
-            this->get_transform()->set_x(tg.x);
+            if(calc > tg.x){
+                this->get_transform()->set_x(calc);
+            }else{
+                this->get_transform()->set_x(tg.x);
+            }
         }
     }
 
-    if(trans->get_y() < tg.y){
+    if(trans->get_y() != tg.y){
+        if(trans->get_y() > tg.y){
+            bInterv.y *= -1;
+        }
+
         float calc = trans->get_y() + bInterv.y;
-        if(calc < tg.y){
-            this->get_transform()->set_y(calc);
+        if(trans->get_y() < tg.y){
+            if(calc < tg.y){
+                this->get_transform()->set_y(calc);
+            }else{
+                this->get_transform()->set_y(tg.y);
+            }
         }else{
-            this->get_transform()->set_y(tg.y);
+            if(calc > tg.y){
+                this->get_transform()->set_y(calc);
+            }else{
+                this->get_transform()->set_y(tg.y);
+            }
         }
     }
 }
 
 void PARTICLE_bullet::Execute(const std::vector<Body*>& objects){
     this->projection();
-    this->Display();
-
-    Transform* trans = this->get_transform();
-    if(trans->get_x() == this->get_target().x && trans->get_y() == this->get_target().y){
-        delete this;
+    if(this == nullptr){
+        Transform* trans = this->get_transform();
+        if(trans->get_x() == this->get_target().x && trans->get_y() == this->get_target().y){
+            std::cout << "DELETE NOTIFICATION" << std::endl;
+            delete this;
+        }
     }
+
+    this->Display();
 }
 
 void PARTICLE_bullet::Display(){
