@@ -1,11 +1,11 @@
 #ifndef PARTICLE_ITEM_H
 #define PARTICLE_ITEM_H
 
+#include <iostream>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
 #include <nodes/2d/2d_entity.h>
-#include <iostream>
 
 class PARTICLE_item: public Entity {
     public:

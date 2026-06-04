@@ -1,14 +1,17 @@
-#pragma once
+#ifndef GUI_GUI_ITEM_H
+#define GUI_GUI_ITEM_H
 
-#include <nodes/gui/gui_click.h>
 #include <string>
+#include <chrono>
+#include <dto/dto_gui_item.h>
+#include <nodes/gui/gui_click.h>
 #include <source/scene/world/object/player.h>
 
 class Player;
 
 class GUI_item: public GUI_click {
     public:
-        GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item);
+        GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item, GuiItemType type, uint8_t amount);
         ~GUI_item();
         
         virtual Transform* get_transform() override;
@@ -29,8 +32,17 @@ class GUI_item: public GUI_click {
         std::string* get_item();
         void set_item(std::string* value);
 
-        virtual void hit_action();
+        GuiItemType get_type();
+        void set_type(GuiItemType value);
 
+        uint8_t get_amount();
+        void set_amount(uint8_t value);
+
+        std::chrono::time_point<std::chrono::high_resolution_clock>* get_elapse_choose();
+        void set_elapse_choose(std::chrono::time_point<std::chrono::high_resolution_clock>* value);
+
+        virtual void hit_action();
+        void reset_elapse_choose_checker();
         virtual void Execute(Transform* transform) override;
 
     private:
@@ -40,5 +52,12 @@ class GUI_item: public GUI_click {
 
         std::string* item;
         
+        GuiItemType type;
+        uint8_t amount;
+
+        std::chrono::time_point<std::chrono::high_resolution_clock>* elapse_choose;
+
         float pole_x, pole_y;
 };
+
+#endif
