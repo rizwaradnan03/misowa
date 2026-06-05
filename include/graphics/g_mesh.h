@@ -1,9 +1,7 @@
 #ifndef GRAPHIC_MESH_H
 #define GRAPHIC_MESH_H
 
-#include <glad/glad.h>
-#include <cstdint>
-#include <vector>
+#include <config/c_pch.h>
 #include <namespace/n_color.h>
 #include <graphics/g_transform.h>
 

@@ -1,6 +1,7 @@
 #ifndef GUI_GUI
 #define GUI_GUI
 
+#include <config/c_pch.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>

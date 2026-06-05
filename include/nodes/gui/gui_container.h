@@ -1,12 +1,15 @@
 #ifndef GUI_GUI_CONTAINER_H
 #define GUI_GUI_CONTAINER_H
 
-#include <vector>
+#include <config/c_pch.h>
+#include <dto/dto_poleset.h>
 #include <nodes/gui/gui.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
-#include <dto/dto_poleset.h>
+#include <nodes/particle/p_item.h>
+
+class GUI_item;
 
 class GUI_container: public Gui {
     public:
@@ -28,8 +31,8 @@ class GUI_container: public Gui {
         virtual float get_pole_y() override;
         virtual void set_pole_y(float value) override;
 
-        virtual std::vector<Gui*> get_nodes();
-        virtual void set_nodes(std::vector<Gui*> value);
+        virtual std::vector<std::pair<PARTICLE_item*, GUI_item*>> get_nodes();
+        virtual void set_nodes(std::vector<std::pair<PARTICLE_item*, GUI_item*>> value);
 
         virtual void Execute(Transform* transform);
 
@@ -40,7 +43,7 @@ class GUI_container: public Gui {
 
         float pole_x, pole_y;
 
-        std::vector<Gui*> nodes;
+        std::vector<std::pair<PARTICLE_item*, GUI_item*>> nodes;
 };
 
 #endif

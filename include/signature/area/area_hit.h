@@ -1,6 +1,7 @@
-#pragma once
+#ifndef SIGNATURE_AREA_HIT
+#define SIGNATURE_AREA_HIT
 
-#include <cstdint>
+#include <config/c_pch.h>
 #include <singleton/g_action.h>
 
 class Area_Hit {
@@ -26,3 +27,5 @@ class Area_Hit {
         int32_t* damage;
         float x, y, w, h;
 };
+
+#endif

@@ -1,6 +1,7 @@
-#pragma once
+#ifndef NAMESPACE_RULE_H
+#define NAMESPACE_RULE_H
 
-#include <cstdint>
+#include <config/c_pch.h>
 
 namespace rule {
     namespace equalize {
@@ -10,3 +11,5 @@ namespace rule {
         int32_t int_val(int32_t value);
     };
 };
+
+#endif

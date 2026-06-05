@@ -1,10 +1,11 @@
 #ifndef NAMESPACE_INPUT_H
 #define NAMESPACE_INPUT_H
 
-#include <string>
-#include <utility>
+#include <config/c_pch.h>
+#include <namespace/n_system.h>
 #include <singleton/g_gl.h>
-#include <GLFW/glfw3.h>
+
+class Player;
 
 namespace input {
     std::string* just_pressed();
@@ -13,6 +14,8 @@ namespace input {
 
     std::string* mouse_pressed();
     std::pair<float, float> mouse_position();
+
+    std::pair<float, float> mouse_position_with_player_as_pole();
 
     bool space_pressed();
 };

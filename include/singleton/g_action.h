@@ -1,7 +1,7 @@
 #ifndef SINGLETON_ACTION_H
 #define SINGLETON_ACTION_H
 
-#include <vector>
+#include <config/c_pch.h>
 #include <signature/area/area_hit.h>
 
 class Area_Hit;

@@ -1,4 +1,5 @@
 #include <nodes/gui/gui_container.h>
+#include <source/scene/world/gui/gui_item.h>
 
 GUI_container::GUI_container(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet) : Gui(transform, mesh, material, poleSet){
     this->set_transform(transform);
@@ -13,10 +14,11 @@ GUI_container::~GUI_container(){
     delete this->get_mesh();
     delete this->get_material();
 
-    std::vector<Gui*> nd = this->get_nodes();
+    std::vector<std::pair<PARTICLE_item*, GUI_item*>> nd = this->get_nodes();
 
     for(int i = 0;i < nd.size();i++){
-        delete nd[i];
+        delete nd[i].first;
+        delete nd[i].second;
     }
 }
 
@@ -60,11 +62,11 @@ void GUI_container::set_pole_y(float value){
     this->pole_y = value;
 }
 
-std::vector<Gui*> GUI_container::get_nodes(){
+std::vector<std::pair<PARTICLE_item*, GUI_item*>> GUI_container::get_nodes(){
     return this->nodes;
 }
 
-void GUI_container::set_nodes(std::vector<Gui*> value){
+void GUI_container::set_nodes(std::vector<std::pair<PARTICLE_item*, GUI_item*>> value){
     this->nodes = value;
 }
 
@@ -76,6 +78,6 @@ void GUI_container::Execute(Transform* transform){
     this->get_mesh()->Execute(this->get_transform());
 
     for(int i = 0;i < this->get_nodes().size();i++){
-        this->get_nodes()[i]->Execute(this->get_transform());
+        this->get_nodes()[i].second->Execute(this->get_transform());
     }
 }

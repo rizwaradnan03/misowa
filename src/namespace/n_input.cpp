@@ -1,4 +1,5 @@
 #include <namespace/n_input.h>
+#include <source/scene/world/object/player.h>
 
 namespace input {
     std::string* continuous_pressed(){
@@ -33,6 +34,15 @@ namespace input {
         glfwGetCursorPos(G_SINGLETON_gl->get(), &xPos, &yPos);
 
         return std::make_pair((float)xPos, (float)yPos);
+    }
+
+    std::pair<float, float> mouse_position_with_player_as_pole(){
+        std::pair<float, float> mPos = mouse_position();
+
+        float xVal = (mPos.first - sys::display::get_x_half()) + G_OBJECT_player->get_transform()->get_x();
+        float yVal = (mPos.first - sys::display::get_y_half()) + G_OBJECT_player->get_transform()->get_y();
+    
+        return std::make_pair(xVal, yVal);
     }
 
     bool space_pressed(){

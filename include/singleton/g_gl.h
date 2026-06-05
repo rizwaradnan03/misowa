@@ -1,7 +1,7 @@
 #ifndef SINGLETON_GL_H
 #define SINGLETON_GL_H
 
-#include <GLFW/glfw3.h>
+#include <config/c_pch.h>
 
 class SINGLETON_GL {
     public:

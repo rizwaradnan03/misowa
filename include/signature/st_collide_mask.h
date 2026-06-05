@@ -1,8 +1,7 @@
 #ifndef SIGNATURE_COLLIDE_MASK_H
 #define SIGNATURE_COLLIDE_MASK_H
 
-#include <vector>
-#include <cstdint>
+#include <config/c_pch.h>
 
 class CollideMask {
     public:

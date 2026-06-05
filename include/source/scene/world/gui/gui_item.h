@@ -6,8 +6,10 @@
 #include <dto/dto_gui_item.h>
 #include <nodes/gui/gui_click.h>
 #include <source/scene/world/object/player.h>
+#include <source/scene/world/gui/gui_inventory.h>
 
 class Player;
+class GUI_inventory;
 
 class GUI_item: public GUI_click {
     public:

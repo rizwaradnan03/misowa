@@ -1,11 +1,7 @@
 #ifndef OBJECT_PLAYER_H
 #define OBJECT_PLAYER_H
 
-#include <vector>
-#include <cstdint>
-#include <string>
-#include <iostream>
-#include <glad/glad.h>
+#include <config/c_pch.h>
 #include <nodes/body/body_dynamic.h>
 #include <namespace/n_input.h>
 #include <namespace/n_default.h>

@@ -1,9 +1,8 @@
 #ifndef PARTICLE_BULLET_H
 #define PARTICLE_BULLET_H
 
-#include <vector>
+#include <config/c_pch.h>
 #include <nodes/2d/2d_entity.h>
-#include <glad/glad.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
@@ -11,7 +10,6 @@
 #include <signature/st_attribute.h>
 #include <namespace/n_physic.h>
 #include <dto/dto_bullet.h>
-#include <iostream>
 
 class PARTICLE_bullet: public Entity {
     public:

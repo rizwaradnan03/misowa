@@ -150,9 +150,9 @@ void RT_World::Start(){
     }
 
     for(int i = 0; i < this->get_particles().size(); i++){
-        this->get_particles()[i]->Execute(this->get_objects()); // take all the decision
+        this->get_particles()[i]->Execute(this->get_objects());
 
-        if(this->get_particles()[i] == nullptr){ // and we thinking we need to delete that trashiest ever
+        if(this->get_particles()[i] == nullptr){
             this->get_particles().erase(this->get_particles().begin() + i);
             i--;
         }

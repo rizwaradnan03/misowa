@@ -1,7 +1,7 @@
 #ifndef RENDER_TYPE_WORLD_H
 #define RENDER_TYPE_WORLD_H
 
-#include <vector>
+#include <config/c_pch.h>
 #include <source/scene/world/object/player.h>
 #include <nodes/body/body.h>
 #include <nodes/body/body_static.h>

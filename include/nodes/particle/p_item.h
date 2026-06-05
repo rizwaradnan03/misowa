@@ -1,7 +1,7 @@
 #ifndef PARTICLE_ITEM_H
 #define PARTICLE_ITEM_H
 
-#include <iostream>
+#include <config/c_pch.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>

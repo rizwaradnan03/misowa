@@ -1,9 +1,7 @@
 #ifndef BODY_BODY_STATIC_H
 #define BODY_BODY_STATIC_H
 
-#include <cstdint>
-#include <vector>
-#include <glad/glad.h>
+#include <config/c_pch.h>
 #include <nodes/body/body.h>
 #include <engine/e_shader.h>
 #include <namespace/n_color.h>

@@ -1,9 +1,18 @@
 #include <nodes/2d/2d_entity.h>
 
 Entity::Entity(Transform* transform, Mesh* mesh, Material* material){
+    this->set_id(identifier::generate_id("entity"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
+}
+
+std::string Entity::get_id(){
+    return this->id;
+}
+
+void Entity::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* Entity::get_transform(){

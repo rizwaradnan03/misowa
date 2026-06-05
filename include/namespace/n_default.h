@@ -1,7 +1,7 @@
 #ifndef NAMESPACE_DEFAULT_H
 #define NAMESPACE_DEFAULT_H
 
-#include <cstdint>
+#include <config/c_pch.h>
 
 namespace dft {
     extern int32_t PLAYER_speed;

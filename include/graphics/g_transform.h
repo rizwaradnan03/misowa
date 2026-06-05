@@ -1,7 +1,7 @@
 #ifndef GRAPHIC_TRANSFORM_H
 #define GRAPHIC_TRANSFORM_H
 
-#include <cstdint>
+#include <config/c_pch.h>
 
 class Transform {
     public:

@@ -1,7 +1,7 @@
 #ifndef SIGNATURE_DEPTH_H
 #define SIGNATURE_DEPTH_H
 
-#include <chrono>
+#include <config/c_pch.h>
 #include <signature/st_attribute.h>
 
 class Depth {

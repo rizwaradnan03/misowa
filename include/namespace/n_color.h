@@ -1,9 +1,7 @@
 #ifndef NAMESPACE_COLOR_H
 #define NAMESPACE_COLOR_H
 
-#include <utility>
-#include <vector>
-#include <string>
+#include <config/c_pch.h>
 
 namespace color {
     enum C_Type {

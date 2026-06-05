@@ -119,6 +119,8 @@ void GUI_item::hit_action(){
             std::chrono::time_point<std::chrono::high_resolution_clock>* current_time = new std::chrono::time_point<std::chrono::high_resolution_clock>(std::chrono::high_resolution_clock::now());
             this->set_elapse_choose(current_time);
         }else{
+            PARTICLE_item* partItem;
+
             // G_OBJECT_player->set_holded_right();
         }
     }

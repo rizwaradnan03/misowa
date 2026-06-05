@@ -1,8 +1,8 @@
 #ifndef TWO_D_ENTITY_H
 #define TWO_D_ENTITY_H
 
-#include <vector>
-#include <glad/glad.h>
+#include <config/c_pch.h>
+#include <namespace/n_identifier.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
@@ -18,6 +18,9 @@ class Entity {
     public:
         Entity(Transform* transform, Mesh* mesh, Material* material);
 
+        virtual std::string get_id();
+        virtual void set_id(std::string value);
+        
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);
 
@@ -37,6 +40,8 @@ class Entity {
         virtual void Display();
 
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

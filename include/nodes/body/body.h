@@ -1,9 +1,7 @@
 #ifndef BODY_BODY_H
 #define BODY_BODY_H
 
-#include <glad/glad.h>
-#include <vector>
-#include <cstdint>
+#include <config/c_pch.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_material.h>

@@ -1,10 +1,8 @@
 #ifndef BODY_BODY_DYNAMIC_H
 #define BODY_BODY_DYNAMIC_H
 
-#include <cstdint>
-#include <string>
+#include <config/c_pch.h>
 #include <nodes/body/body.h>
-#include <glad/glad.h>
 #include <namespace/n_input.h>
 #include <namespace/n_default.h>
 #include <namespace/n_physic.h>

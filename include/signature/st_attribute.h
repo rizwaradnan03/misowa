@@ -1,10 +1,9 @@
 #ifndef SIGNATURE_ATTRIBUTE_H
 #define SIGNATURE_ATTRIBUTE_H
 
-#include <cstdint>
+#include <config/c_pch.h>
 #include <engine/e_shader.h>
 #include <graphics/g_transform.h>
-#include <glad/glad.h>
 #include <namespace/n_color.h>
 
 class Attribute {

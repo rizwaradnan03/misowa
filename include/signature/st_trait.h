@@ -1,8 +1,7 @@
 #ifndef SIGNATURE_TRAIT_H
 #define SIGNATURE_TRAIT_H
 
-#include <vector>
-#include <string>
+#include <config/c_pch.h>
 
 enum TraitType {
     BREAKABLE,

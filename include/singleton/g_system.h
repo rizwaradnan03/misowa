@@ -1,7 +1,7 @@
 #ifndef SINGLETON_SYSTEM_H
 #define SINGLETON_SYSTEM_H
 
-#include <string>
+#include <config/c_pch.h>
 #include <render_type/rt_world.h>
 #include <render_type/rt_gui.h>
 #include <engine/e_shader.h>

@@ -1,8 +1,7 @@
 #include <namespace/n_physic.h>
 #include <iostream>
 
-namespace physic
-{
+namespace physic{
     std::pair<bool, std::string*> check_collide(Mesh *me, Mesh *target)
     {
         std::vector<float> vm = me->get_verticles();

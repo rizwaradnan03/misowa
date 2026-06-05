@@ -1,8 +1,7 @@
 #ifndef PARTICLE_GUN_H
 #define PARTICLE_GUN_H
 
-#include <iostream>
-#include <chrono>
+#include <config/c_pch.h>
 #include <dto/dto_bullet.h>
 #include <dto/dto_poleset.h>
 #include <nodes/2d/2d_entity.h>

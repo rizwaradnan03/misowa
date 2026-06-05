@@ -1,9 +1,8 @@
 #ifndef NAMESPACE_PHYSIC_H
 #define NAMESPACE_PHYSIC_H
 
+#include <config/c_pch.h>
 #include <graphics/g_mesh.h>
-#include <string>
-#include <utility>
 #include <nodes/2d/2d_entity.h>
 
 namespace physic {

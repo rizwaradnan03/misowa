@@ -1,7 +1,7 @@
 #ifndef SINGLETON_PLAYER_H
 #define SINGLETON_PLAYER_H
 
-#include <string>
+#include <config/c_pch.h>
 
 class SINGLETON_player {
     public:
