@@ -1,6 +1,7 @@
 #include <source/scene/world/gui/gui_item.h>
 
 GUI_item::GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item, GuiItemType type, uint8_t amount): GUI_click(transform, mesh, material, poleSet){
+    this->set_id(identifier::generate_id("gui_item"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -16,6 +17,14 @@ GUI_item::~GUI_item(){
     delete this->get_mesh();
     delete this->get_material();
     delete this->get_item();
+}
+
+std::string GUI_item::get_id(){
+    return this->id;
+}
+
+void GUI_item::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* GUI_item::get_transform(){
@@ -110,18 +119,6 @@ void GUI_item::hit_action(){
         std::string* mAct = input::mouse_pressed();
         if(mAct == nullptr){
             return;
-        }
-
-        G_OBJECT_player->set_select_item(this->get_item());
-    
-        std::chrono::time_point<std::chrono::high_resolution_clock>* elaps = this->get_elapse_choose();
-        if(elaps == nullptr){
-            std::chrono::time_point<std::chrono::high_resolution_clock>* current_time = new std::chrono::time_point<std::chrono::high_resolution_clock>(std::chrono::high_resolution_clock::now());
-            this->set_elapse_choose(current_time);
-        }else{
-            PARTICLE_item* partItem;
-
-            // G_OBJECT_player->set_holded_right();
         }
     }
 }

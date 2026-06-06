@@ -16,11 +16,8 @@ class Body: public Entity {
         Body(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         ~Body();
 
-        virtual void Execute(const std::vector<Body*>& objects);
-        virtual void Display();
-        
-        virtual void physic(const std::vector<Body*>& objects);
-        virtual void object_collide(const std::vector<Body*>& objects);
+        virtual std::string get_id() override;
+        virtual void set_id(std::string value) override;
 
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);
@@ -40,7 +37,15 @@ class Body: public Entity {
         virtual Box_hit* get_box_hit();
         virtual void set_box_hit(Box_hit* value);
 
+        virtual void Execute(const std::vector<Body*>& objects);
+        virtual void Display();
+        
+        virtual void physic(const std::vector<Body*>& objects);
+        virtual void object_collide(const std::vector<Body*>& objects);
+
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

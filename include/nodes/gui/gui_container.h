@@ -3,11 +3,12 @@
 
 #include <config/c_pch.h>
 #include <dto/dto_poleset.h>
+#include <namespace/n_identifier.h>
 #include <nodes/gui/gui.h>
+#include <nodes/particle/p_item.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
-#include <nodes/particle/p_item.h>
 
 class GUI_item;
 
@@ -16,6 +17,9 @@ class GUI_container: public Gui {
         GUI_container(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
         ~GUI_container();
         
+        virtual std::string get_id() override;
+        virtual void set_id(std::string value) override;
+
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
 
@@ -37,6 +41,8 @@ class GUI_container: public Gui {
         virtual void Execute(Transform* transform);
 
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

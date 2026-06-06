@@ -2,6 +2,7 @@
 #include <source/scene/world/gui/gui_item.h>
 
 GUI_container::GUI_container(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet) : Gui(transform, mesh, material, poleSet){
+    this->set_id(identifier::generate_id("gui_container"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -20,6 +21,14 @@ GUI_container::~GUI_container(){
         delete nd[i].first;
         delete nd[i].second;
     }
+}
+
+std::string GUI_container::get_id(){
+    return this->id;
+}
+
+void GUI_container::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* GUI_container::get_transform(){

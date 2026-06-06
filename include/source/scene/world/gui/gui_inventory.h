@@ -1,7 +1,7 @@
 #ifndef GUI_GUI_INVENTORY_H
 #define GUI_GUI_INVENTORY_H
 
-#include <vector>
+#include <config/c_pch.h>
 #include <dto/dto_poleset.h>
 #include <namespace/n_identifier.h>
 #include <namespace/n_input.h>

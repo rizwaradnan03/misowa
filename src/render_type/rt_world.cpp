@@ -1,6 +1,4 @@
 #include <render_type/rt_world.h>
-#include <iostream>
-#include <singleton/g_action.h>
 
 RT_World* RTW = nullptr;
 

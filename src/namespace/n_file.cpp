@@ -77,7 +77,24 @@ namespace file {
                                     }
                                 }
 
-                                ans.push_back(std::make_pair(parentKey + "_" + key, val));
+                                int ct = 1;
+                                std::string combined = parentKey + "_" + key;
+
+                                for(int i = 0;i < ans.size();i++){
+                                    for(int j = 0;j < combined.size();j++){
+                                        if(combined[j] != ans[i].first[j]){
+                                            break;
+                                        }
+
+                                        if(j == combined.size() - 1){
+                                            ct++;
+                                        }
+                                    }
+                                }
+
+                                combined += "_" + (char)ct;
+
+                                ans.push_back(std::make_pair(combined, val));
                             }
                         }
                     }
@@ -120,5 +137,37 @@ namespace file {
         log_file.close();
 
         return ans;
+    }
+    std::vector<std::pair<std::string, std::variant<int, float, std::string>>> find_value_with_exact_key(std::vector<std::pair<std::string, std::variant<int, float, std::string>>> arr, std::string search){
+        std::vector<std::pair<std::string, std::variant<int, float, std::string>>> toRet;
+
+        for(int i = 0;i < arr.size();i++){
+            bool isDo = false;
+
+            for(int j = 0;j < arr[i].first.size();j++){
+                if(arr[i].first[j] == search[0]){
+                    int dg = j;
+
+                    for(int k = 0;k < search.size();k++){
+                        if(search[k] != arr[i].first[dg + k]){
+                            j = k;
+                            break;
+                        }
+
+                        if(k == search.size() - 1){
+                            isDo = true;
+                            toRet.push_back(arr[i]);
+                            break;
+                        }
+                    }
+
+                    if(isDo == true){
+                        break;
+                    }
+                }
+            }
+        }
+
+        return toRet;
     }
 };

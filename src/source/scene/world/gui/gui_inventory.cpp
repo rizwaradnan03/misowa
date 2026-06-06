@@ -11,6 +11,8 @@ GUI_inventory::GUI_inventory(Transform* transform, Mesh* mesh, Material* materia
     this->set_pole_x(poleSet.x);
     this->set_pole_y(poleSet.y);
 
+    // it should be we implement the set up from file
+
     G_GUI_inventory = this;
 }
 

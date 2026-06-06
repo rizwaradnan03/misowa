@@ -1,7 +1,7 @@
 #include <nodes/body/body_static.h>
-#include <iostream>
 
 BODY_Static::BODY_Static(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : Body(transform, mesh, material, trait){
+    this->set_id(identifier::generate_id("body_static"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -13,6 +13,14 @@ BODY_Static::~BODY_Static(){
     delete this->get_mesh();
     delete this->get_material();
     delete this->get_trait();
+}
+
+std::string BODY_Static::get_id(){
+    return this->id;
+}
+
+void BODY_Static::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* BODY_Static::get_transform(){

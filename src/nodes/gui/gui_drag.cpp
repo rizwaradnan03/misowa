@@ -1,11 +1,20 @@
 #include <nodes/gui/gui_drag.h>
 
 GUI_drag::GUI_drag(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet) : Gui(transform, mesh, material, poleSet){
+    this->set_id(identifier::generate_id("gui_drag"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
     this->set_pole_x(poleSet.x);
     this->set_pole_y(poleSet.y);
+}
+
+std::string GUI_drag::get_id(){
+    return this->id;
+}
+
+void GUI_drag::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* GUI_drag::get_transform(){

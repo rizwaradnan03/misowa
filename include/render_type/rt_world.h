@@ -2,6 +2,7 @@
 #define RENDER_TYPE_WORLD_H
 
 #include <config/c_pch.h>
+#include <dto/dto_poleset.h>
 #include <source/scene/world/object/player.h>
 #include <nodes/body/body.h>
 #include <nodes/body/body_static.h>
@@ -12,9 +13,9 @@
 #include <engine/e_shader.h>
 #include <nodes/2d/2d_entity.h>
 #include <source/scene/world/gui/gui_inventory.h>
-#include <dto/dto_poleset.h>
 #include <source/scene/world/gui/gui_item.h>
 #include <nodes/particle/p_item.h>
+#include <singleton/g_action.h>
 
 class Player;
 

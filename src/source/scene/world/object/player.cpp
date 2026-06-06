@@ -13,6 +13,7 @@ Player::Player(Transform* transform, Mesh* mesh, Material* material, Trait* trai
 
     Box_hit* box_hit = new Box_hit();
 
+    this->set_id(identifier::generate_id("player"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -65,6 +66,14 @@ Player::~Player(){
     for(int i = 0;i < gc.size();i++){
         delete gc[i];
     }
+}
+
+std::string Player::get_id(){
+    return this->id;
+}
+
+void Player::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* Player::get_transform(){

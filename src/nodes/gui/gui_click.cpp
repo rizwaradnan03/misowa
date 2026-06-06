@@ -1,6 +1,7 @@
 #include <nodes/gui/gui_click.h>
 
 GUI_click::GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet) : Gui(transform, mesh, material, poleSet){
+    this->set_id(identifier::generate_id("gui_click"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -12,6 +13,14 @@ GUI_click::~GUI_click(){
     delete this->get_transform();
     delete this->get_mesh();
     delete this->get_material();
+}
+
+std::string GUI_click::get_id(){
+    return this->id;
+}
+
+void GUI_click::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* GUI_click::get_transform(){

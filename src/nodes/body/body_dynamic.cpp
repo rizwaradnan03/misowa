@@ -1,10 +1,10 @@
 #include <nodes/body/body_dynamic.h>
-#include <iostream>
 
 BODY_Dynamic::BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material, Trait* trait) : Body(transform, mesh, material, trait){
     Camera* iCam = new Camera(transform->get_x(), transform->get_y());
     Movement* iMovement = new Movement();
 
+    this->set_id(identifier::generate_id("body_dynamic"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -21,6 +21,14 @@ BODY_Dynamic::~BODY_Dynamic(){
     delete this->get_box_hit();
     delete this->get_movement();
     delete this->get_camera();
+}
+
+std::string BODY_Dynamic::get_id(){
+    return this->id;
+}
+
+void BODY_Dynamic::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* BODY_Dynamic::get_transform(){

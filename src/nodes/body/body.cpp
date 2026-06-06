@@ -2,6 +2,7 @@
 #include <iostream>
 
 Body::Body(Transform* transform, Mesh* mesh, Material* material, Trait* trait): Entity(transform, mesh, material){
+    this->set_id(identifier::generate_id("body"));
     this->set_transform(transform);
     this->set_mesh(mesh);
     this->set_material(material);
@@ -15,6 +16,14 @@ Body::~Body(){
     delete this->get_attribute();
     delete this->get_trait();
     delete this->get_box_hit();
+}
+
+std::string Body::get_id(){
+    return this->id;
+}
+
+void Body::set_id(std::string value){
+    this->id = value;
 }
 
 Transform* Body::get_transform(){

@@ -2,23 +2,24 @@
 #define OBJECT_PLAYER_H
 
 #include <config/c_pch.h>
-#include <nodes/body/body_dynamic.h>
+#include <engine/e_movement.h>
 #include <namespace/n_input.h>
 #include <namespace/n_default.h>
 #include <namespace/n_physic.h>
 #include <namespace/n_color.h>
+#include <namespace/n_identifier.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_material.h>
+#include <nodes/body/body_dynamic.h>
 #include <nodes/2d/2d_camera.h>
-#include <engine/e_movement.h>
+#include <nodes/gui/gui_container.h>
+#include <nodes/particle/p_item.h>
 #include <signature/st_attribute.h>
 #include <signature/st_depth.h>
 #include <signature/box/box_hit.h>
 #include <signature/st_mouse.h>
-#include <nodes/gui/gui_container.h>
 #include <singleton/g_player.h>
-#include <nodes/particle/p_item.h>
 #include <source/particle/p_gun.h>
 
 class Player: public BODY_Dynamic {
@@ -26,6 +27,9 @@ class Player: public BODY_Dynamic {
         Player(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         ~Player();
         
+        std::string get_id() override;
+        void set_id(std::string value) override;
+
         Transform* get_transform() override;
         void set_transform(Transform* value) override;
 
@@ -80,6 +84,8 @@ class Player: public BODY_Dynamic {
         void Display() override;
 
     private:
+        std::string id;
+
         Transform* transform;
         
         Mesh* mesh;

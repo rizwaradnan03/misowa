@@ -2,6 +2,7 @@
 #define GUI_GUI
 
 #include <config/c_pch.h>
+#include <namespace/n_identifier.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
@@ -12,6 +13,9 @@ class Gui: public Entity {
     public:
         Gui(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
         
+        virtual std::string get_id();
+        virtual void set_id(std::string value);
+
         virtual Transform* get_transform();
         virtual void set_transform(Transform* value);
 
@@ -30,6 +34,8 @@ class Gui: public Entity {
         virtual void Execute(Transform* transform);
 
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

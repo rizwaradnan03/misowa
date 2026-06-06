@@ -1,9 +1,9 @@
 #ifndef GUI_GUI_ITEM_H
 #define GUI_GUI_ITEM_H
 
-#include <string>
-#include <chrono>
+#include <config/c_pch.h>
 #include <dto/dto_gui_item.h>
+#include <namespace/n_identifier.h>
 #include <nodes/gui/gui_click.h>
 #include <source/scene/world/object/player.h>
 #include <source/scene/world/gui/gui_inventory.h>
@@ -16,6 +16,9 @@ class GUI_item: public GUI_click {
         GUI_item(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet, std::string* item, GuiItemType type, uint8_t amount);
         ~GUI_item();
         
+        virtual std::string get_id() override;
+        virtual void set_id(std::string value) override;
+
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
 
@@ -48,6 +51,8 @@ class GUI_item: public GUI_click {
         virtual void Execute(Transform* transform) override;
 
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

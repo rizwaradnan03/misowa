@@ -7,6 +7,7 @@
 #include <namespace/n_default.h>
 #include <namespace/n_physic.h>
 #include <namespace/n_color.h>
+#include <namespace/n_identifier.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_material.h>
@@ -18,9 +19,10 @@ class BODY_Dynamic: public Body {
     public:
         BODY_Dynamic(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         ~BODY_Dynamic();
-        void Execute(const std::vector<Body*>& objects);
-        void Display() override;
         
+        std::string get_id();
+        void set_id(std::string value);
+
         void physic(const std::vector<Body*>& objects);
         void object_collide(const std::vector<Body*>& objects);
 
@@ -43,8 +45,12 @@ class BODY_Dynamic: public Body {
         void set_camera(Camera* value);
 
         void camera_alligner();
+        void Execute(const std::vector<Body*>& objects);
+        void Display() override;
 
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

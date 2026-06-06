@@ -1,18 +1,22 @@
 #ifndef GUI_GUI_CLICK_H
 #define GUI_GUI_CLICK_H
 
+#include <dto/dto_poleset.h>
+#include <namespace/n_input.h>
+#include <namespace/n_identifier.h>
 #include <nodes/gui/gui.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_material.h>
-#include <dto/dto_poleset.h>
-#include <namespace/n_input.h>
 #include <singleton/g_action.h>
 
 class GUI_click: public Gui {
     public:
         GUI_click(Transform* transform, Mesh* mesh, Material* material, PoleSet poleSet);
         ~GUI_click();
+        
+        virtual std::string get_id() override;
+        virtual void set_id(std::string value) override;
         
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
@@ -34,6 +38,8 @@ class GUI_click: public Gui {
         virtual void Execute(Transform* transform) override;
 
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

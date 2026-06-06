@@ -6,6 +6,7 @@
 #include <engine/e_shader.h>
 #include <namespace/n_color.h>
 #include <namespace/n_default.h>
+#include <namespace/n_identifier.h>
 #include <graphics/g_mesh.h>
 #include <graphics/g_transform.h>
 #include <graphics/g_material.h>
@@ -15,11 +16,9 @@ class BODY_Static: public Body {
     public:
         BODY_Static(Transform* transform, Mesh* mesh, Material* material, Trait* trait);
         ~BODY_Static();
-        virtual void Execute(const std::vector<Body*>& objects) override;
-        virtual void Display() override;
-        
-        virtual void physic(const std::vector<Body*>& objects) override;
-        virtual void object_collide(const std::vector<Body*>& objects) override;
+
+        virtual std::string get_id() override;
+        virtual void set_id(std::string value) override;
 
         virtual Transform* get_transform() override;
         virtual void set_transform(Transform* value) override;
@@ -33,7 +32,15 @@ class BODY_Static: public Body {
         virtual Trait* get_trait();
         virtual void set_trait(Trait* value);
 
+        virtual void physic(const std::vector<Body*>& objects) override;
+        virtual void object_collide(const std::vector<Body*>& objects) override;
+
+        virtual void Execute(const std::vector<Body*>& objects) override;
+        virtual void Display() override;
+
     private:
+        std::string id;
+
         Transform* transform;
         Mesh* mesh;
         Material* material;

@@ -5,7 +5,8 @@ SINGLETON_cache* G_SINGLETON_cache = nullptr;
 SINGLETON_cache::SINGLETON_cache(){
     uint8_t az = 1;
     std::vector<std::pair<std::string, std::string>> files = {
-        std::make_pair("player", "player.json")
+        std::make_pair("player", "player.json"),
+        std::make_pair("inventory", "inventory.json")
     };
 
     std::vector<std::pair<std::string, std::vector<std::pair<std::string, std::variant<int, float, std::string>>>>> toPush;
