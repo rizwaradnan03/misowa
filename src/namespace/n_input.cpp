@@ -40,7 +40,7 @@ namespace input {
         std::pair<float, float> mPos = mouse_position();
 
         float xVal = (mPos.first - sys::display::get_x_half()) + G_OBJECT_player->get_transform()->get_x();
-        float yVal = (mPos.first - sys::display::get_y_half()) + G_OBJECT_player->get_transform()->get_y();
+        float yVal = (mPos.second - sys::display::get_y_half()) + G_OBJECT_player->get_transform()->get_y();
     
         return std::make_pair(xVal, yVal);
     }

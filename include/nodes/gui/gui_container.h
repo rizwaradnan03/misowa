@@ -35,8 +35,8 @@ class GUI_container: public Gui {
         virtual float get_pole_y() override;
         virtual void set_pole_y(float value) override;
 
-        virtual std::vector<std::pair<PARTICLE_item*, GUI_item*>> get_nodes();
-        virtual void set_nodes(std::vector<std::pair<PARTICLE_item*, GUI_item*>> value);
+        virtual std::vector<GUI_item*> get_nodes();
+        virtual void set_nodes(std::vector<GUI_item*> value);
 
         virtual void Execute(Transform* transform);
 
@@ -49,7 +49,7 @@ class GUI_container: public Gui {
 
         float pole_x, pole_y;
 
-        std::vector<std::pair<PARTICLE_item*, GUI_item*>> nodes;
+        std::vector<GUI_item*> nodes;
 };
 
 #endif

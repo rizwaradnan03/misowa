@@ -271,7 +271,7 @@ void Player::item_action(){
     // }
     
     if(iRight != nullptr){
-        iRight->Execute();
+        // iRight->Execute();
     }
 }
 

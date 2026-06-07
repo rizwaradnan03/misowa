@@ -43,11 +43,6 @@ class GUI_item: public GUI_click {
         uint8_t get_amount();
         void set_amount(uint8_t value);
 
-        std::chrono::time_point<std::chrono::high_resolution_clock>* get_elapse_choose();
-        void set_elapse_choose(std::chrono::time_point<std::chrono::high_resolution_clock>* value);
-
-        virtual void hit_action();
-        void reset_elapse_choose_checker();
         virtual void Execute(Transform* transform) override;
 
     private:
@@ -61,9 +56,7 @@ class GUI_item: public GUI_click {
         
         GuiItemType type;
         uint8_t amount;
-
-        std::chrono::time_point<std::chrono::high_resolution_clock>* elapse_choose;
-
+        
         float pole_x, pole_y;
 };
 

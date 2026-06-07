@@ -91,54 +91,10 @@ void GUI_item::set_amount(uint8_t value){
     this->amount = value;
 }
 
-std::chrono::time_point<std::chrono::high_resolution_clock>* GUI_item::get_elapse_choose(){
-    return this->elapse_choose;
-}
-
-void GUI_item::set_elapse_choose(std::chrono::time_point<std::chrono::high_resolution_clock>* value){
-    this->elapse_choose = value;
-}
-
-void GUI_item::hit_action(){
-    std::pair<float, float> mPos = input::mouse_position();
-
-    Transform* pTrans = G_OBJECT_player->get_transform();
-
-    mPos.first = (mPos.first - 400) + pTrans->get_x();
-    mPos.second = (mPos.second - 300) + pTrans->get_y();
-
-    float wH = this->get_transform()->get_w() / 2;
-    float hH = this->get_transform()->get_h() / 2;
-
-    float left = this->get_transform()->get_x() - wH;
-    float right = this->get_transform()->get_x() + wH;
-    float top = this->get_transform()->get_y() + hH;
-    float bottom = this->get_transform()->get_y() + hH;
-
-    if(mPos.first >= left && mPos.first <= right && mPos.second <= top && mPos.second >= bottom){
-        std::string* mAct = input::mouse_pressed();
-        if(mAct == nullptr){
-            return;
-        }
-    }
-}
-
-void GUI_item::reset_elapse_choose_checker(){
-    std::chrono::time_point<std::chrono::high_resolution_clock>* elap = this->get_elapse_choose();
-
-    auto current_time = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> differ = current_time - *elap;
-    if(differ.count() >= 0.7f){
-        this->set_elapse_choose(nullptr);
-    }
-}
-
 void GUI_item::Execute(Transform* transform){
-    Transform* changeTrans = new Transform(transform->get_x() + this->get_pole_x(), transform->get_y() + this->get_pole_y(), this->get_transform()->get_w(), this->get_transform()->get_h());
-    this->set_transform(changeTrans);
-
+    this->get_transform()->set_x(transform->get_x() + this->get_pole_x());
+    this->get_transform()->set_y(transform->get_y() + this->get_pole_y());
+    
     this->get_material()->Execute(this->get_transform());
     this->get_mesh()->Execute(this->get_transform());
-    this->reset_elapse_choose_checker();
-    this->hit_action();
 }

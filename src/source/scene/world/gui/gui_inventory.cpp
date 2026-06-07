@@ -11,8 +11,46 @@ GUI_inventory::GUI_inventory(Transform* transform, Mesh* mesh, Material* materia
     this->set_pole_x(poleSet.x);
     this->set_pole_y(poleSet.y);
 
-    // it should be we implement the set up from file
+    std::vector<GUI_item*> toPush;
 
+    int len = 3;
+    color::C_Type colors[len] = {color::GREEN, color::WHITE, color::RED};
+    GuiItemType types[len] = {GuiItemType::OBJECT, GuiItemType::OBJECT, GuiItemType::WEARABLE};
+    std::string items[len] = {"BLOCK_dirt", "BLOCK_sand", "WEARABLE_gun"};
+    uint8_t amounts[len] = {200, 200, 1};
+    PoleSet poleSets[len] = {
+        {-30, 0,},
+        {0, 0,},
+        {30, 0,},
+    };
+
+    Transform* guiTrans = this->get_transform();
+
+    for(int i = 0;i < len;i++){
+        Transform* nTrans = new Transform(guiTrans->get_x(), guiTrans->get_y(), dft::entity_width * 0.75, dft::entity_height * 0.75);
+        
+        float wH = nTrans->get_w() / 2;
+        float hH = nTrans->get_h() / 2;
+
+        float vert[] = {
+            nTrans->get_x() - wH, nTrans->get_y() - hH,
+            nTrans->get_x() + wH, nTrans->get_y() - hH,
+            nTrans->get_x() + wH, nTrans->get_y() + hH,
+            nTrans->get_x() - wH, nTrans->get_y() + hH,
+        };
+
+        Mesh* nMesh = new Mesh(vert, 8);
+        
+        std::vector<float> col = color::find_rgba_color_by_name(colors[i]);
+        Material* nMat = new Material(col[0], col[1], col[2], col[3]);
+
+        std::string* itm = new std::string(items[i]);
+
+        GUI_item* nGui = new GUI_item(nTrans, nMesh, nMat, poleSets[i], itm, types[i], amounts[i]);
+        toPush.push_back(nGui);
+    }
+
+    this->set_nodes(toPush);
     G_GUI_inventory = this;
 }
 
@@ -21,11 +59,10 @@ GUI_inventory::~GUI_inventory(){
     delete this->get_mesh();
     delete this->get_material();
 
-    std::vector<std::pair<PARTICLE_item*, GUI_item*>> nd = this->get_nodes();
+    std::vector<GUI_item*> nd = this->get_nodes();
 
     for(int i = 0;i < nd.size();i++){
-        delete nd[i].first;
-        delete nd[i].second;
+        delete nd[i];
     }
 }
 
@@ -85,11 +122,11 @@ void GUI_inventory::set_pole_y(float value){
     this->pole_y = value;
 }
 
-std::vector<std::pair<PARTICLE_item*, GUI_item*>> GUI_inventory::get_nodes(){
+std::vector<GUI_item*> GUI_inventory::get_nodes(){
     return this->nodes;
 }
 
-void GUI_inventory::set_nodes(std::vector<std::pair<PARTICLE_item*, GUI_item*>> value){
+void GUI_inventory::set_nodes(std::vector<GUI_item*> value){
     this->nodes = value;
 }
 
@@ -101,18 +138,34 @@ void GUI_inventory::Execute(Transform* transform){
     this->get_mesh()->Execute(this->get_transform());
 
     std::pair<float, float> posWithPole = input::mouse_position_with_player_as_pole();
+    std::string* mAct = input::mouse_pressed();
+
+    posWithPole.second *= -1; // cartesian world
+    std::cout << "P : " << posWithPole.second << std::endl;
 
     for(int i = 0;i < this->get_nodes().size();i++){
-        GUI_item* g = this->get_nodes()[i].second;
+        GUI_item* g = this->get_nodes()[i];
         g->Execute(this->get_transform());
 
-        float wH = g->get_transform()->get_w() / 2;
-        float hH = g->get_transform()->get_h() / 2;
+        if(mAct == nullptr){
+            continue;
+        }
 
-        float left = g->get_transform()->get_x() - wH;
-        float right = g->get_transform()->get_x() + wH;
-        float top = g->get_transform()->get_y() - hH;
-        float bottom = g->get_transform()->get_y() + hH;
+        if(*mAct == "RIGHT"){
+            continue;
+        }
+
+        if(i == 0){
+            std::cout << "G : " << this->get_nodes()[i]->get_transform()->get_y() << std::endl;
+        }
+
+        float wH = this->get_nodes()[i]->get_transform()->get_w() / 2;
+        float hH = this->get_nodes()[i]->get_transform()->get_h() / 2;
+
+        float left = this->get_nodes()[i]->get_transform()->get_x() - wH;
+        float right = this->get_nodes()[i]->get_transform()->get_x() + wH;
+        float top = this->get_nodes()[i]->get_transform()->get_y() - hH;
+        float bottom = this->get_nodes()[i]->get_transform()->get_y() + hH;
 
         if(posWithPole.first >= left && posWithPole.first <= right && posWithPole.second >= top && posWithPole.second <= bottom){
             if(this->get_select_item() == nullptr){
@@ -132,9 +185,11 @@ void GUI_inventory::Execute(Transform* transform){
                     };
 
                     Mesh* hMesh = new Mesh(vert, 8);
-                    Material* hMat = new Material(*this->get_nodes()[i].first->get_material());
+                    Material* hMat = new Material(*this->get_nodes()[i]->get_material());
 
                     PARTICLE_item* pItem = new PARTICLE_item(hTrans, hMesh, hMat);
+                    pItem->set_id(g->get_id()); // do the same id
+
                     if(G_OBJECT_player->get_holded_right() == nullptr){
                         pItem->get_transform()->set_x(pItem->get_transform()->get_x() + (G_OBJECT_player->get_transform()->get_x() * 0.25));
                         G_OBJECT_player->set_holded_right(pItem);
@@ -148,4 +203,5 @@ void GUI_inventory::Execute(Transform* transform){
             }
         }
     }
+
 }

@@ -3,8 +3,11 @@
 
 #include <config/c_pch.h>
 #include <dto/dto_poleset.h>
+#include <dto/dto_gui_item.h>
+#include <namespace/n_default.h>
 #include <namespace/n_identifier.h>
 #include <namespace/n_input.h>
+#include <namespace/n_color.h>
 #include <nodes/gui/gui.h>
 #include <nodes/gui/gui_container.h>
 #include <nodes/particle/p_item.h>
@@ -41,8 +44,8 @@ class GUI_inventory: public GUI_container {
         float get_pole_y() override;
         void set_pole_y(float value) override;
 
-        std::vector<std::pair<PARTICLE_item*, GUI_item*>> get_nodes() override;
-        void set_nodes(std::vector<std::pair<PARTICLE_item*, GUI_item*>> value) override;
+        std::vector<GUI_item*> get_nodes() override;
+        void set_nodes(std::vector<GUI_item*> value) override;
 
         void Execute(Transform* transform) override;
 
@@ -56,7 +59,7 @@ class GUI_inventory: public GUI_container {
 
         float pole_x, pole_y;
 
-        std::vector<std::pair<PARTICLE_item*, GUI_item*>> nodes;
+        std::vector<GUI_item*> nodes;
 };
 
 extern GUI_inventory* G_GUI_inventory;
